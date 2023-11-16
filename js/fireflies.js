@@ -3,7 +3,8 @@ let c = init('canvas');
 w = canvas.width = window.innerWidth;
 h = canvas.height = window.innerHeight;
 
-//// initiation
+
+////// Initiation
 let scale = 1.4;
 let number = 200;
 
@@ -31,6 +32,7 @@ class Firefly {
 let fireflies = [];
 
 function draw() {
+    //// fireflies
     if (fireflies.length < number) {
         for (let j = 0; j < 10; j++) {
             fireflies.push(new Firefly());
@@ -58,13 +60,15 @@ canvas.addEventListener(
 
         mouse.x = e.pageX - this.offsetLeft;
         mouse.y = e.pageY - this.offsetTop;
-    }, false );
+    }, false 
+);
 
 function init(elemid) {
     let canvas = document.getElementById(elemid), 
     c = canvas.getContext('2d'), 
     w = (canvas.width = window.innerWidth), 
     h = (canvas.height = window.innerHeight);
+
     c.fillStyle = 'rgba(30, 30, 30, 1)';
     c.fillRect(0, 0, w, h);
     return c;
@@ -80,10 +84,11 @@ window.requestAnimationFrame = function () {
 };
 
 function loop() {
-    window.requestAnimationFrame(loop);
     c.clearRect(0, 0, w, h);
     draw();
+    window.requestAnimationFrame(loop);
 };
+
 window.addEventListener('resize', function () {
     (w = canvas.width = window.innerWidth), 
     (h = canvas.height = window.innerHeight);
