@@ -1,20 +1,15 @@
 // Create a silent audio element
 var silentAudio = new Audio("data:audio/mp3;base64,//MkxAA........");
 
-// Play the silent audio to unlock audio for the page
-silentAudio.play().catch(function(error) {
-    // Autoplay was prevented
-    // You can handle this case by initiating playback in response to a user action
-    console.log('Autoplay prevented. Initiating playback on user action.');
-});
-
 // Define your other sounds
 var hoverSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_hover.wav?raw=true");
 var clickSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_click.wav?raw=true");
 
-// ...
-
+// Example: Play the silent audio when the user clicks a button
 document.getElementById('startButton').addEventListener('click', function () {
+    silentAudio.play().catch(function(error) {
+        console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
+    });
     window.location.assign('game.html');
     clickSound.play();
 });
