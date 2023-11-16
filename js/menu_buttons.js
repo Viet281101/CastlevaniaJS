@@ -1,27 +1,30 @@
-// Create a silent audio element
-var silentAudio = new Audio("data:audio/mp3;base64,//MkxAA........");
 
-// Define your other sounds
+
+//////*  Sounds   *//////
 var hoverSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_hover.wav?raw=true");
 var clickSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_click.wav?raw=true");
 
-// Example: Play the silent audio when the user clicks a button
+
+//////*  Start button   *//////
 document.getElementById('startButton').addEventListener('click', function () {
-    silentAudio.play().catch(function(error) {
-        console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
-    });
     window.location.assign('game.html');
     clickSound.play();
 });
 
+
+//////*  Settings button   *//////
 document.getElementById('settingButton').addEventListener('click', function () {
     clickSound.play();
 });
 
+
+//////*  Credits button   *//////
 document.getElementById('creditButton').addEventListener('click', function () {
     clickSound.play();
 });
 
+
+//////*  Quit button   *//////
 document.getElementById('quitButton').addEventListener('click', function () {
     clickSound.play();
     if (confirm("Are you sure you want to quit?")) {
@@ -33,7 +36,10 @@ document.getElementById('quitButton').addEventListener('click', function () {
     }
 });
 
+
+//////*  About buttons   *//////
 document.addEventListener("DOMContentLoaded", function () {
+
     const menuButtons = document.querySelectorAll(".menuButton");
 
     menuButtons.forEach(function (button) {
@@ -49,3 +55,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
