@@ -5,7 +5,7 @@ h = canvas.height = window.innerHeight;
 
 
 ////// Initiation
-let scale = 1.4;
+let scale = 1.6;
 let number = 200;
 
 class Firefly {
