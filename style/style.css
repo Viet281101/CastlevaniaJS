@@ -54,7 +54,7 @@ canvas {
     color: rgb(192, 98, 40);
     border: none;
     animation: menu_button;
-    animation-duration: 20s;
+    animation-duration: 25s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
@@ -64,7 +64,7 @@ canvas {
     background: rgb(0, 0, 0, 1);
     z-index: 3;
     animation: fadeIn;
-    animation-duration: 20s;
+    animation-duration: 25s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
@@ -74,7 +74,7 @@ canvas {
     width: 100%;
     height: 100%;
     background-image: url('../assets/Castlevania.png');
-    animation: introFadeIn 5s ease-out forwards;
+    animation: introFadeIn 6s ease-out forwards;
     z-index: 10;
 }
 

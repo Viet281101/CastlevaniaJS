@@ -6,7 +6,7 @@ h = canvas.height = window.innerHeight;
 
 ////// Initiation
 let scale = 1.6;
-let number = 200;
+let number = 250;
 
 class Firefly {
     constructor() {
@@ -32,14 +32,14 @@ class Firefly {
 let fireflies = [];
 
 function draw() {
-    //// fireflies
+    //// Fireflies
     if (fireflies.length < number) {
         for (let j = 0; j < 10; j++) {
             fireflies.push(new Firefly());
         }
     }
 
-    //// animation
+    //// Animation
     for (let i = 0; i < fireflies.length; i++) {
         fireflies[i].move();
         fireflies[i].show();

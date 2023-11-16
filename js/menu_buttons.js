@@ -27,7 +27,7 @@ document.getElementById('settingButton').addEventListener('click', function () {
 //////*  Credits button   *//////
 document.getElementById('creditButton').addEventListener('click', function () {
     clickSound.play();
-    
+
 });
 
 
@@ -62,4 +62,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
+//////*  Remove intro element   *//////
+document.addEventListener('DOMContentLoaded', function() {
+    var introElement = document.querySelector('.intro-background');
+    if (introElement) {
+        introElement.addEventListener('animationend', removeIntroElement);
+    }
+});
+
+function removeIntroElement() {
+    var introElement = document.querySelector('.intro-background');
+    if (introElement) {
+        introElement.parentNode.removeChild(introElement);
+        // Or introElement.style.display = 'none';
+    }
+}
 
