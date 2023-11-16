@@ -7,7 +7,7 @@ var clickSound = new Audio('../assets/Sound/btn_click.wav');
 
 //////*  Start button   *//////
 document.getElementById('startButton').addEventListener('click', function () {
-    window.location.href = '../game.html';
+    window.location.assign('game.html');
     clickSound.play();
 });
 
