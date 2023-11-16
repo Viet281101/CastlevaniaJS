@@ -7,21 +7,19 @@ var clickSound = new Audio('../assets/Sound/btn_click.wav');
 
 //////*  Start button   *//////
 document.getElementById('startButton').addEventListener('click', function () {
-    window.location.href = '../src/game.html';
+    window.location.href = '../game.html';
     clickSound.play();
 });
 
 
 //////*  Settings button   *//////
 document.getElementById('settingButton').addEventListener('click', function () {
-    window.location.href = '../src/settings.html';
     clickSound.play();
 });
 
 
 //////*  Credits button   *//////
 document.getElementById('creditButton').addEventListener('click', function () {
-    window.location.href = '../src/credits.html';
     clickSound.play();
 });
 
