@@ -69,15 +69,6 @@ canvas {
     animation-fill-mode: forwards;
 }
 
-@keyframes fadeIn {
-    0% {
-        background: rgb(0, 0, 0, 1);
-    }
-    100% {
-        background: rgb(0, 0, 0, 0);
-    }
-}
-
 .intro-background {
     position: fixed;
     width: 100%;
@@ -85,21 +76,6 @@ canvas {
     background-image: url('../assets/Castlevania.png');
     animation: introFadeIn 5s ease-out forwards;
     z-index: 10;
-}
-
-@keyframes introFadeIn {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-
-@keyframes menu_button {
-    0% {
-        color: rgb(192, 98, 40, 0);
-    }
-    100% {
-        color: rgb(192, 98, 40, 1);
-    }
 }
 
 /* Fog animation */
@@ -127,22 +103,31 @@ canvas {
 }
 
 @keyframes fogAnim {
-    0% {
-        background-position: -200% bottom;
-    }
-    100% {
-        background-position: 0% bottom;
-    }
+    0% {background-position: -200% bottom;}
+    100% {background-position: 0% bottom;}
 }
 
 @keyframes fogApear {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
+
+@keyframes fadeIn {
+    0% {background: rgb(0, 0, 0, 1);}
+    100% {background: rgb(0, 0, 0, 0);}
+}
+
+@keyframes introFadeIn {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+
+@keyframes menu_button {
+    0% {color: rgb(192, 98, 40, 0);}
+    100% {color: rgb(192, 98, 40, 1);}
+}
+
 
 @media only screen and (max-width: 600px) {
     .menuButton {

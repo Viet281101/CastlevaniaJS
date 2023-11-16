@@ -1,12 +1,17 @@
 
 
 //////*  Sounds   *//////
+var silentAudio = new Audio("data:audio/mp3;base64,//MkxAA........");
+
 var hoverSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_hover.wav?raw=true");
 var clickSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_click.wav?raw=true");
 
 
 //////*  Start button   *//////
 document.getElementById('startButton').addEventListener('click', function () {
+    silentAudio.play().catch(function(error) {
+        console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
+    });
     window.location.assign('game.html');
     clickSound.play();
 });
@@ -15,12 +20,14 @@ document.getElementById('startButton').addEventListener('click', function () {
 //////*  Settings button   *//////
 document.getElementById('settingButton').addEventListener('click', function () {
     clickSound.play();
+
 });
 
 
 //////*  Credits button   *//////
 document.getElementById('creditButton').addEventListener('click', function () {
     clickSound.play();
+    
 });
 
 
