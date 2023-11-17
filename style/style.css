@@ -102,6 +102,12 @@ canvas {
     animation-direction: normal;   
 }
 
+
+.disable-interaction {
+    pointer-events: none;
+}
+
+
 @keyframes fogAnim {
     0% {background-position: -200% bottom;}
     100% {background-position: 0% bottom;}

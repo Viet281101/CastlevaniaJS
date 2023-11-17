@@ -64,6 +64,26 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+function disableMenuInteraction() {
+    var menuButtons = document.querySelectorAll(".menuButton");
+    menuButtons.forEach(function (button) {
+        button.classList.add("disable-interaction");
+    });
+};
+
+function enableMenuInteraction() {
+    var menuButtons = document.querySelectorAll(".menuButton");
+    menuButtons.forEach(function (button) {
+        button.classList.remove("disable-interaction");
+    });
+};
+
+disableMenuInteraction();
+setTimeout(function () {
+    enableMenuInteraction();
+}, 4000);
+
+
 //////*  Remove intro element   *//////
 document.addEventListener('DOMContentLoaded', function() {
     var introElement = document.querySelector('.intro-background');
