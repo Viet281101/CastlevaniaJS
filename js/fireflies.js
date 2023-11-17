@@ -1,5 +1,5 @@
 
-let c = init('canvas');
+let ctx = init('canvas');
 w = canvas.width = window.innerWidth;
 h = canvas.height = window.innerHeight;
 
@@ -22,10 +22,10 @@ class Firefly {
         this.and += (Math.random() * 20 * Math.PI) / 180 - (10 * Math.PI) / 180;
     }
     show() {
-        c.beginPath();
-        c.arc(this.x, this.y, this.s, 0, 2 * Math.PI);
-        c.fillStyle = '#c06228';
-        c.fill();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.s, 0, 2 * Math.PI);
+        ctx.fillStyle = '#c06228';
+        ctx.fill();
     }
 }
 
@@ -65,13 +65,13 @@ canvas.addEventListener(
 
 function init(elemid) {
     let canvas = document.getElementById(elemid), 
-    c = canvas.getContext('2d'), 
+    ctx = canvas.getContext('2d'), 
     w = (canvas.width = window.innerWidth), 
     h = (canvas.height = window.innerHeight);
 
-    c.fillStyle = 'rgba(30, 30, 30, 1)';
-    c.fillRect(0, 0, w, h);
-    return c;
+    ctx.fillStyle = 'rgba(30, 30, 30, 1)';
+    ctx.fillRect(0, 0, w, h);
+    return ctx;
 };
 
 window.requestAnimationFrame = function () {
@@ -84,7 +84,7 @@ window.requestAnimationFrame = function () {
 };
 
 function loop() {
-    c.clearRect(0, 0, w, h);
+    ctx.clearRect(0, 0, w, h);
     draw();
     window.requestAnimationFrame(loop);
 };

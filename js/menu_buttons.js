@@ -50,20 +50,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuButtons = document.querySelectorAll(".menuButton");
 
     menuButtons.forEach(function (button) {
+        let textSize = parseInt(window.getComputedStyle(button).fontSize);
+        let textSizeHover = textSize + (textSize * 0.1);
+
         button.addEventListener("mouseover", function () {
-            button.style.fontSize = "55px";
+            button.style.fontSize = textSizeHover + "px";
             button.style.textShadow = "0 0 10px #f6f2ff";
+            button.setAttribute('title', button.textContent);
             hoverSound.play();
         });
 
         button.addEventListener("mouseout", function () {
-            button.style.fontSize = "50px";
+            button.style.fontSize = textSize + "px";
             button.style.textShadow = "none";
         });
     });
 });
 
 
+//////*  Disable menu interaction   *//////
 function disableMenuInteraction() {
     var menuButtons = document.querySelectorAll(".menuButton");
     menuButtons.forEach(function (button) {
@@ -81,7 +86,7 @@ function enableMenuInteraction() {
 disableMenuInteraction();
 setTimeout(function () {
     enableMenuInteraction();
-}, 4000);
+}, 4500);
 
 
 //////*  Remove intro element   *//////
@@ -98,5 +103,5 @@ function removeIntroElement() {
         introElement.parentNode.removeChild(introElement);
         // Or introElement.style.display = 'none';
     }
-}
+};
 
