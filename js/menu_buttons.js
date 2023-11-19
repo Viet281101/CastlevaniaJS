@@ -12,7 +12,7 @@ document.getElementById('startButton').addEventListener('click', function () {
     silentAudio.play().catch(function(error) {
         console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
     });
-    window.location.assign('game.html');
+    window.location.assign('game.html?01');
     clickSound.play();
 });
 
