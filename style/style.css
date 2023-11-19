@@ -41,7 +41,7 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 10;
+    z-index: 3;
 }
 
 .menuButton {
@@ -49,6 +49,7 @@ canvas {
     margin: 40px auto;
     font-family: 'Castlevania', sans-serif;
     font-size: 50px;
+    font-style: normal;
     cursor: pointer;
     background-color: transparent;
     color: rgb(192, 98, 40);
@@ -62,7 +63,7 @@ canvas {
 /** Start over the images **/
 .fade-in {
     background: rgb(0, 0, 0, 1);
-    z-index: 3;
+    z-index: 9;
     animation: fadeIn;
     animation-duration: 25s;
     animation-iteration-count: 1;

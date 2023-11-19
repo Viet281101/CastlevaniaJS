@@ -1,10 +1,8 @@
 
 const Game = function() {
 
-	/* The world object is now its own class. */
 	this.world = new Game.World();
 
-	/* The Game.update function works the same as in part 2. */
 	this.update = function() {
 		this.world.update();
 	};
@@ -12,17 +10,13 @@ const Game = function() {
 
 Game.prototype = { constructor : Game };
 
-/* The world is now its own class. */
 Game.World = function(friction = 0.9, gravity = 3) {
 
 	this.friction = friction;
 	this.gravity  = gravity;
 
-	/* Player is now its own class inside of the Game.World object. */
 	this.player   = new Game.World.Player();
 
-	/* Here is the map data. Later on I will load it from a json file, but for now
-	I will just hardcode it here. */
 	this.columns   = 12;
 	this.rows      = 9;
 	this.tile_size = 16;
@@ -36,24 +30,28 @@ Game.World = function(friction = 0.9, gravity = 3) {
 				50,03,32,32,12,40,40,32,12,01,43,10,
 				09,41,28,14,38,28,14,04,23,35,10,25];
 
-	/* Height and Width now depend on the map size. */
 	this.height   = this.tile_size * this.rows;
 	this.width    = this.tile_size * this.columns;
 
 };
 
-/* Now that world is a class, I moved its more generic functions into its prototype. */
 Game.World.prototype = {
 
 	constructor: Game.World,
 
-	collideObject:function(object) {// Same as in part 2.
+	collideObject:function(object) {
 
 		if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
-		else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; }
+		else if (object.x + object.width > this.width) { 
+			object.x = this.width - object.width; 
+			object.velocity_x = 0; 
+		}
 		if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
-		else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
-
+		else if (object.y + object.height > this.height) { 
+			object.jumping = false; 
+			object.y = this.height - object.height; 
+			object.velocity_y = 0; 
+		}
 	},
 
 	update:function() {
@@ -65,13 +63,10 @@ Game.World.prototype = {
 		this.player.velocity_y *= this.friction;
 
 		this.collideObject(this.player);
-
 	}
 
 };
 
-/* The player is also its own class now. Since player only appears in the context
-of Game.World, that is where it is defined. */
 Game.World.Player = function(x, y) {
 	this.color1     = "#404040";
 	this.color2     = "#f0f0f0";

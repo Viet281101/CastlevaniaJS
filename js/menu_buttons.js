@@ -73,6 +73,7 @@ function disableMenuInteraction() {
     var menuButtons = document.querySelectorAll(".menuButton");
     menuButtons.forEach(function (button) {
         button.classList.add("disable-interaction");
+        button.style.opacity = "0";
     });
 };
 
@@ -80,6 +81,7 @@ function enableMenuInteraction() {
     var menuButtons = document.querySelectorAll(".menuButton");
     menuButtons.forEach(function (button) {
         button.classList.remove("disable-interaction");
+        button.style.opacity = "1";
     });
 };
 

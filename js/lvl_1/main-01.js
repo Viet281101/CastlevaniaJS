@@ -16,24 +16,24 @@ window.addEventListener("load", function(event) {
 		game.update();
 	};
 
-		/////////////////
-		//// OBJECTS ////
-		//////////////////
-		
-		var controller = new Controller();
-		var display    = new Display(document.querySelector("canvas"));
-		var game       = new Game();
-		var engine     = new Engine(1000/30, render, update);
+	/////////////////
+	//// OBJECTS ////
+	//////////////////
 
-		////////////////////
-		//// INITIALIZE ////
-		////////////////////
+	var controller = new Controller();
+	var display    = new Display(document.querySelector("canvas"));
+	var game       = new Game();
+	var engine     = new Engine(1000/30, render, update);
 
-		window.addEventListener("resize",  display.handleResize);
-		window.addEventListener("keydown", controller.handleKeyDownUp);
-		window.addEventListener("keyup",   controller.handleKeyDownUp);
+	////////////////////
+	//// INITIALIZE ////
+	////////////////////
 
-		display.resize();
-		engine.start();
+	window.addEventListener("resize",  display.handleResize);
+	window.addEventListener("keydown", controller.handleKeyDownUp);
+	window.addEventListener("keyup",   controller.handleKeyDownUp);
+
+	display.resize();
+	engine.start();
 
 });
