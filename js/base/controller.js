@@ -1,25 +1,27 @@
-// Frank Poth 03/09/2018
 
-/* The keyDownUp handler was moved to the main file. */
 
 const Controller = function() {
-
+	this.down  = new Controller.ButtonInput();
 	this.left  = new Controller.ButtonInput();
 	this.right = new Controller.ButtonInput();
 	this.up    = new Controller.ButtonInput();
 
-	this.keyDownUp = function(type, key_code) {
+	this.keyDownUp = function(event) {
 
-		var down = (type == "keydown") ? true : false;
+		var down = (event.type == "keydown") ? true : false;
 
-		switch(key_code) {
+		switch(event.keyCode) {
 			case 37: this.left.getInput(down);  break;
 			case 38: this.up.getInput(down);    break;
-			case 39: this.right.getInput(down);
-		}
+			case 39: this.right.getInput(down); break;
+			case 40: this.down.getInput(down);
+		};
+
+		alert("You pressed a key (" + event.keyCode + ")!");
 
 	};
 
+	this.handleKeyDownUp = (event) => { this.keyDownUp(event); };
 };
 
 Controller.prototype = {
@@ -31,11 +33,13 @@ Controller.ButtonInput = function() {
 };
 
 Controller.ButtonInput.prototype = {
-
 	constructor : Controller.ButtonInput,
 
 	getInput : function(down) {
+
 		if (this.down != down) this.active = down;
 		this.down = down;
+
 	}
+
 };
