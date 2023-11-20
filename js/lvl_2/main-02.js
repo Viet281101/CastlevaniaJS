@@ -22,7 +22,7 @@ window.addEventListener("load", function(event) {
 
 	var render = function() {
 
-		display.fill(game.world.background_color); // Clear background to game's background color.
+		display.fill(game.world.background_color);
 		display.drawRectangle(
 			game.world.player.x, 
 			game.world.player.y, 
@@ -38,7 +38,10 @@ window.addEventListener("load", function(event) {
 
 		if (controller.left.active)  { game.world.player.moveLeft();  }
 		if (controller.right.active) { game.world.player.moveRight(); }
-		if (controller.up.active)    { game.world.player.jump(); controller.up.active = false; }
+		if (controller.up.active)    { 
+			game.world.player.jump(); 
+			controller.up.active = false; 
+		}
 
 		game.update();
 
