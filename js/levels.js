@@ -32,11 +32,15 @@ switch(part) {
 };
 
 
-for (let index = 0; index < parts[part].length; index ++) {
-	let script = document.createElement("script");
-	script.setAttribute("type", "text/javascript");
-	script.setAttribute("src", parts[part][index]);
-	document.head.appendChild(script);
+function loadScript() {
+	for (let index = 0; index < parts[part].length; index ++) {
+		let script = document.createElement("script");
+		script.setAttribute("type", "text/javascript");
+		script.setAttribute("src", parts[part][index]);
+		document.head.appendChild(script);
+	};
+
+	console.log("Loaded part " + part + " of the game.");
 };
 
-console.log("Loaded part " + part + " of the game.");
+loadScript();

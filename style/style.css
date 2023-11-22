@@ -23,9 +23,6 @@ html {
     height: 100vh;
     font-family: 'Castlevania', sans-serif;
     position: relative;
-    background-image: url('../assets/Background/background_castle_no_fog.png');
-    background-size: cover;
-    background-repeat: repeat-x;
 }
 
 canvas {
@@ -54,10 +51,6 @@ canvas {
     background-color: transparent;
     color: rgb(192, 98, 40);
     border: none;
-    animation: menu_button;
-    animation-duration: 25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
 }
 
 /** Start over the images **/
@@ -129,12 +122,6 @@ canvas {
 @keyframes introFadeIn {
     from { opacity: 1; }
     to   { opacity: 0; }
-}
-
-
-@keyframes menu_button {
-    0% {color: rgb(192, 98, 40, 0);}
-    100% {color: rgb(192, 98, 40, 1);}
 }
 
 

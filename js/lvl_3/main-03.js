@@ -62,7 +62,7 @@ window.addEventListener("load", function(event) {
 
 	}, { once:true });
 
-	display.tile_sheet.image.src = "rabbit-trap.png";
+	display.tile_sheet.image.src = "";
 
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup",   keyDownUp);

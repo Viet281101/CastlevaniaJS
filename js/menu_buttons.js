@@ -52,11 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
     menuButtons.forEach(function (button) {
         let textSize = parseInt(window.getComputedStyle(button).fontSize);
         let textSizeHover = textSize + (textSize * 0.1);
+        
+        button.setAttribute('title', button.textContent);
 
         button.addEventListener("mouseover", function () {
             button.style.fontSize = textSizeHover + "px";
             button.style.textShadow = "0 0 10px #f6f2ff";
-            button.setAttribute('title', button.textContent);
             hoverSound.play();
         });
 
@@ -106,4 +107,17 @@ function removeIntroElement() {
         // Or introElement.style.display = 'none';
     }
 };
+
+
+//////*  Background element   *//////
+var bodyElement = document.body;
+var htmlElement = document.documentElement;
+
+var backgroundImgUrl = "../assets/Background/background_castle_no_fog.png";
+var backgroundSize = "cover";
+var backgroundRepeat = "repeat-x";
+
+bodyElement.style.backgroundImage = `url(${backgroundImgUrl})`;
+bodyElement.style.backgroundSize = backgroundSize;
+bodyElement.style.backgroundRepeat = backgroundRepeat;
 

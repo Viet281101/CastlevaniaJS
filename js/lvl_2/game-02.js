@@ -10,7 +10,7 @@ const Game = function() {
 
 		player:new Game.Player(),
 
-		height: 72,
+		height: 60,
 		width: 128,
 
 		collideObject:function(object) {

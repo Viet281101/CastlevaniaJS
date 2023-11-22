@@ -13,8 +13,8 @@ window.addEventListener("load", function(event) {
 
 	var resize = function(event) {
 		display.resize(
-			document.documentElement.clientWidth - 32, 
-			document.documentElement.clientHeight - 32, 
+			document.documentElement.clientWidth - 16, 
+			document.documentElement.clientHeight - 16, 
 			game.world.height / game.world.width
 		);
 		display.render();
