@@ -35,14 +35,6 @@ canvas {
 .disable-interaction { pointer-events: none; }
 
 /* ----------------- Menu button ----------------- */
-#buttonContainer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 3;
-}
 .menuButton {
     display: block;
     margin: 40px auto;
@@ -67,10 +59,6 @@ canvas {
 }
 #fullscreenContainer:hover {
     filter: drop-shadow(0px 0px 10px #4444dd);
-}
-#fullscreenContainer img {
-    width: auto;
-    height:50px;
 }
 /* ------------------------------------------------ */
 
