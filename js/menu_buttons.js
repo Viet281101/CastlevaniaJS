@@ -43,6 +43,26 @@ document.getElementById('quitButton').addEventListener('click', function () {
     }
 });
 
+//////*  FullScreen button   *//////
+let fullscreenButton = document.getElementById("fullscreen");
+fullscreenButton.addEventListener('mouseover', function () {
+    fullscreenButton.classList.add("hoverFull")
+});
+
+fullscreenButton.addEventListener('mouseout', function () {
+    fullscreenButton.classList.remove("hoverFull")
+});
+
+fullscreenButton.addEventListener('click', function () {
+    clickSound.play();
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        document.documentElement.requestFullscreen();
+    }
+});
+
+
 
 //////*  About buttons   *//////
 document.addEventListener("DOMContentLoaded", function () {
@@ -75,6 +95,8 @@ function disableMenuInteraction() {
     menuButtons.forEach(function (button) {
         button.classList.add("disable-interaction");
         button.style.opacity = "0";
+        fullscreenButton.classList.add("disable-interaction");
+        fullscreenButton.style.opacity = "0";
     });
 };
 
@@ -83,6 +105,8 @@ function enableMenuInteraction() {
     menuButtons.forEach(function (button) {
         button.classList.remove("disable-interaction");
         button.style.opacity = "1";
+        fullscreenButton.classList.remove("disable-interaction");
+        fullscreenButton.style.opacity = "1";
     });
 };
 
