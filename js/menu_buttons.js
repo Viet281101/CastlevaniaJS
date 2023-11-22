@@ -110,14 +110,18 @@ function removeIntroElement() {
 
 
 //////*  Background element   *//////
-var bodyElement = document.body;
-var htmlElement = document.documentElement;
+var canvas = document.createElement("canvas");
+var ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-var backgroundImgUrl = "../assets/Background/background_castle_no_fog.png";
+var bodyElement = document.body;
+var backgroundImgUrl = new Image();
+backgroundImgUrl.src = "assets/Background/background_castle_no_fog.png";
 var backgroundSize = "cover";
 var backgroundRepeat = "repeat-x";
 
-bodyElement.style.backgroundImage = `url(${backgroundImgUrl})`;
+bodyElement.style.backgroundImage = `url(${backgroundImgUrl.src})`;
 bodyElement.style.backgroundSize = backgroundSize;
 bodyElement.style.backgroundRepeat = backgroundRepeat;
 
