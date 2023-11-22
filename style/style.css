@@ -32,6 +32,9 @@ canvas {
     image-rendering: pixelated;           /* Chrome */
 }
 
+.disable-interaction { pointer-events: none; }
+
+/* ----------------- Menu button ----------------- */
 #buttonContainer {
     position: fixed;
     top: 50%;
@@ -40,8 +43,20 @@ canvas {
     text-align: center;
     z-index: 3;
 }
+.menuButton {
+    display: block;
+    margin: 40px auto;
+    font-family: 'Castlevania', sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    cursor: pointer;
+    background-color: transparent;
+    color: rgb(192, 98, 40);
+    border: none;
+}
+/* ------------------------------------------------ */
 
-/* --------------- Fullscreen button ------------- */
+/* --------------- Fullscreen button -------------- */
 #fullscreenContainer {
     position: fixed;
     top: 0%;
@@ -59,19 +74,7 @@ canvas {
 }
 /* ------------------------------------------------ */
 
-.menuButton {
-    display: block;
-    margin: 40px auto;
-    font-family: 'Castlevania', sans-serif;
-    font-size: 50px;
-    font-style: normal;
-    cursor: pointer;
-    background-color: transparent;
-    color: rgb(192, 98, 40);
-    border: none;
-}
-
-/** Start over the images **/
+/* ------------ Start over the images ------------- */
 .fade-in {
     background: rgb(0, 0, 0, 1);
     z-index: 9;
@@ -80,7 +83,6 @@ canvas {
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
-
 .intro-background {
     position: fixed;
     width: 100%;
@@ -91,14 +93,22 @@ canvas {
     animation: introFadeIn 6s ease-out forwards;
     z-index: 10;
 }
+@keyframes fadeIn {
+    0% {background: rgb(0, 0, 0, 1);}
+    100% {background: rgb(0, 0, 0, 0);}
+}
+@keyframes introFadeIn {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+/* ------------------------------------------------ */
 
-/* Fog animation */
+/* ----------------- Fog animation ---------------- */
 .fog-apear {
     animation: fogApear 9s forwards;
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
 }
-
 .fog-anim {
     position: absolute;
     width: 100%;
@@ -115,43 +125,19 @@ canvas {
     animation-iteration-count: infinite;
     animation-direction: normal;   
 }
-
-
-.disable-interaction {
-    pointer-events: none;
-}
-
-
 @keyframes fogAnim {
     0% {background-position: -200% bottom;}
     100% {background-position: 0% bottom;}
 }
-
 @keyframes fogApear {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
-
-@keyframes fadeIn {
-    0% {background: rgb(0, 0, 0, 1);}
-    100% {background: rgb(0, 0, 0, 0);}
-}
-
-@keyframes introFadeIn {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
+/* ----------------------------------------------------- */
 
 @media only screen and (max-width: 600px) {
-    .menuButton {
-        font-size: 30px;
-    }
+    .menuButton { font-size: 30px;}
 }
-
 @media only screen and (max-height: 400px) {
-    .menuButton {
-        font-size: 20px;
-        margin: 10px auto;
-    }
+    .menuButton { font-size: 20px; margin: 10px auto;}
 }

@@ -45,14 +45,7 @@ document.getElementById('quitButton').addEventListener('click', function () {
 
 //////*  FullScreen button   *//////
 let fullscreenButton = document.getElementById("fullscreen");
-fullscreenButton.addEventListener('mouseover', function () {
-    fullscreenButton.classList.add("hoverFull")
-});
-
-fullscreenButton.addEventListener('mouseout', function () {
-    fullscreenButton.classList.remove("hoverFull")
-});
-
+fullscreenButton.setAttribute('title', 'Fullscreen');
 fullscreenButton.addEventListener('click', function () {
     clickSound.play();
     if (document.fullscreenElement) {
@@ -63,7 +56,6 @@ fullscreenButton.addEventListener('click', function () {
 });
 
 
-
 //////*  About buttons   *//////
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -71,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     menuButtons.forEach(function (button) {
         let textSize = parseInt(window.getComputedStyle(button).fontSize);
-        let textSizeHover = textSize + (textSize * 0.1);
+        let textSizeHover = textSize + (textSize * 0.05);
         
         button.setAttribute('title', button.textContent);
 
@@ -134,11 +126,6 @@ function removeIntroElement() {
 
 
 //////*  Background element   *//////
-var canvas = document.createElement("canvas");
-var ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
 var bodyElement = document.body;
 var backgroundImgUrl = new Image();
 backgroundImgUrl.src = "assets/Background/background_castle_no_fog.png";
