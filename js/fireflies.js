@@ -1,12 +1,28 @@
 
 let ctx = init('canvas');
+canvas.style.position = 'relative';
+canvas.style.zIndex = 3;
 w = canvas.width = window.innerWidth;
 h = canvas.height = window.innerHeight;
 
 
 ////// Initiation
-let scale = 1.6;
-let number = 250;
+let scale = 1.8;
+let number = 260;
+
+////// Mouse
+let mouse = {};
+let last_mouse = {};
+canvas.addEventListener("mouseover", function (e) {
+        last_mouse.x = mouse.x;
+        last_mouse.y = mouse.y;
+        mouse.x = e.pageX - this.offsetLeft;
+        mouse.y = e.pageY - this.offsetTop;
+    }, false );
+canvas.addEventListener("mousemove", function(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+}, false);
 
 class Firefly {
     constructor() {
@@ -22,9 +38,16 @@ class Firefly {
         this.and += (Math.random() * 20 * Math.PI) / 180 - (10 * Math.PI) / 180;
     }
     show() {
+        let distanceToMouse = Math.sqrt((this.x - mouse.x) ** 2 + (this.y - mouse.y) ** 2);
+        let radius = 100;
+
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.s, 0, 2 * Math.PI);
-        ctx.fillStyle = '#c06228';
+        if (distanceToMouse < radius) {
+            ctx.fillStyle = '#000000';
+        } else {
+            ctx.fillStyle = '#c06228';
+        }
         ctx.fill();
     }
 }
@@ -47,28 +70,13 @@ function draw() {
             fireflies.splice(i, 1);
         }
     }
-}
-
-let mouse = {};
-let last_mouse = {};
-
-canvas.addEventListener(
-    "mouseover", 
-    function (e) {
-        last_mouse.x = mouse.x;
-        last_mouse.y = mouse.y;
-
-        mouse.x = e.pageX - this.offsetLeft;
-        mouse.y = e.pageY - this.offsetTop;
-    }, false 
-);
+};
 
 function init(elemid) {
-    let canvas = document.getElementById(elemid), 
+    let canvas = document.getElementById(elemid),
     ctx = canvas.getContext('2d'), 
     w = (canvas.width = window.innerWidth), 
     h = (canvas.height = window.innerHeight);
-
     ctx.fillStyle = 'rgba(30, 30, 30, 1)';
     ctx.fillRect(0, 0, w, h);
     return ctx;
@@ -95,7 +103,7 @@ window.addEventListener('resize', function () {
     loop();
 });
 
-var delayInMilliseconds = 3600;
+var delayInMilliseconds = 4000;
 
 setTimeout(function () {
     loop();

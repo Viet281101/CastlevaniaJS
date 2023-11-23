@@ -17,9 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 function removeIntroElement() {
 	var introElement = document.querySelector('.intro-background');
+	var fadeInEffect = document.querySelector('.fade-in');
 	if (introElement) {
 		introElement.parentNode.removeChild(introElement);
 		// Or introElement.style.display = 'none';
+	}
+	if (fadeInEffect) {
+		fadeInEffect.parentNode.removeChild(fadeInEffect);
+		// Or fadeInEffect.style.display = 'none';
 	}
 };
 
@@ -31,7 +36,7 @@ function createMenuButtons() {
 	buttonContainer.style.left = '50%';
 	buttonContainer.style.transform = 'translate(-50%, -50%)';
 	buttonContainer.style.textAlign = 'center';
-	buttonContainer.style.zIndex = '3';
+	buttonContainer.style.zIndex = 3;
 	var buttons = ['Start', 'Credit', 'Setting', 'Quit'];
 	buttons.forEach(function(buttonText) {
 		var button = document.createElement('button');
@@ -51,7 +56,7 @@ function attachMenuButtonEvents() {
 		silentAudio.play().catch(function(error) {
 			console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
 		});
-		window.location.assign('game.html?01');
+		startTransition('game.html?01');
 		clickSound.play();
 	});
 
@@ -88,11 +93,13 @@ function attachMenuButtonEvents() {
         button.addEventListener("mouseover", function () {
             button.style.fontSize = textSizeHover + "px";
             button.style.textShadow = "0 0 10px #f6f2ff";
+			button.style.color = "rgb(0, 0, 0)";
             hoverSound.play();
         });
         button.addEventListener("mouseout", function () {
             button.style.fontSize = textSize + "px";
             button.style.textShadow = "none";
+			button.style.color = "rgb(192, 98, 40)";
         });
     });
 };
