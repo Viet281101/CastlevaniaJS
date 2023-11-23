@@ -1,6 +1,6 @@
 
 //////*  Background element   *//////
-var radius = 100;
+var radius = 90;
 var influenceArea = {
     x: 100,
     y: 100,
@@ -16,10 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
     applyBackgroundStyles(backgroundLayer2, 'assets/Background/background_castle_no_fog.png', 2);
     document.body.appendChild(backgroundLayer2);
 
-    document.addEventListener('mousemove', function(e) {
+    setTimeout(() => {document.addEventListener('mousemove', function(e) {
         updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
         influenceArea.x = e.clientX - influenceArea.width / 2;
         influenceArea.y = e.clientY - influenceArea.height / 2;
+    });}, 6500);
+    document.addEventListener('mousedown', function(e) {
+        radius = 1200;
+        influenceArea.width = radius * 2;
+        influenceArea.height = radius * 2;
+    });
+    document.addEventListener('mouseup', function(e) {
+        radius = 90;
+        influenceArea.width = radius * 2;
+        influenceArea.height = radius * 2;
     });
 });
 
