@@ -1,6 +1,12 @@
 
 //////*  Background element   *//////
-var mouseInScreen = true;
+var radius = 100;
+var influenceArea = {
+    x: 100,
+    y: 100,
+    width: radius * 2,
+    height: radius * 2
+};
 document.addEventListener('DOMContentLoaded', function() {
     var backgroundLayer1 = document.createElement('div');
     applyBackgroundStyles(backgroundLayer1, 'assets/Background/background_graveyard.png', 1);
@@ -11,7 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(backgroundLayer2);
 
     document.addEventListener('mousemove', function(e) {
-        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, 100);
+        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
+        influenceArea.x = e.clientX - influenceArea.width / 2;
+        influenceArea.y = e.clientY - influenceArea.height / 2;
     });
 });
 

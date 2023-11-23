@@ -19,10 +19,6 @@ canvas.addEventListener("mouseover", function (e) {
         mouse.x = e.pageX - this.offsetLeft;
         mouse.y = e.pageY - this.offsetTop;
     }, false );
-canvas.addEventListener("mousemove", function(e) {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-}, false);
 
 class Firefly {
     constructor() {
@@ -38,13 +34,11 @@ class Firefly {
         this.and += (Math.random() * 20 * Math.PI) / 180 - (10 * Math.PI) / 180;
     }
     show() {
-        let distanceToMouse = Math.sqrt((this.x - mouse.x) ** 2 + (this.y - mouse.y) ** 2);
-        let radius = 100;
-
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.s, 0, 2 * Math.PI);
-        if (distanceToMouse < radius) {
-            ctx.fillStyle = '#000000';
+        if (this.x > influenceArea.x && this.x < influenceArea.x + influenceArea.width &&
+            this.y > influenceArea.y && this.y < influenceArea.y + influenceArea.height) {
+            ctx.fillStyle = '#e40093';
         } else {
             ctx.fillStyle = '#c06228';
         }
