@@ -56,7 +56,7 @@ function attachMenuButtonEvents() {
 		silentAudio.play().catch(function(error) {
 			console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
 		});
-		startTransition('game.html?01');
+		startTransition("game.html?01");
 		clickSound.play();
 	});
 
@@ -69,18 +69,27 @@ function attachMenuButtonEvents() {
 	//////*  Credits button   *//////
 	document.getElementById('creditButton').addEventListener('click', function () {
 		clickSound.play();
-
+		let menuCreditScript = document.createElement("script");
+		menuCreditScript.setAttribute("type", "text/javascript");
+		menuCreditScript.setAttribute("src", "./js/menu/menu_credits.js");
+		document.body.appendChild(menuCreditScript);
+		startTransition(function() {
+			let creditMenu = new CreditMenu();
+			creditMenu.show();
+		});
 	});
 
 	//////*  Quit button   *//////
 	document.getElementById('quitButton').addEventListener('click', function () {
 		clickSound.play();
 		if (confirm("Are you sure you want to quit?")) {
-			try {
-				window.close();
-			} catch (e) {
-				alert("You can't close this window! Please close the browser tab instead.");
-			}
+			startTransition(function() {
+				try {
+					window.close();
+				} catch (e) {
+					alert("You can't close this window! Please close the browser tab instead.");
+				}
+			});
 		}
 	});
 

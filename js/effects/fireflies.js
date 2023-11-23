@@ -97,10 +97,6 @@ window.addEventListener('resize', function () {
     loop();
 });
 
-var delayInMilliseconds = 4000;
-
-setTimeout(function () {
-    loop();
-    setInterval(loop, 1000 / 60);
-}, delayInMilliseconds);
+loop();
+setInterval(loop, 1000 / 60);
 
