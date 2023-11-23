@@ -86,6 +86,7 @@ function attachMenuButtonEvents() {
 
 	//////*  Hover effect   *//////
 	const menuButtons = document.querySelectorAll(".menuButton");
+	let originColor = true;
     menuButtons.forEach(function (button) {
         let textSize = parseInt(window.getComputedStyle(button).fontSize);
         let textSizeHover = textSize + (textSize * 0.05);
@@ -99,8 +100,16 @@ function attachMenuButtonEvents() {
         button.addEventListener("mouseout", function () {
             button.style.fontSize = textSize + "px";
             button.style.textShadow = "none";
-			button.style.color = "rgb(192, 98, 40)";
+			if (originColor) button.style.color = "rgb(192, 98, 40)";
         });
+		document.addEventListener("mousedown", function () {
+			button.style.color = "rgb(0, 0, 0)";
+			originColor = false;
+		});
+		document.addEventListener("mouseup", function () {
+			button.style.color = "rgb(192, 98, 40)";
+			originColor = true;
+		});
     });
 };
 
@@ -111,6 +120,7 @@ function createFullscreenButton() {
 	var fullscreenImage = document.createElement('img');
 	fullscreenImage.style.width = 'auto';
 	fullscreenImage.style.height = '50px';
+	// fullscreenImage.src = './assets/UI/zoom_out.png';
 	fullscreenImage.src = './assets/UI/fullscreen.png';
 	fullscreenImage.alt = 'fullscreen';
 	fullscreenImage.setAttribute('title', 'Fullscreen');
@@ -121,6 +131,7 @@ function createFullscreenButton() {
 			document.exitFullscreen();
 		} else {
 			document.documentElement.requestFullscreen();
+			// fullscreenImage.src = './assets/UI/zoom_in.png';
 		}
 	});
 	document.body.appendChild(fullscreenContainer);
