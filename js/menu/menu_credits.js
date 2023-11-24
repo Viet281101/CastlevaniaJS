@@ -8,6 +8,7 @@ class CreditMenu {
 
     show() {
         document.body.innerHTML = '';
+        document.body.style.backgroundColor = 'black';
         this.loadTransitionScript();
         this.addBackButton();
     }
@@ -17,10 +18,11 @@ class CreditMenu {
         backButton.textContent = 'Back';
         backButton.className = "backButton";
         backButton.style.position = 'fixed';
-        backButton.style.top = '0%';
-        backButton.style.left = '0%';
+        backButton.style.top = '1%';
+        backButton.style.left = '1%';
         backButton.style.fontSize = '30px';
         backButton.style.backgroundColor = 'transparent';
+        backButton.style.color = 'white';
         backButton.style.border = 'none';
         backButton.style.cursor = 'pointer';
         backButton.onclick = () => {

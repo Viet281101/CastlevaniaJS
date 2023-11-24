@@ -1,5 +1,5 @@
 
-//////*  Background element   *//////
+//////*  Background Element   *//////
 var radius = 90;
 var influenceArea = {
     x: 100,
@@ -8,7 +8,7 @@ var influenceArea = {
     height: radius * 2
 };
 document.addEventListener('DOMContentLoaded', function() {
-    //////*  Background layers   *//////
+    //////*  Background Layers   *//////
     var backgroundLayer1 = document.createElement('div');
     applyBackgroundStyles(backgroundLayer1, 'assets/Background/background_graveyard.png', 1);
     document.body.appendChild(backgroundLayer1);

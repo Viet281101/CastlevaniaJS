@@ -19,12 +19,12 @@ function removeIntroElement() {
 	var introElement = document.querySelector('.intro-background');
 	var fadeInEffect = document.querySelector('.fade-in');
 	if (introElement) {
+		// introElement.style.display = 'none';
 		introElement.parentNode.removeChild(introElement);
-		// Or introElement.style.display = 'none';
 	}
 	if (fadeInEffect) {
+		// fadeInEffect.style.display = 'none';
 		fadeInEffect.parentNode.removeChild(fadeInEffect);
-		// Or fadeInEffect.style.display = 'none';
 	}
 };
 
