@@ -14,12 +14,29 @@ class SettingsMenu {
         document.body.style.backgroundColor = 'black';
         this.loadTransitionScript();
         this.addBackButton();
+        this.settingsMenuContent();
+    }
+
+    settingsMenuContent() {
+        let settingsContainer = document.createElement('div');
+        settingsContainer.innerHTML = `<h1>Settings</h1>`;
+        settingsContainer.style.position = 'fixed';
+        settingsContainer.style.top = '20%';
+        settingsContainer.style.left = '50%';
+        settingsContainer.style.transform = 'translate(-50%, -50%)';
+        settingsContainer.style.textAlign = 'center';
+        settingsContainer.style.fontSize = '40px';
+        settingsContainer.style.background = "-webkit-linear-gradient(white, #dfc436)";
+        settingsContainer.style.webkitTextFillColor = 'transparent';
+        settingsContainer.style.webkitBackgroundClip = 'text';
+        document.body.appendChild(settingsContainer);
     }
 
     addBackButton() {
         let backButton = document.createElement('button');
         backButton.textContent = 'Back';
         backButton.className = "backButton";
+        backButton.title = "Back to the main menu";
         backButton.style.position = 'fixed';
         backButton.style.top = '1%';
         backButton.style.left = '1%';

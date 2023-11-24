@@ -66,6 +66,7 @@ class CreditMenu {
     addBackButton() {
         let backButton = document.createElement('button');
         backButton.textContent = 'Back';
+        backButton.title = "Back to the main menu";
         backButton.className = "backButton";
         backButton.style.position = 'fixed';
         backButton.style.top = '1%';
@@ -96,7 +97,6 @@ class CreditMenu {
             this.initializeTransitionEffect();
         }
     }
-    
     initializeTransitionEffect() {
         this.transitionEffect = new TransitionEffect();
     }
