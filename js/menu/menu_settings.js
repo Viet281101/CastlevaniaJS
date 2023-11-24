@@ -4,7 +4,9 @@
 
 class SettingsMenu {
     constructor() {
-        this.transitionEffect = null;
+        if (typeof this.transitionEffect !== 'undefined') {
+            this.transitionEffect = new TransitionEffect();
+        }
     }
 
     show() {
@@ -23,7 +25,9 @@ class SettingsMenu {
         backButton.style.left = '1%';
         backButton.style.fontSize = '30px';
         backButton.style.backgroundColor = 'transparent';
-        backButton.style.color = 'white';
+        backButton.style.background = "-webkit-linear-gradient(white, #dfc436)";
+        backButton.style.webkitTextFillColor = 'transparent';
+        backButton.style.webkitBackgroundClip = 'text';
         backButton.style.border = 'none';
         backButton.style.cursor = 'pointer';
         backButton.onclick = () => {
@@ -33,12 +37,20 @@ class SettingsMenu {
     }
 
     loadTransitionScript() {
-        let transitionScript = document.createElement("script");
-        transitionScript.setAttribute("type", "text/javascript");
-        transitionScript.setAttribute("src", "./js/effects/transition.js");
-        transitionScript.onload = () => {
-            this.transitionEffect = new TransitionEffect();
-        };
-        document.body.appendChild(transitionScript);
+        if (typeof TransitionEffect === 'undefined') {
+            let transitionScript = document.createElement("script");
+            transitionScript.setAttribute("type", "text/javascript");
+            transitionScript.setAttribute("src", "./js/effects/transition.js");
+            transitionScript.onload = () => {
+                this.initializeTransitionEffect();
+            };
+            document.body.appendChild(transitionScript);
+        } else {
+            this.initializeTransitionEffect();
+        }
+    }
+    
+    initializeTransitionEffect() {
+        this.transitionEffect = new TransitionEffect();
     }
 };

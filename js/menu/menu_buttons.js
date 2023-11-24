@@ -51,7 +51,7 @@ function createMenuButtons() {
 
 //////* ----------  Attach menu button events ----------- *//////
 function attachMenuButtonEvents() {
-	var transitionEffect = new TransitionEffect();
+	const transitionEffect = new TransitionEffect();
 	//////*  Start button   *//////
 	document.getElementById('startButton').addEventListener('click', function () {
 		silentAudio.play().catch(function(error) {
@@ -59,19 +59,6 @@ function attachMenuButtonEvents() {
 		});
 		transitionEffect.start("game.html?01");
 		clickSound.play();
-	});
-
-	//////*  Settings button   *//////
-	document.getElementById('settingButton').addEventListener('click', function () {
-		clickSound.play();
-		let menuSettingScript = document.createElement("script");
-		menuSettingScript.setAttribute("type", "text/javascript");
-		menuSettingScript.setAttribute("src", "./js/menu/menu_settings.js");
-		document.body.appendChild(menuSettingScript);
-		transitionEffect.start(function() {
-			let settingMenu = new SettingsMenu();
-			settingMenu.show();
-		});
 	});
 
 	//////*  Credits button   *//////
@@ -84,6 +71,19 @@ function attachMenuButtonEvents() {
 		transitionEffect.start(function() {
 			let creditMenu = new CreditMenu();
 			creditMenu.show();
+		});
+	});
+
+	//////*  Settings button   *//////
+	document.getElementById('settingButton').addEventListener('click', function () {
+		clickSound.play();
+		let menuSettingScript = document.createElement("script");
+		menuSettingScript.setAttribute("type", "text/javascript");
+		menuSettingScript.setAttribute("src", "./js/menu/menu_settings.js");
+		document.body.appendChild(menuSettingScript);
+		transitionEffect.start(function() {
+			let settingMenu = new SettingsMenu();
+			settingMenu.show();
 		});
 	});
 

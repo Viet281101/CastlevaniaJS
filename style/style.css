@@ -28,7 +28,6 @@ canvas {
     image-rendering: pixelated;           /* Chrome */
 }
 .disable-interaction { pointer-events: none; }
-
 /* ----------------- Menu button ----------------- */
 .menuButton {
     display: block;
@@ -41,7 +40,7 @@ canvas {
     color: rgb(192, 98, 40);
     border: none;
 }
-.backButton {font-family: "Castlevania", sans-serif;}
+.backButton, .credit, .setting { font-family: "Castlevania", sans-serif;}
 /* --------------- Fullscreen button -------------- */
 #fullscreenContainer {
     position: fixed;
@@ -51,9 +50,7 @@ canvas {
     border: none;
     background: none;
 }
-#fullscreenContainer:hover {
-    filter: drop-shadow(0px 0px 10px #4444dd);
-}
+#fullscreenContainer:hover { filter: drop-shadow(0px 0px 10px #4444dd); }
 /* ------------------------------------------------ */
 /* ------------ Start over the images ------------- */
 .fade-in {
@@ -73,18 +70,8 @@ canvas {
     animation: introFadeIn 10s ease-out forwards;
     z-index: 10;
 }
-@keyframes fadeIn {
-    0% {background: rgb(0, 0, 0, 1);}
-    100% {background: rgb(0, 0, 0, 0);}
-}
-@keyframes introFadeIn {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
+@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }
+@keyframes introFadeIn { from { opacity: 1; } to   { opacity: 0; } }
 /* ------------------------------------------------ */
-@media only screen and (max-width: 600px) {
-    .menuButton { font-size: 30px;}
-}
-@media only screen and (max-height: 400px) {
-    .menuButton { font-size: 20px; margin: 10px auto;}
-}
+@media only screen and (max-width: 600px) { .menuButton { font-size: 30px;} }
+@media only screen and (max-height: 400px) { .menuButton { font-size: 20px; margin: 10px auto;} }

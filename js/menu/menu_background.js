@@ -1,6 +1,6 @@
 
 //////*  Background Element   *//////
-var radius = 90;
+var radius = 80;
 var influenceArea = {
     x: 100,
     y: 100,
@@ -45,15 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });}, 6500);
     document.addEventListener('mousedown', function(e) {
         radius = 1200;
-        influenceArea.width = radius * 2;
-        influenceArea.height = radius * 2;
-        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
+        updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
     });
     document.addEventListener('mouseup', function(e) {
-        radius = 90;
-        influenceArea.width = radius * 2;
-        influenceArea.height = radius * 2;
-        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
+        radius = 80;
+        updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
     });
 });
 
@@ -67,7 +63,11 @@ function applyBackgroundStyles(element, imageUrl, zIndex) {
     element.style.backgroundSize = 'cover';
     element.style.zIndex = zIndex;
 };
-
+function updateMouseMask(backgroundLayer, x, y, radius) {
+    influenceArea.width = radius * 2;
+    influenceArea.height = radius * 2;
+    updateBackgroundMask(backgroundLayer, x, y, radius);
+};
 function updateBackgroundMask(element, x, y, maskSize) {
     element.style.webkitMaskImage = `radial-gradient(circle ${maskSize}px at ${x}px ${y}px, transparent 100%, black 100%)`;
     element.style.maskImage = `radial-gradient(circle ${maskSize}px at ${x}px ${y}px, transparent 100%, black 100%)`;
