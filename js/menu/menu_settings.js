@@ -36,7 +36,7 @@ class SettingsMenu {
         settingsContainer.style.transform = 'translate(-50%, -50%)';
         settingsContainer.style.textAlign = 'center';
         settingsContainer.style.fontSize = '40px';
-        settingsContainer.style.background = "-webkit-linear-gradient(white, #dfc436)";
+        settingsContainer.style.background = "-webkit-linear-gradient(#ffffcc, #ecc400)";
         settingsContainer.style.webkitTextFillColor = 'transparent';
         settingsContainer.style.webkitBackgroundClip = 'text';
         document.body.appendChild(settingsContainer);
@@ -58,9 +58,7 @@ class SettingsMenu {
         backButton.style.webkitBackgroundClip = 'text';
         backButton.style.border = 'none';
         backButton.style.cursor = 'pointer';
-        backButton.onclick = () => {
-            this.transitionEffect.start(()=>{window.location.reload()});
-        };
+        backButton.onclick = () => { this.transitionEffect.start(()=>{ window.location.reload()}); };
         document.body.appendChild(backButton);
     }
 
@@ -71,6 +69,7 @@ class SettingsMenu {
         document.body.appendChild(butterflyScript);
     }
 
+    initializeTransitionEffect() { this.transitionEffect = new TransitionEffect(); }
     loadTransitionScript() {
         if (typeof TransitionEffect === 'undefined') {
             let transitionScript = document.createElement("script");
@@ -83,9 +82,5 @@ class SettingsMenu {
         } else {
             this.initializeTransitionEffect();
         }
-    }
-    
-    initializeTransitionEffect() {
-        this.transitionEffect = new TransitionEffect();
     }
 };

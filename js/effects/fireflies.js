@@ -1,4 +1,4 @@
-
+/////* ----------- FIREFLY EFFECT ----------- */////
 let ctx = init('canvas');
 canvas.style.position = 'relative';
 canvas.style.zIndex = 3;

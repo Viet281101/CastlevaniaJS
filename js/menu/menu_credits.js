@@ -66,7 +66,7 @@ class CreditMenu {
             credit.className = 'credit';
             credit.textContent = text;
             credit.style.fontSize = '30px';
-            credit.style.background = "-webkit-linear-gradient(white, #dfc436)";
+            credit.style.background = "-webkit-linear-gradient(#ffffcc, #ecc400)";
             credit.style.webkitTextFillColor = 'transparent';
             credit.style.webkitBackgroundClip = 'text';
             creditContainer.appendChild(credit);
@@ -97,12 +97,11 @@ class CreditMenu {
         backButton.style.webkitBackgroundClip = 'text';
         backButton.style.border = 'none';
         backButton.style.cursor = 'pointer';
-        backButton.onclick = () => {
-            this.transitionEffect.start(() => { window.location.reload() });
-        };
+        backButton.onclick = () => { this.transitionEffect.start(()=>{ window.location.reload()}); };
         document.body.appendChild(backButton);
     }
 
+    initializeTransitionEffect() { this.transitionEffect = new TransitionEffect(); }
     loadTransitionScript() {
         if (typeof TransitionEffect === 'undefined') {
             let transitionScript = document.createElement("script");
@@ -115,9 +114,6 @@ class CreditMenu {
         } else {
             this.initializeTransitionEffect();
         }
-    }
-    initializeTransitionEffect() {
-        this.transitionEffect = new TransitionEffect();
     }
 };
 

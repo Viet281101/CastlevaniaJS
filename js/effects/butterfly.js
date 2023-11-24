@@ -11,8 +11,8 @@ var speed = 10;
 
 class Butterfly {
 	constructor() {
-		this.x = Math.random() * canvas.width;
-		this.y = Math.random() * canvas.height;
+		this.x = Math.random() * (canvas.width - 32 * scaleButterflies);
+		this.y = Math.random() * (canvas.height - 32 * scaleButterflies);
 		this.angle = Math.random() * 2 * Math.PI;
 		this.velocity = (speed * speed) / 4;
 		this.frame = 0;
