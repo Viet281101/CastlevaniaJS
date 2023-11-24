@@ -10,11 +10,21 @@ class SettingsMenu {
     }
 
     show() {
+        let existingCanvas = document.getElementById('canvas');
+        if (existingCanvas) {
+            // existingCanvas.style.display = 'none';
+            existingCanvas.remove();
+        }
         document.body.innerHTML = '';
         document.body.style.backgroundColor = 'black';
         this.loadTransitionScript();
         this.addBackButton();
         this.settingsMenuContent();
+        //// Butterfly ////
+        let newCanvas = document.createElement('canvas');
+        newCanvas.id = 'butterflyCanvas';
+        document.body.appendChild(newCanvas);
+        this.loadButterflyScript();
     }
 
     settingsMenuContent() {
@@ -37,6 +47,7 @@ class SettingsMenu {
         backButton.textContent = 'Back';
         backButton.className = "backButton";
         backButton.title = "Back to the main menu";
+        backButton.style.zIndex = 4;
         backButton.style.position = 'fixed';
         backButton.style.top = '1%';
         backButton.style.left = '1%';
@@ -51,6 +62,13 @@ class SettingsMenu {
             this.transitionEffect.start(()=>{window.location.reload()});
         };
         document.body.appendChild(backButton);
+    }
+
+    loadButterflyScript() {
+        let butterflyScript = document.createElement("script");
+        butterflyScript.setAttribute("type", "text/javascript");
+        butterflyScript.setAttribute("src", "./js/effects/butterfly.js");
+        document.body.appendChild(butterflyScript);
     }
 
     loadTransitionScript() {

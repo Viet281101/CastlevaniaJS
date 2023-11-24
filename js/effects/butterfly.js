@@ -1,15 +1,18 @@
-var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d');
+/////* ----------- BUTTERFLY EFFECT ----------- */////
+let canvas = document.getElementById('butterflyCanvas');
+context = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 var scaleButterflies = 4;
-var numbers = 1;
+var numbers = 2;
 var animateSpeed = 120;
-var speed = 8;
+var speed = 10;
 
 class Butterfly {
 	constructor() {
-		this.x = Math.random() * window.innerWidth;
-		this.y = Math.random() * window.innerHeight;
+		this.x = Math.random() * canvas.width;
+		this.y = Math.random() * canvas.height;
 		this.angle = Math.random() * 2 * Math.PI;
 		this.velocity = (speed * speed) / 4;
 		this.frame = 0;
@@ -28,10 +31,10 @@ class Butterfly {
             this.direction = 'left';
         }
 	
-		if (this.x < 0 || this.x > window.innerWidth - 32 * scaleButterflies) {
+		if (this.x < 0 || this.x > canvas.width - 32 * scaleButterflies) {
 			this.angle = Math.PI - this.angle;
 		}
-		if (this.y < 0 || this.y > window.innerHeight - 32 * scaleButterflies) {
+		if (this.y < 0 || this.y > canvas.height - 32 * scaleButterflies) {
 			this.angle = -this.angle;
 		}
 	
@@ -82,7 +85,7 @@ function checkCollision(butterfly1, butterfly2) {
 };
 
 function animate() {
-	context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	for (let i = 0; i < butterflies.length; i++) {
 		butterflies[i].update();
 		for (let j = i + 1; j < butterflies.length; j++) {

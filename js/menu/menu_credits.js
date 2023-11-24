@@ -9,11 +9,22 @@ class CreditMenu {
     }
 
     show() {
+        let existingCanvas = document.getElementById('canvas');
+        if (existingCanvas) {
+            // existingCanvas.style.display = 'none';
+            existingCanvas.remove();
+        }
         document.body.innerHTML = '';
         document.body.style.backgroundColor = 'black';
         this.loadTransitionScript();
         this.addBackButton();
         this.creditContent();
+
+        //// Butterfly ////
+        let newCanvas = document.createElement('canvas');
+        newCanvas.id = 'butterflyCanvas';
+        document.body.appendChild(newCanvas);
+        this.loadButterflyScript();
     }
 
     creditContent() {
@@ -63,11 +74,19 @@ class CreditMenu {
         document.body.appendChild(creditContainer);
     }
 
+    loadButterflyScript() {
+        let butterflyScript = document.createElement("script");
+        butterflyScript.setAttribute("type", "text/javascript");
+        butterflyScript.setAttribute("src", "./js/effects/butterfly.js");
+        document.body.appendChild(butterflyScript);
+    }
+
     addBackButton() {
         let backButton = document.createElement('button');
         backButton.textContent = 'Back';
         backButton.title = "Back to the main menu";
         backButton.className = "backButton";
+        backButton.style.zIndex = 4;
         backButton.style.position = 'fixed';
         backButton.style.top = '1%';
         backButton.style.left = '1%';
