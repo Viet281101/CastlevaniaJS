@@ -29,6 +29,11 @@ class FogEffect {
         this.fogContainer.style.opacity = 0.3;
     }
 
+    updateFogMask(x, y, maskSize) {
+        this.fogContainer.style.webkitMaskImage = `radial-gradient(circle ${maskSize}px at ${x}px ${y}px, transparent 100%, black 100%)`;
+        this.fogContainer.style.maskImage = `radial-gradient(circle ${maskSize}px at ${x}px ${y}px, transparent 100%, black 100%)`;
+    }
+
     updateFogOpacity(opacity) {
         this.fogContainer.style.opacity = opacity;
     }

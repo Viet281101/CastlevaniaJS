@@ -46,8 +46,7 @@ canvas {
     color: rgb(192, 98, 40);
     border: none;
 }
-/* ------------------------------------------------ */
-
+.backButton {font-family: "Castlevania", sans-serif;}
 /* --------------- Fullscreen button -------------- */
 #fullscreenContainer {
     position: fixed;

@@ -51,19 +51,27 @@ function createMenuButtons() {
 
 //////* ----------  Attach menu button events ----------- *//////
 function attachMenuButtonEvents() {
+	var transitionEffect = new TransitionEffect();
 	//////*  Start button   *//////
 	document.getElementById('startButton').addEventListener('click', function () {
 		silentAudio.play().catch(function(error) {
 			console.log('Autoplay prevented for silent audio. Initiating playback on user action.');
 		});
-		startTransition("game.html?01");
+		transitionEffect.start("game.html?01");
 		clickSound.play();
 	});
 
 	//////*  Settings button   *//////
 	document.getElementById('settingButton').addEventListener('click', function () {
 		clickSound.play();
-
+		let menuSettingScript = document.createElement("script");
+		menuSettingScript.setAttribute("type", "text/javascript");
+		menuSettingScript.setAttribute("src", "./js/menu/menu_settings.js");
+		document.body.appendChild(menuSettingScript);
+		transitionEffect.start(function() {
+			let settingMenu = new SettingsMenu();
+			settingMenu.show();
+		});
 	});
 
 	//////*  Credits button   *//////
@@ -73,7 +81,7 @@ function attachMenuButtonEvents() {
 		menuCreditScript.setAttribute("type", "text/javascript");
 		menuCreditScript.setAttribute("src", "./js/menu/menu_credits.js");
 		document.body.appendChild(menuCreditScript);
-		startTransition(function() {
+		transitionEffect.start(function() {
 			let creditMenu = new CreditMenu();
 			creditMenu.show();
 		});
@@ -83,7 +91,7 @@ function attachMenuButtonEvents() {
 	document.getElementById('quitButton').addEventListener('click', function () {
 		clickSound.play();
 		if (confirm("Are you sure you want to quit?")) {
-			startTransition(function() {
+			transitionEffect.start(function() {
 				try {
 					window.close();
 				} catch (e) {
