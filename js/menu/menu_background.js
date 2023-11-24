@@ -47,11 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
         radius = 1200;
         influenceArea.width = radius * 2;
         influenceArea.height = radius * 2;
+        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
     });
     document.addEventListener('mouseup', function(e) {
         radius = 90;
         influenceArea.width = radius * 2;
         influenceArea.height = radius * 2;
+        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
     });
 });
 

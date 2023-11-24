@@ -11,8 +11,7 @@
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
-body, 
-html {
+body, html {
     overflow-y: hidden;  
     overflow-x: hidden; 
     margin: 0;
