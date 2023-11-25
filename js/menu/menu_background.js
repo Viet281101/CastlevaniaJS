@@ -1,5 +1,4 @@
-
-//////*  Background Element   *//////
+//////* ----- All Menu Background Element ----- *//////
 var radius = 80;
 var influenceArea = {
     x: 100,
@@ -8,6 +7,10 @@ var influenceArea = {
     height: radius * 2
 };
 document.addEventListener('DOMContentLoaded', function() {
+    loadMusicBackground();
+    createFadeInIntro();
+    defineKeyframes();
+
     //////*  Background Layers   *//////
     var backgroundLayer1 = document.createElement('div');
     applyBackgroundStyles(backgroundLayer1, 'assets/Background/background_graveyard.png', 1);
@@ -53,6 +56,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//////*  Create Music Background   *//////
+function loadMusicScript(src) {
+	return new Promise(function(resolve, reject) {
+		var soundScript = document.createElement("script");
+		soundScript.setAttribute("type", "text/javascript");
+		soundScript.setAttribute("src", src);
+		soundScript.onload = () => resolve(soundScript);
+		soundScript.onerror = () => reject(new Error(`Script load error for ${src}.`));
+		document.head.appendChild(soundScript);
+	});
+};
+async function loadMusicBackground() {
+	try {
+		await loadMusicScript("./js/sound/music.js");
+		playMusic(mainMenuMusic);
+	} catch (e) {
+		console.log(e);
+	}
+};
+//////*  Create & Update Background Effects  *//////
 function applyBackgroundStyles(element, imageUrl, zIndex) {
     element.style.position = 'fixed';
     element.style.top = '0';
@@ -72,4 +95,43 @@ function updateBackgroundMask(element, x, y, maskSize) {
     element.style.webkitMaskImage = `radial-gradient(circle ${maskSize}px at ${x}px ${y}px, transparent 100%, black 100%)`;
     element.style.maskImage = `radial-gradient(circle ${maskSize}px at ${x}px ${y}px, transparent 100%, black 100%)`;
 };
+//////*  Create intro fade in image menu   *//////
+function defineKeyframes() {
+    var styleSheet = document.createElement("style");
+    styleSheet.setAttribute("type", "text/css");
+    styleSheet.innerText = `@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }
+    @keyframes introFadeIn { from { opacity: 1; } to { opacity: 0; } }`;
+    document.head.appendChild(styleSheet);
+};
+function createFadeInIntro() {
+    var fadeInDiv = document.createElement('div');
+    fadeInDiv.className = 'fade-in';
+    fadeInDiv.style.background = 'rgb(0, 0, 0, 1)';
+    fadeInDiv.style.zIndex = 9;
+    fadeInDiv.style.position = 'fixed';
+    fadeInDiv.style.top = '0';
+    fadeInDiv.style.left = '0';
+    fadeInDiv.style.width = '100%';
+    fadeInDiv.style.height = '100%';
+    fadeInDiv.style.animation = 'fadeIn 30s forwards';
+    document.body.appendChild(fadeInDiv);
 
+    var introBackgroundDiv = document.createElement('div');
+    introBackgroundDiv.className = 'intro-background';
+    introBackgroundDiv.style.position = 'fixed';
+    introBackgroundDiv.style.top = '0';
+    introBackgroundDiv.style.left = '0';
+    introBackgroundDiv.style.width = '100%';
+    introBackgroundDiv.style.height = '100%';
+    introBackgroundDiv.style.backgroundImage = "url('../assets/Castlevania.png')";
+    introBackgroundDiv.style.backgroundSize = 'cover';
+    introBackgroundDiv.style.zIndex = 10;
+    introBackgroundDiv.style.animation = 'introFadeIn 10s ease-out forwards';
+    document.body.appendChild(introBackgroundDiv);
+
+    introBackgroundDiv.addEventListener('animationend', function() {
+        fadeInDiv.remove();
+        introBackgroundDiv.remove();
+        document.dispatchEvent(new CustomEvent('introAnimationEnded'));
+    });
+};

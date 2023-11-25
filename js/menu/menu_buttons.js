@@ -1,30 +1,29 @@
 
-//////*  Sounds   *//////
-var silentAudio = new Audio("data:audio/mp3;base64,//MkxAA........");
-var hoverSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_hover.wav?raw=true");
-var clickSound = new Audio("https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_click.wav?raw=true");
-
-//////*  Remove intro element and create menu buttons  *//////
+//////*  Create menu buttons after remove intro element  *//////
 document.addEventListener('DOMContentLoaded', function() {
-	var introElement = document.querySelector('.intro-background');
-	if (introElement) {
-		introElement.addEventListener('animationend', function() {
-			removeIntroElement();
-			createMenuButtons();
-			createFullscreenButton();
-		});
-	}
+	document.addEventListener('introAnimationEnded', function() {
+        createMenuButtons();
+        createFullscreenButton();
+    });
 });
-function removeIntroElement() {
-	var introElement = document.querySelector('.intro-background');
-	var fadeInEffect = document.querySelector('.fade-in');
-	if (introElement) {
-		// introElement.style.display = 'none';
-		introElement.parentNode.removeChild(introElement);
-	}
-	if (fadeInEffect) {
-		// fadeInEffect.style.display = 'none';
-		fadeInEffect.parentNode.removeChild(fadeInEffect);
+
+//////* Start Sound Script  *//////
+function loadSoundScript(src) {
+	return new Promise(function(resolve, reject) {
+		var soundScript = document.createElement("script");
+		soundScript.setAttribute("type", "text/javascript");
+		soundScript.setAttribute("src", src);
+		soundScript.onload = () => resolve(soundScript);
+		soundScript.onerror = () => reject(new Error(`Script load error for ${src}.`));
+		document.head.appendChild(soundScript);
+	});
+};
+async function loadSoundAttachButtons() {
+	try {
+		await loadSoundScript("./js/sound/sound.js");
+		attachMenuButtonEvents();
+	} catch (e) {
+		console.log(e);
 	}
 };
 
@@ -46,7 +45,7 @@ function createMenuButtons() {
 		buttonContainer.appendChild(button);
 	});
 	document.body.appendChild(buttonContainer);
-	attachMenuButtonEvents();
+	loadSoundAttachButtons();
 };
 
 //////* ----------  Attach menu button events ----------- *//////
@@ -59,11 +58,13 @@ function attachMenuButtonEvents() {
 		});
 		transitionEffect.start("game.html?01");
 		clickSound.play();
+		stopMusic(mainMenuMusic);
 	});
 
 	//////*  Credits button   *//////
 	document.getElementById('creditButton').addEventListener('click', function () {
 		clickSound.play();
+		stopMusic(mainMenuMusic);
 		let menuCreditScript = document.createElement("script");
 		menuCreditScript.setAttribute("type", "text/javascript");
 		menuCreditScript.setAttribute("src", "./js/menu/menu_credits.js");
@@ -77,6 +78,7 @@ function attachMenuButtonEvents() {
 	//////*  Settings button   *//////
 	document.getElementById('settingButton').addEventListener('click', function () {
 		clickSound.play();
+		stopMusic(mainMenuMusic);
 		let menuSettingScript = document.createElement("script");
 		menuSettingScript.setAttribute("type", "text/javascript");
 		menuSettingScript.setAttribute("src", "./js/menu/menu_settings.js");
@@ -90,6 +92,7 @@ function attachMenuButtonEvents() {
 	//////*  Quit button   *//////
 	document.getElementById('quitButton').addEventListener('click', function () {
 		clickSound.play();
+		stopMusic(mainMenuMusic);
 		if (confirm("Are you sure you want to quit?")) {
 			transitionEffect.start(function() {
 				try {

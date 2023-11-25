@@ -24,15 +24,19 @@ switch(part) {
 		part = "01";
 };
 
-function loadScript() {
+function loadScripts() {
 	for (let index = 0; index < parts[part].length; index ++) {
 		let script = document.createElement("script");
 		script.setAttribute("type", "text/javascript");
 		script.setAttribute("src", parts[part][index]);
 		document.head.appendChild(script);
 	};
+	let transitionEffectScript = document.createElement("script");
+	transitionEffectScript.setAttribute("type", "text/javascript");
+	transitionEffectScript.setAttribute("src", "./js/effects/transition.js");
+	document.head.appendChild(transitionEffectScript);
 
 	console.log("Loaded part " + part + " of the game.");
 };
 
-loadScript();
+loadScripts();
