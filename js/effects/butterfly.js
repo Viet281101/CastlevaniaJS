@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var scaleButterflies = 4;
-var numbers = Math.floor(Math.random() * (5 -3 + 1) + 3);
+var numbers = Math.floor(Math.random() * (4 -1 + 1) + 1);
 var animateSpeed = 120;
 var speed = 10;
 

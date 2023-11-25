@@ -35,8 +35,34 @@ function loadScripts() {
 	transitionEffectScript.setAttribute("type", "text/javascript");
 	transitionEffectScript.setAttribute("src", "./js/effects/transition.js");
 	document.head.appendChild(transitionEffectScript);
+	fadeInEffect();
+	defineFadeInKeyframes();
 
 	console.log("Loaded part " + part + " of the game.");
+};
+function fadeInEffect() {
+	var fadeInDiv = document.createElement('div');
+    fadeInDiv.className = 'fade-in';
+    fadeInDiv.style.background = 'rgb(0, 0, 0, 1)';
+    fadeInDiv.style.zIndex = 9;
+    fadeInDiv.style.position = 'fixed';
+    fadeInDiv.style.top = '0';
+    fadeInDiv.style.left = '0';
+    fadeInDiv.style.width = '100%';
+    fadeInDiv.style.height = '100%';
+    fadeInDiv.style.animation = 'fadeIn 12s forwards';
+    document.body.appendChild(fadeInDiv);
+
+	fadeInDiv.addEventListener('animationend', function() {
+        fadeInDiv.remove();
+        document.dispatchEvent(new CustomEvent('fadeInEnded'));
+    });
+};
+function defineFadeInKeyframes() {
+    var styleSheet = document.createElement("style");
+    styleSheet.setAttribute("type", "text/css");
+    styleSheet.innerText = `@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }`;
+    document.head.appendChild(styleSheet);
 };
 
 loadScripts();

@@ -1,9 +1,21 @@
 
-body, 
-html {
+@font-face {
+    font-family: 'Castlevania';
+    src: url('../assets/Font/fette-unz-fraktur.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body, html {
     overflow-y: hidden;  
     overflow-x: hidden;
     background-color: black;
+    font-family: 'Castlevania', sans-serif;
 }
 
 

@@ -40,7 +40,51 @@ class SettingsMenu {
         settingsContainer.style.webkitTextFillColor = 'transparent';
         settingsContainer.style.webkitBackgroundClip = 'text';
         document.body.appendChild(settingsContainer);
-    }
+
+        let settingsTable = document.createElement('table');
+		settingsTable.zIndex = 5;
+		settingsTable.style.position = 'fixed';
+        settingsTable.style.top = '50%';
+        settingsTable.style.left = '50%';
+		settingsTable.style.width = '30%';
+		settingsTable.style.transform = 'translate(-50%, -50%)';
+		settingsTable.style.textAlign = 'center';
+		settingsTable.style.fontSize = '25px';
+		settingsTable.style.background = "-webkit-linear-gradient(#ffffcc, #ecc400)";
+		settingsTable.style.webkitTextFillColor = 'transparent';
+		settingsTable.style.webkitBackgroundClip = 'text';
+		settingsTable.innerHTML = `
+			<tr>
+				<td>Volume:</td>
+				<td><input type="range" min="0" max="100" value="50"></td>
+			</tr>
+			<tr>
+				<td>Sound:</td>
+				<td><img src="./assets/UI/unmute.png" class="mute-button" style="width: 30px; height: 30px;"></td>
+			</tr>
+			<tr>
+				<td>Fullscreen:</td>
+				<td><input type="checkbox" class="fullscreen-checkbox"></td>
+			</tr>
+			<tr>
+				<td>Theme:</td>
+				<td>
+					<select class="theme-select">
+						<option value="default">Default</option>
+						<option value="dark">Dark</option>
+						<option value="light">Light</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Controls:</td>
+				<td>...</td>
+			</tr>
+		`;
+
+		document.body.appendChild(settingsTable);
+		this.addSettingsEventListeners();
+	}
 
     addBackButton() {
         let backButton = document.createElement('button');
@@ -61,6 +105,21 @@ class SettingsMenu {
         backButton.onclick = () => { this.transitionEffect.start(()=>{ window.location.reload()}); };
         document.body.appendChild(backButton);
     }
+
+	addSettingsEventListeners() {
+		let muteButton = document.querySelector('.mute-button');
+		muteButton.style.cursor = 'pointer';
+		muteButton.style.border = 'none';
+		muteButton.style.backgroundColor = 'transparent';
+		muteButton.style.background = "-webkit-linear-gradient(white, #dfc436)";
+		muteButton.style.webkitTextFillColor = 'transparent';
+		muteButton.style.webkitBackgroundClip = 'text';
+		muteButton.onclick = () => {
+			let isMuted = muteButton.src.includes('mute.png');
+			muteButton.src = isMuted ? './assets/UI/unmute.png' : './assets/UI/mute.png';
+			setVolume(isMuted ? '0' : '1');
+		};
+	}
 
     loadButterflyScript() {
         let butterflyScript = document.createElement("script");

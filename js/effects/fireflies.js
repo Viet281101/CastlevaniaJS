@@ -31,6 +31,8 @@ class Firefly {
     move() {
         this.x += this.v * Math.cos(this.ang);
         this.y += this.v * Math.sin(this.ang);
+        if (this.x < 0 || this.x > w - 10) { this.and = Math.PI - this.and; }
+		if (this.y < 0 || this.y > h -10) { this.and = -this.and; }
         this.and += (Math.random() * 20 * Math.PI) / 180 - (10 * Math.PI) / 180;
     }
     show() {

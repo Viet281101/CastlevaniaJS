@@ -1,35 +1,60 @@
 
 const Game = function() {
 
-	this.world = {
+	this.world = new Game.World();
 
-		background_color: "rgba(40,48,56,0.25)",
+	this.update = function() {
+		this.world.update();
+	};
+};
 
-		friction: 0.9,
-		gravity: 3,
+Game.prototype = { constructor : Game };
 
-		player:new Game.Player(),
+Game.World = function(friction = 0.9, gravity = 3) {
 
-		height: 60,
-		width: 122,
+	this.friction = friction;
+	this.gravity  = gravity;
 
-		collideObject:function(object) {
+	this.player   = new Game.World.Player();
 
-			if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
-			else if (object.x + object.width > this.width) { 
-				object.x = this.width - object.width; 
-				object.velocity_x = 0; 
-			}
-			if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
-			else if (object.y + object.height > this.height) { 
-				object.jumping = false; 
-				object.y = this.height - object.height; 
-				object.velocity_y = 0; 
-			}
+	this.columns   = 12;
+	this.rows      = 9;
+	this.tile_size = 32;
+	this.map = [49,18,18,18,50,49,19,20,17,18,36,37,
+				11,40,40,40,17,19,40,32,32,32,40,08,
+				11,32,40,32,32,32,40,13,06,06,29,02,
+				36,07,40,40,32,40,40,20,40,40,09,10,
+				03,32,32,48,40,48,40,32,32,05,37,26,
+				11,40,40,32,40,40,40,32,32,32,40,38,
+				11,40,32,05,15,07,40,40,04,40,01,43,
+				50,03,32,32,12,40,40,32,12,01,43,10,
+				09,41,28,14,38,28,14,04,23,35,10,25];
 
-		},
+	this.height   = this.tile_size * this.rows;
+	this.width    = this.tile_size * this.columns;
 
-		update:function() {
+};
+
+Game.World.prototype = {
+
+	constructor: Game.World,
+
+	collideObject:function(object) {
+
+		if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
+		else if (object.x + object.width > this.width) { 
+			object.x = this.width - object.width; 
+			object.velocity_x = 0; 
+		}
+		if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
+		else if (object.y + object.height > this.height) { 
+			object.jumping = false; 
+			object.y = this.height - object.height; 
+			object.velocity_y = 0; 
+		}
+	},
+
+	update:function() {
 
 		this.player.velocity_y += this.gravity;
 		this.player.update();
@@ -38,55 +63,33 @@ const Game = function() {
 		this.player.velocity_y *= this.friction;
 
 		this.collideObject(this.player);
-
-		}
-
-	};
-
-	this.update = function() {
-
-		this.world.update();
-
-	};
+	}
 
 };
 
-Game.prototype = { constructor : Game };
-
-Game.Player = function(x, y) {
-
-	this.color      = "#ff0000";
-	this.height     = 16;
-	this.width      = 16;
+Game.World.Player = function(x, y) {
+	this.color1     = "#404040";
+	this.color2     = "#f0f0f0";
+	this.height     = 12;
+	this.width      = 12;
 	this.jumping    = true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
 	this.x          = 100;
 	this.y          = 50;
-
 };
 
-Game.Player.prototype = {
+Game.World.Player.prototype = {
 
-	constructor : Game.Player,
+	constructor : Game.World.Player,
 
 	jump:function() {
-
 		if (!this.jumping) {
-
-			//// Change to random color on jump.
-			this.color = "#" + Math.floor(Math.random() * 16777216).toString(16);
-			/* toString(16) will not add a leading 0 to a hex value, so this: #0fffff, for example,
-			isn't valid. toString would cut off the first 0. The code below inserts it. */
-			if (this.color.length != 7) {
-				this.color = this.color.slice(0, 1) + "0" + this.color.slice(1, 6);
-			}
-
 			this.jumping     = true;
 			this.velocity_y -= 20;
 		}
 	},
-
+	
 	moveLeft:function()  { this.velocity_x -= 0.5; },
 	moveRight:function() { this.velocity_x += 0.5; },
 
