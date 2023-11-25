@@ -90,8 +90,8 @@ Game.World.Player.prototype = {
 		}
 	},
 	
-	moveLeft:function()  { this.velocity_x -= 0.5; },
-	moveRight:function() { this.velocity_x += 0.5; },
+	moveLeft:function()  { this.velocity_x -= 1.0; },
+	moveRight:function() { this.velocity_x += 1.0; },
 
 	update:function() {
 		this.x += this.velocity_x;
