@@ -70,8 +70,8 @@ Game.World.prototype = {
 Game.World.Player = function(x, y) {
 	this.color1     = "#404040";
 	this.color2     = "#f0f0f0";
-	this.height     = 12;
-	this.width      = 12;
+	this.height     = 32;
+	this.width      = 32;
 	this.jumping    = true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
@@ -86,7 +86,7 @@ Game.World.Player.prototype = {
 	jump:function() {
 		if (!this.jumping) {
 			this.jumping     = true;
-			this.velocity_y -= 20;
+			this.velocity_y -= 30;
 		}
 	},
 	
