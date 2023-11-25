@@ -78,7 +78,6 @@ function attachMenuButtonEvents() {
 	//////*  Settings button   *//////
 	document.getElementById('settingButton').addEventListener('click', function () {
 		clickSound.play();
-		stopMusic(mainMenuMusic);
 		let menuSettingScript = document.createElement("script");
 		menuSettingScript.setAttribute("type", "text/javascript");
 		menuSettingScript.setAttribute("src", "./js/menu/menu_settings.js");

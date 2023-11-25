@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //////*  Background Layers   *//////
     var backgroundLayer1 = document.createElement('div');
-    applyBackgroundStyles(backgroundLayer1, 'assets/Background/background_graveyard.png', 1);
+    applyBackgroundStyles(backgroundLayer1, './assets/Background/background_graveyard.png', 1);
     document.body.appendChild(backgroundLayer1);
 
     var backgroundLayer2 = document.createElement('div');
-    applyBackgroundStyles(backgroundLayer2, 'assets/Background/background_castle_no_fog.png', 2);
+    applyBackgroundStyles(backgroundLayer2, './assets/Background/background_castle_no_fog.png', 2);
     document.body.appendChild(backgroundLayer2);
 
     //////*  Play Fog Effect   *//////
@@ -123,7 +123,7 @@ function createFadeInIntro() {
     introBackgroundDiv.style.left = '0';
     introBackgroundDiv.style.width = '100%';
     introBackgroundDiv.style.height = '100%';
-    introBackgroundDiv.style.backgroundImage = "url('../assets/Castlevania.png')";
+    introBackgroundDiv.style.backgroundImage = "url('./assets/Castlevania.png')";
     introBackgroundDiv.style.backgroundSize = 'cover';
     introBackgroundDiv.style.zIndex = 10;
     introBackgroundDiv.style.animation = 'introFadeIn 10s ease-out forwards';
