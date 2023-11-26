@@ -29,6 +29,7 @@ async function loadSoundAttachButtons() {
 
 //////*  Create menu buttons   *//////
 function createMenuButtons() {
+	buttonApearKeyFrames();
     var buttonContainer = document.createElement('div');
 	buttonContainer.style.position = 'fixed';
 	buttonContainer.style.top = '50%';
@@ -42,10 +43,17 @@ function createMenuButtons() {
 		button.className = 'menuButton';
 		button.id = buttonText.toLowerCase() + 'Button';
 		button.textContent = buttonText;
+		button.style.animation = 'buttonApear 7s ease-out forwards';
 		buttonContainer.appendChild(button);
 	});
 	document.body.appendChild(buttonContainer);
 	loadSoundAttachButtons();
+};
+function buttonApearKeyFrames() {
+	var styleSheet = document.createElement("style");
+	styleSheet.setAttribute("type", "text/css");
+	styleSheet.innerText = `@keyframes buttonApear { 0% {opacity: 0;} 100% {opacity: 1;} }`;
+	document.head.appendChild(styleSheet);
 };
 
 //////* ----------  Attach menu button events ----------- *//////

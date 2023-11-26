@@ -8,8 +8,8 @@ var influenceArea = {
 };
 document.addEventListener('DOMContentLoaded', function() {
     loadMusicBackground();
-    createFadeInIntro();
     defineKeyframes();
+    createFadeInIntro();
 
     //////*  Background Layers   *//////
     var backgroundLayer1 = document.createElement('div');
@@ -41,19 +41,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 4000);
 
     //////*  Background mouse mask   *//////
-    setTimeout(() => {document.addEventListener('mousemove', function(e) {
-        updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
-        influenceArea.x = e.clientX - influenceArea.width / 2;
-        influenceArea.y = e.clientY - influenceArea.height / 2;
-    });}, 6500);
-    document.addEventListener('mousedown', function(e) {
-        radius = 1200;
-        updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
-    });
-    document.addEventListener('mouseup', function(e) {
-        radius = 80;
-        updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
-    });
+    setTimeout(() => {
+        document.addEventListener('mousemove', function(e) {
+            updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
+            influenceArea.x = e.clientX - influenceArea.width / 2;
+            influenceArea.y = e.clientY - influenceArea.height / 2;
+        });
+        document.addEventListener('mousedown', function(e) {
+            radius = 1200;
+            updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
+        });
+        document.addEventListener('mouseup', function(e) {
+            radius = 80;
+            updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
+        });
+    }, 6500);
 });
 
 //////*  Create Music Background   *//////
@@ -130,8 +132,8 @@ function createFadeInIntro() {
     document.body.appendChild(introBackgroundDiv);
 
     introBackgroundDiv.addEventListener('animationend', function() {
-        fadeInDiv.remove();
         introBackgroundDiv.remove();
+        setTimeout(() => { fadeInDiv.remove(); }, 4000);
         document.dispatchEvent(new CustomEvent('introAnimationEnded'));
     });
 };
