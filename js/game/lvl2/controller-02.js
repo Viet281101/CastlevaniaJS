@@ -1,5 +1,7 @@
 
 
+//// /* The keyDownUp handler was moved to the main file. */ ////
+
 const Controller = function() {
 
 	this.left  = new Controller.ButtonInput();

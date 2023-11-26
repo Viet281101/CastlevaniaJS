@@ -20,6 +20,7 @@ class SettingsMenu {
         this.loadTransitionScript();
         this.addBackButton();
         this.settingsMenuContent();
+        this.settingsParameters();
         //// Butterfly ////
         let newCanvas = document.createElement('canvas');
         newCanvas.id = 'butterflyCanvas';
@@ -40,7 +41,9 @@ class SettingsMenu {
         settingsContainer.style.webkitTextFillColor = 'transparent';
         settingsContainer.style.webkitBackgroundClip = 'text';
         document.body.appendChild(settingsContainer);
+	}
 
+    settingsParameters() {
         let settingsTable = document.createElement('table');
 		settingsTable.zIndex = 5;
 		settingsTable.style.position = 'fixed';
@@ -84,7 +87,7 @@ class SettingsMenu {
 
 		document.body.appendChild(settingsTable);
 		this.addSettingsEventListeners();
-	}
+    }
 
     addBackButton() {
         let backButton = document.createElement('button');
