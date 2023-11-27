@@ -231,7 +231,7 @@ Game.World.Object.prototype = {
   
 Game.World.Player = function(x, y) {
 
-	Game.World.Object.call(this, 100, 100, 12, 12);
+	Game.World.Object.call(this, 100, 100, 32, 32);
 
 	this.color1     = "#404040";
 	this.color2     = "#f0f0f0";
