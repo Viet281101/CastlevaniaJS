@@ -9,10 +9,15 @@ Le lien pour lancer le jeu : https://viet281101.github.io/CastlevaniaJS/
 ### Sources:
 1) Musics:
    - Main Menu Music : [Viktor Kraus - Into the Ruins](https://opengameart.org/content/into-the-ruins)
+   - lvl1_music : [Ost : Menu - Castlevania: Lords of Shadow 2 OST](https://www.youtube.com/watch?v=lLP6b6mOolw&ab_channel=e105beta)
+   - lvl2_music : [Castlevania the Adventure ReBirth Soundtrack - Vampire Killer (Stage 6)](https://www.youtube.com/watch?v=MqlonUJTNtU&list=PLB1mBUgyWbK3SSmd7_ELjPat6xQXeXqDH&index=59&ab_channel=JamesAlbert)
+   - lvl2-music_boss : [Castlevania the Adventure ReBirth Soundtrack - Reincarnated Soul (Stage 1)](https://www.youtube.com/watch?v=ZV_HESv4mfs&list=PLB1mBUgyWbK3SSmd7_ELjPat6xQXeXqDH&index=55&ab_channel=JamesAlbert )
+   - death_music : [Castlevania: Order of Ecclesia music - Game Over](https://www.youtube.com/watch?v=6Q_gXqCY_nM&ab_channel=Bramblekit)
 
 2) Images:
    - [2D Environment Platformer Asset Pack: Castle of Despair](https://brullov.itch.io/2d-platformer-asset-pack-castle-of-despair)
-   - 
+   - [Sprite Héros (Alucard)](https://www.castlevaniacrypt.com/wp-content/img/sotn/sprites/alucard-8.png)
 
 3) Fonts:
    - Castlevania Font : download from [here](https://hyperpix.net/fonts/castlevania-font/)
+     
