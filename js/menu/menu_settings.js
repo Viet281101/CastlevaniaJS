@@ -80,14 +80,34 @@ class SettingsMenu {
 				</td>
 			</tr>
 			<tr>
-				<td>Controls:</td>
-				<td>...</td>
+				<td>Language:</td>
+				<td>
+					<select class="lang-select">
+						<option value="english">English</option>
+						<option value="francais">Français</option>
+					</select>
+                </td>
 			</tr>
 		`;
 
 		document.body.appendChild(settingsTable);
 		this.addSettingsEventListeners();
     }
+
+	addSettingsEventListeners() {
+		let muteButton = document.querySelector('.mute-button');
+		muteButton.style.cursor = 'pointer';
+		muteButton.style.border = 'none';
+		muteButton.style.backgroundColor = 'transparent';
+		muteButton.style.background = "-webkit-linear-gradient(white, #dfc436)";
+		muteButton.style.webkitTextFillColor = 'transparent';
+		muteButton.style.webkitBackgroundClip = 'text';
+		muteButton.onclick = () => {
+			let isMuted = muteButton.src.includes('mute.png');
+			muteButton.src = isMuted ? './assets/UI/unmute.png' : './assets/UI/mute.png';
+			setVolume(isMuted ? '0' : '1');
+		};
+	}
 
     addBackButton() {
         let backButton = document.createElement('button');
@@ -108,21 +128,6 @@ class SettingsMenu {
         backButton.onclick = () => { this.transitionEffect.start(()=>{ window.location.reload()}); };
         document.body.appendChild(backButton);
     }
-
-	addSettingsEventListeners() {
-		let muteButton = document.querySelector('.mute-button');
-		muteButton.style.cursor = 'pointer';
-		muteButton.style.border = 'none';
-		muteButton.style.backgroundColor = 'transparent';
-		muteButton.style.background = "-webkit-linear-gradient(white, #dfc436)";
-		muteButton.style.webkitTextFillColor = 'transparent';
-		muteButton.style.webkitBackgroundClip = 'text';
-		muteButton.onclick = () => {
-			let isMuted = muteButton.src.includes('mute.png');
-			muteButton.src = isMuted ? './assets/UI/unmute.png' : './assets/UI/mute.png';
-			setVolume(isMuted ? '0' : '1');
-		};
-	}
 
     loadButterflyScript() {
         let butterflyScript = document.createElement("script");
