@@ -88,6 +88,10 @@ class SettingsMenu {
 					</select>
                 </td>
 			</tr>
+			<tr>
+				<td>Controls:</td>
+				<td> ... </td>
+			</tr>
 		`;
 
 		document.body.appendChild(settingsTable);

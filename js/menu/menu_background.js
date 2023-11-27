@@ -115,7 +115,7 @@ function createFadeInIntro() {
     fadeInDiv.style.left = '0';
     fadeInDiv.style.width = '100%';
     fadeInDiv.style.height = '100%';
-    fadeInDiv.style.animation = 'fadeIn 30s forwards';
+    fadeInDiv.style.animation = 'fadeIn 23s forwards';
     document.body.appendChild(fadeInDiv);
 
     var introBackgroundDiv = document.createElement('div');
@@ -133,7 +133,7 @@ function createFadeInIntro() {
 
     introBackgroundDiv.addEventListener('animationend', function() {
         introBackgroundDiv.remove();
-        setTimeout(() => { fadeInDiv.remove(); }, 4000);
+        setTimeout(() => { fadeInDiv.remove(); }, 3000);
         document.dispatchEvent(new CustomEvent('introAnimationEnded'));
     });
 };

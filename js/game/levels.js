@@ -35,6 +35,17 @@ function loadScripts() {
 	transitionEffectScript.setAttribute("type", "text/javascript");
 	transitionEffectScript.setAttribute("src", "./js/effects/transition.js");
 	document.head.appendChild(transitionEffectScript);
+
+	let soundScript = document.createElement("script");
+	soundScript.setAttribute("type", "text/javascript");
+	soundScript.setAttribute("src", "./js/sound/sound.js");
+	document.head.appendChild(soundScript);
+	
+	let musicsScript = document.createElement("script");
+	musicsScript.setAttribute("type", "text/javascript");
+	musicsScript.setAttribute("src", "./js/sound/music.js");
+	document.head.appendChild(musicsScript);
+
 	fadeInEffect();
 	defineFadeInKeyframes();
 
