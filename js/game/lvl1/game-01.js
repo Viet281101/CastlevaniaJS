@@ -247,13 +247,13 @@ Game.World.Player.prototype = {
 	jump:function() {
 		if (!this.jumping) {
 			this.jumping     = true;
-			this.velocity_y -= 20;
+			this.velocity_y -= 30;
 
 		}
 	},
 
-	moveLeft:function()  { this.velocity_x -= 0.5; },
-	moveRight:function() { this.velocity_x += 0.5; },
+	moveLeft:function()  { this.velocity_x -= 1.0; },
+	moveRight:function() { this.velocity_x += 1.0; },
 
 	update:function() {
 
