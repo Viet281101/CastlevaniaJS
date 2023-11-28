@@ -45,7 +45,6 @@ class SettingsMenu {
 
     settingsParameters() {
         let settingsTable = document.createElement('table');
-		settingsTable.zIndex = 5;
 		settingsTable.style.position = 'fixed';
         settingsTable.style.top = '50%';
         settingsTable.style.left = '50%';
