@@ -2,6 +2,13 @@
 let part = String(window.location).split("?")[1];
 
 let parts = {
+	"00": [
+		"./js/game/baselevel/controller.js", 
+		"./js/game/baselevel/display.js", 
+		"./js/game/baselevel/engine.js", 
+		"./js/game/baselevel/game.js", 
+		"./js/game/baselevel/main.js"
+	],
 	"01":[
 		"./js/game/lvl1/controller-01.js", 
 		"./js/game/lvl1/display-01.js", 
@@ -19,7 +26,7 @@ let parts = {
 };
 
 switch(part) {
-	case "01": case "02": break;
+	case "00": case "01": case "02": break;
 	default:
 		part = "01";
 };

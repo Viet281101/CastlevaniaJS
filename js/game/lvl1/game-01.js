@@ -23,25 +23,39 @@ Game.World = function(friction = 0.9, gravity = 3) {
 	this.rows      = 9;
 	this.tile_size = 32;
 
-	this.map = [48,17,17,17,49,48,18,19,16,17,35,36,
-				10,39,39,39,16,18,39,31,31,31,39,07,
-				10,31,39,31,31,31,39,12,05,05,28,01,
-				35,06,39,39,31,39,39,19,39,39,08,09,
-				02,31,31,47,39,47,39,31,31,04,36,25,
-				10,39,39,31,39,39,39,31,31,31,39,37,
-				10,39,31,04,14,06,39,39,03,39,00,42,
-				49,02,31,31,11,39,39,31,11,00,42,09,
-				08,40,27,13,37,27,13,03,22,34,09,24];
+	this.map = [65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				65,66,65,66,65,66,65,66,66,66,65,65,
+				00,01,02,02,02,02,02,02,02,02,02,03];
 
+	/* These collision values correspond to collision functions in the Collider class.
+	00 is nothing. everything else is run through a switch statement and routed to the
+	appropriate collision functions. These particular values aren't arbitrary. Their binary
+	representation can be used to describe which sides of the tile have boundaries.
+
+	0000 = 0  tile 0:    0    tile 1:   1     tile 2:    0    tile 15:    1
+	0001 = 1           0   0          0   0            0   1            1   1
+	0010 = 2             0              0                0                1
+	1111 = 15        No walls     Wall on top      Wall on Right      four walls
+
+	This binary representation can be used to describe which sides of a tile are boundaries.
+	Each bit represents a side: 0 0 0 0 = l b r t (left bottom right top). Keep in mind
+	that this is just one way to look at it. You could assign your collision values
+	any way you want. */
 	this.collision_map = [00,04,04,04,00,00,04,04,04,04,04,00,
-						  02,00,00,00,12,06,00,00,00,00,00,08,
-						  02,00,00,00,00,00,00,09,05,05,01,00,
-						  00,07,00,00,00,00,00,14,00,00,08,00,
-						  02,00,00,01,00,01,00,00,00,13,04,00,
 						  02,00,00,00,00,00,00,00,00,00,00,08,
-						  02,00,00,13,01,07,00,00,11,00,09,00,
-						  00,03,00,00,10,00,00,00,08,01,00,00,
-						  00,00,01,01,00,01,01,01,00,00,00,00];
+						  02,00,00,00,00,00,00,00,00,00,00,00,
+						  02,00,00,00,00,00,00,00,00,00,00,00,
+						  02,00,00,00,00,00,00,00,00,00,00,00,
+						  02,00,00,00,00,00,00,00,00,00,00,08,
+						  00,00,00,00,00,00,00,00,00,00,00,00,
+						  00,00,00,00,00,00,00,00,08,00,00,00,
+						  00,01,01,01,01,01,01,01,01,01,01,01];
 
 	this.height   = this.tile_size * this.rows;
 	this.width    = this.tile_size * this.columns;
@@ -247,13 +261,13 @@ Game.World.Player.prototype = {
 	jump:function() {
 		if (!this.jumping) {
 			this.jumping     = true;
-			this.velocity_y -= 35;
+			this.velocity_y -= 30;
 
 		}
 	},
 
-	moveLeft:function()  { this.velocity_x -= 1.0; },
-	moveRight:function() { this.velocity_x += 1.0; },
+	moveLeft:function()  { this.velocity_x -= 1.5; },
+	moveRight:function() { this.velocity_x += 1.5; },
 
 	update:function() {
 
