@@ -247,7 +247,7 @@ Game.World.Player.prototype = {
 	jump:function() {
 		if (!this.jumping) {
 			this.jumping     = true;
-			this.velocity_y -= 30;
+			this.velocity_y -= 35;
 
 		}
 	},

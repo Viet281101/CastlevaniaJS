@@ -29,11 +29,14 @@ class CreditMenu {
 
     creditContent() {
         let creditContainer = document.createElement('div');
+        creditContainer.id = 'creditContainer';
         creditContainer.style.position = 'fixed';
-        creditContainer.style.top = '50%';
+		creditContainer.style.zIndex = 5;
         creditContainer.style.left = '50%';
-        creditContainer.style.transform = 'translate(-50%, -50%)';
+        creditContainer.style.transform = 'translateX(-50%)';
         creditContainer.style.textAlign = 'center';
+        creditContainer.style.overflow = 'hidden';
+
         let creditText = [
             'Credits',
             ' ',
@@ -49,17 +52,6 @@ class CreditMenu {
             ' ',
             'Special Thanks',
             ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
-            ' ',
         ];
         creditText.forEach(function(text) {
             let credit = document.createElement('div');
@@ -72,7 +64,26 @@ class CreditMenu {
             creditContainer.appendChild(credit);
         });
         document.body.appendChild(creditContainer);
+		this.scrollCredits();
     }
+
+	scrollCredits() {
+		let creditContainer = document.getElementById('creditContainer');
+		let creditHeight = creditContainer.offsetHeight;
+		let currentTop = parseInt(window.getComputedStyle(creditContainer).top);
+
+		function scroll() {
+			currentTop -= 1;
+			creditContainer.style.top = currentTop + 'px';
+
+			if (Math.abs(currentTop) > creditHeight) {
+				currentTop = window.innerHeight;
+			}
+
+			setTimeout(scroll, 20);
+		}
+		scroll();
+	}
 
     loadButterflyScript() {
         let butterflyScript = document.createElement("script");
