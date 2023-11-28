@@ -50,3 +50,16 @@ Animation hitbox pour toutes les images
 	[ [ 236, 540] , [530,540] , [236, 759] , [ 530 ,759]    ]
 ]
 
+
+pour : jump
+Animation hitbox pour toutes les images
+[
+	[ [ 270, 360] , [410,360] , [270, 759] , [ 410 ,759]    ]
+]
+
+
+pour : jump_double
+Animation hitbox pour toutes les images
+[
+	[ [ 290, 440] , [460,440] , [290, 759] , [ 460 ,759]    ]
+]
