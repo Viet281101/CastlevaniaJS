@@ -24,6 +24,8 @@ class SettingsMenu {
         //// Butterfly ////
         let newCanvas = document.createElement('canvas');
         newCanvas.id = 'butterflyCanvas';
+        newCanvas.style.position = 'absolute'; 
+        newCanvas.style.zIndex = '1';
         document.body.appendChild(newCanvas);
         this.loadButterflyScript();
     }
@@ -45,6 +47,7 @@ class SettingsMenu {
 
     settingsParameters() {
         let settingsTable = document.createElement('table');
+        settingsTable.style.zIndex = '2';
 		settingsTable.style.position = 'fixed';
         settingsTable.style.top = '50%';
         settingsTable.style.left = '50%';
