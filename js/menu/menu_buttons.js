@@ -43,7 +43,7 @@ function createMenuButtons() {
 		button.className = 'menuButton';
 		button.id = buttonText.toLowerCase() + 'Button';
 		button.textContent = buttonText;
-		button.style.animation = 'buttonApear 3s ease-out forwards';
+		button.style.animation = 'buttonApear 2s ease-out forwards';
 		buttonContainer.appendChild(button);
 	});
 	document.body.appendChild(buttonContainer);

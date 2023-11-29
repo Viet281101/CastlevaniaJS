@@ -115,7 +115,7 @@ function createFadeInIntro() {
     fadeInDiv.style.left = '0';
     fadeInDiv.style.width = '100%';
     fadeInDiv.style.height = '100%';
-    fadeInDiv.style.animation = 'fadeIn 23s forwards';
+    fadeInDiv.style.animation = 'fadeIn 20s forwards';
     document.body.appendChild(fadeInDiv);
 
     var introBackgroundDiv = document.createElement('div');
@@ -128,12 +128,12 @@ function createFadeInIntro() {
     introBackgroundDiv.style.backgroundImage = "url('./assets/Castlevania.png')";
     introBackgroundDiv.style.backgroundSize = 'cover';
     introBackgroundDiv.style.zIndex = 10;
-    introBackgroundDiv.style.animation = 'introFadeIn 10s ease-out forwards';
+    introBackgroundDiv.style.animation = 'introFadeIn 8s ease-out forwards';
     document.body.appendChild(introBackgroundDiv);
 
     introBackgroundDiv.addEventListener('animationend', function() {
         introBackgroundDiv.remove();
-        setTimeout(() => { fadeInDiv.remove(); }, 3000);
+        setTimeout(() => { fadeInDiv.remove(); }, 2500);
         document.dispatchEvent(new CustomEvent('introAnimationEnded'));
     });
 };
