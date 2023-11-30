@@ -23,6 +23,8 @@ class CreditMenu {
         //// Butterfly ////
         let newCanvas = document.createElement('canvas');
         newCanvas.id = 'butterflyCanvas';
+        newCanvas.style.position = 'absolute'; 
+        newCanvas.style.zIndex = '1';
         document.body.appendChild(newCanvas);
         this.loadButterflyScript();
     }
@@ -31,8 +33,9 @@ class CreditMenu {
         let creditContainer = document.createElement('div');
         creditContainer.id = 'creditContainer';
         creditContainer.style.position = 'fixed';
-		creditContainer.style.zIndex = 5;
+		creditContainer.style.zIndex = 2;
         creditContainer.style.left = '50%';
+        creditContainer.style.top = '50%';
         creditContainer.style.transform = 'translateX(-50%)';
         creditContainer.style.textAlign = 'center';
         creditContainer.style.overflow = 'hidden';
@@ -64,7 +67,7 @@ class CreditMenu {
             creditContainer.appendChild(credit);
         });
         document.body.appendChild(creditContainer);
-		this.scrollCredits();
+		// this.scrollCredits();
     }
 
 	scrollCredits() {

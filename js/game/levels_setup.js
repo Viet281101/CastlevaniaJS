@@ -53,6 +53,11 @@ function loadScripts() {
 	musicsScript.setAttribute("src", "./js/sound/music.js");
 	document.head.appendChild(musicsScript);
 
+	let keysetupScript = document.createElement("script");
+	keysetupScript.setAttribute("type", "text/javascript");
+	keysetupScript.setAttribute("src", "./js/game/keys_setup.js");
+	document.head.appendChild(keysetupScript);
+
 	fadeInEffect();
 	defineFadeInKeyframes();
 
