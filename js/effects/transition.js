@@ -1,5 +1,5 @@
 
-//////*  Transition Effect   *//////
+//////*  Transition Screen Fade Out Effect   *//////
 class TransitionEffect {
     constructor() {
         this.transitionScreen = document.createElement('div');

@@ -1,3 +1,4 @@
+////* File: levels_setup.js -> this file is used to load the scripts of the game levels *////
 
 let part = String(window.location).split("?")[1];
 
@@ -28,10 +29,11 @@ let parts = {
 switch(part) {
 	case "00": case "01": case "02": break;
 	default:
-		part = "01";
+		levelDisplay = part = "01";
 };
 
 function loadScripts() {
+	levelDisplay = part;
 	for (let index = 0; index < parts[part].length; index ++) {
 		let script = document.createElement("script");
 		script.setAttribute("type", "text/javascript");
@@ -43,6 +45,11 @@ function loadScripts() {
 	transitionEffectScript.setAttribute("src", "./js/effects/transition.js");
 	document.head.appendChild(transitionEffectScript);
 
+	let gameStatsScript = document.createElement("script");
+	gameStatsScript.setAttribute("type", "text/javascript");
+	gameStatsScript.setAttribute("src", "./js/game/stats.js");
+	document.head.appendChild(gameStatsScript);
+
 	let soundScript = document.createElement("script");
 	soundScript.setAttribute("type", "text/javascript");
 	soundScript.setAttribute("src", "./js/sound/sound.js");
@@ -53,15 +60,10 @@ function loadScripts() {
 	musicsScript.setAttribute("src", "./js/sound/music.js");
 	document.head.appendChild(musicsScript);
 
-	let keysetupScript = document.createElement("script");
-	keysetupScript.setAttribute("type", "text/javascript");
-	keysetupScript.setAttribute("src", "./js/game/keys_setup.js");
-	document.head.appendChild(keysetupScript);
-
 	fadeInEffect();
 	defineFadeInKeyframes();
 
-	console.log("Loaded part " + part + " of the game.");
+	console.log("Loaded part " + levelDisplay + " of the game.");
 };
 function fadeInEffect() {
 	var fadeInDiv = document.createElement('div');
