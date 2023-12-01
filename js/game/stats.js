@@ -103,3 +103,36 @@ function changeOption(key){
 		document.getElementById('mess').innerHTML = 'You can\'t use this key';
 	}
 }
+
+////// Need to complete those functions after //////
+//// Display message to change key ////
+function dispMess(id, text){
+	document.getElementById('mess').innerHTML = 'Press a key to change '+text+' key';
+	optionId = id;
+}
+
+//// Save and load game ////
+function saveGame() {
+	let save = {
+		levelDisplay: levelDisplay,
+		score: score,
+		currentScore: currentScore,
+		playerCharacter: playerCharacter,
+		playerHealth: playerHealth,
+		playerMaxHealth: playerMaxHealth,
+		userKeys: userKeys
+	};
+	localStorage.setItem("save", JSON.stringify(save));
+}
+function loadGame() {
+	let save = JSON.parse(localStorage.getItem("save"));
+	if (save) {
+		levelDisplay = save.levelDisplay;
+		score = save.score;
+		currentScore = save.currentScore;
+		playerCharacter = save.playerCharacter;
+		playerHealth = save.playerHealth;
+		playerMaxHealth = save.playerMaxHealth;
+		userKeys = save.userKeys;
+	}
+}
