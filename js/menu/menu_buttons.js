@@ -37,7 +37,7 @@ function createMenuButtons() {
 	buttonContainer.style.transform = 'translate(-50%, -50%)';
 	buttonContainer.style.textAlign = 'center';
 	buttonContainer.style.zIndex = 3;
-	var buttons = ['Start', 'Credit', 'Setting', 'Quit'];
+	var buttons = ['Start','Demo', 'Credit', 'Setting', 'Quit'];
 	buttons.forEach(function(buttonText) {
 		var button = document.createElement('button');
 		button.className = 'menuButton';
@@ -67,6 +67,19 @@ function attachMenuButtonEvents() {
 		transitionEffect.start("game.html?01");
 		clickSound.play();
 		stopMusic(mainMenuMusic);
+	});
+
+	document.getElementById('demoButton').addEventListener('click', function () {
+		clickSound.play();
+		stopMusic(mainMenuMusic);
+		let menuCreditScript = document.createElement("script");
+		menuCreditScript.setAttribute("type", "text/javascript");
+		menuCreditScript.setAttribute("src", "./js/menu/menu_demo.js");
+		document.body.appendChild(menuCreditScript);
+		transitionEffect.start(function() {
+			let creditMenu = new CreditMenu();
+			creditMenu.show();
+		});
 	});
 
 	//////*  Credits button   *//////
