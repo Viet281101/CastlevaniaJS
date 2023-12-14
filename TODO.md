@@ -1,6 +1,7 @@
 
 # TODO liste
 
+Tout d'abord, je vais vous expliquer brièvement les dossiers du projet en cours
 
 ### Présentation de la configuration actuelle du code (08/12/2023)
 
@@ -62,7 +63,7 @@
 ### TODO liste, les trucs à faire:
 
 1) Compléter de concevoir les niveau 1 (**lvl1/**) et 2 (**lvl2/**) du jeu
-    - Disposer les tiles [!alt text](assets/Tiles/tiles_grid.png) sur l'écran de jeu (Référer part 3 et 4 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
+    - Disposer les tiles ![alt text](assets/Tiles/tiles_grid.png) sur l'écran de jeu (Référer part 3 et 4 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
     - Faire animation pour le personnage (Référer part 5 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
