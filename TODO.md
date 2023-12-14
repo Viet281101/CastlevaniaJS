@@ -1,102 +1,34 @@
 
 # TODO liste
 
-Voici 2 parties, une introduction au code et une liste de choses à faire
-
-
-### Présentation de la configuration actuelle du code (08/12/2023)
-
-Tout d'abord, je vais vous expliquer brièvement les dossiers du projet en cours
-
-
-- HTML: 
-  + **index.html** : main menu du jeu
-  + **game.html** : lancer le jeu
-
-
-- CSS:
-  + **style.css** : style du menu
-  + **game_ui.css** : style du jeu
-
-
-- JAVASCRIPT (path: js/):
-  
-  - **menu/** contient tous les fichiers JavaScript liés à la configuration du menu
-    + **menu_background.js** : Exécuter l'image d'arrière+plan pour le menu principal
-    + **menu_buttons.js** : Exécuter les buttons
-    + **menu_credits.js** : Exécuter la page crédits du menu
-    + **menu_settings.js** : Exécuter la page des paramètres du menu
-    + **menu_pause.js** : Exécuter la page de pause du jeu
-  
-
-
-  - **game/** contient tous les fichiers JavaScript du jeu
-    - **levels_setup.js** : gérer les niveaux de jeu
-    - **stats.js** : gérer les attributs, les données pour sauvegarder et charger le jeu
-    
-
-    - **baselevel/** exemple pour le système exécuter un niveau du jeu (Référer directement à partir de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
-      + **controller.js** : le contrôleur alerte uniquement l'utilisateur chaque fois qu'il appuie sur une touche, mais il définit également la classe ButtonInput, qui est utilisée pour suivre l'état des boutons
-      + **display.js** : gestionnaire d'événements de redimensionnement d'écran et gère également dessiner les couleurs dans le tampon, puis dans l'écran
-      + **game.js** : logique pour le niveau du jeu, progressivement modifiez
-      + **engine.js** : il s'agit d'une boucle de jeu à pas de temps fixe
-      + **main.js** : Il s'agit de la configuration de base ou "squelette" de programme. 
-        Il comporte trois parties principales : le contrôleur, l’affichage et la logique du jeu. 
-        Il dispose également d'un moteur qui combine le trois parties logiques qui sont par ailleurs complètement distinctes. 
-        Séparer le code en logique groupes est aussi un principe de programmation orientée objet, qui se prête à code compréhensible et maintenable ainsi que modularité.
-    
-
-    - **lvl1/** Le premier niveau du jeu (Les fichiers sont déjà expliqués dans **baselevel/**)
-      + **controller-01.js** 
-      + **display-01.js** 
-      + **game-01.js** 
-      + **main-01.js** 
-  
-
-    - **lvl2/** Le 2ème niveau du jeu
-      + **controller-02.js** 
-      + **display-02.js** 
-      + **game-02.js** 
-      + **main-02.js** 
-
-
-  - **effects/** contient tous les fichiers JavaScript liés aux effets visuels du projet
-    + **butterfly.js** : Exécuter au hassard de 1 à 4 papillons en mouvement sur l'écran
-    + **fireflies.js** : Exécuter de petits cercles de lumière qui se déplacent de manière aléatoire sur l'écran
-    + **fog.js** : Exécuter l'image de brouillard en mouvement en bas de l'écran
-    + **transition.js** : L'écran s'assombrit progressivement pour changer de scéne
-  
-
-  - **sound/** contient les fichiers JavaScript liés à l'audio du projet
-    + **music.js** : contient de la musique de font et des fonctions pour les utiliser
-    + **sound.js** : contient de les sons et des fonctions pour les utiliser
-
-
-
-
+Voici une checklist pour les choses à faire
 
 ### TODO liste, les trucs à faire:
 
 1) Compléter de concevoir les niveau 1 (**lvl1/**) et 2 (**lvl2/**) du jeu
-    - Disposer les tiles ![alt text](assets/Tiles/tiles_grid.png) sur l'écran de jeu (Référer part 3 et 4 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
+    - [ ] Disposer les tiles ![alt text](assets/Tiles/tiles_grid.png) sur l'écran de jeu (Référer part 3 et 4 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
-    - Faire animation pour le personnage (Référer part 5 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
+    - [ ] Faire animation pour le personnage (Référer part 5 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
-    - Créer des ennemis (Référer cette vidéo tuto [Simple Enemy AI in JavaScript](https://www.youtube.com/watch?v=zbqwFb8DJgQ))
+    - [ ] Créer des ennemis (Référer cette vidéo tuto [Simple Enemy AI in JavaScript](https://www.youtube.com/watch?v=zbqwFb8DJgQ))
     
-    - Créer la musique de fond pour chaque niveau
+    - [ ] Créer la musique de fond pour chaque niveau
     
-    - Créer GUI pour les niveaux (HP bar, barre d'endurence, etc)
+    - [ ] Créer GUI pour les niveaux (HP bar, barre d'endurence, etc)
     
-    - (Option) Créer des décoration pour les niveaux du jeu (dans ./assets/Decorations/)
+    - [ ] (Option) Créer des décoration pour les niveaux du jeu (dans ./assets/Decorations/)
     
-    - (Option) Créer une cinématique supplémentaire entre les niveaux
+    - [ ] (Option) Créer une cinématique supplémentaire entre les niveaux
     
-    - (Option) Ajouter des effets graphiques, des shaders pour chaque niveau du jeu
+    - [ ] (Option) Ajouter des effets graphiques, des shaders pour chaque niveau du jeu
     
-    - Crée les conditions pour terminer un niveau et passer à un autre niveau (lvl1 -> lvl2)
+    - [ ] Crée les conditions pour terminer un niveau et passer à un autre niveau (lvl1 -> lvl2)
 
 2) Compléter le menu pause du jeu (par exemple, appuyer le bouton "**P**" arrêtera le jeu et afficher l'écran du menu pause avec les boutons **Continuer**, **Setting**, **Quit**)
+   - [ ] completer le fichier "js/menu/menu_pause.js", ajouter des boutons
+   - [ ] ajouter une touche pour appeler l'écran pause dans le jeu
 
-3) Créer plus des niveaux du jeu et des combats de boss
+4) Créer plus des niveaux du jeu et des combats de boss
+   - [ ] js/game/lvl3/
+   - [ ] js/game/boss_fight/
 
