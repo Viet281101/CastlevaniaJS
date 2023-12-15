@@ -1,0 +1,29 @@
+
+coordonée donnée sous la forme des 4 points de la boite comme ceci :
+
+   
+XY        X2 Y2
+  ________
+  |      |
+  | 	 |
+  ________
+
+X3 Y3 	 X4Y4
+
+
+
+
+pour :
+    	ghost_appear (apparition_fantome) ,
+	ghost_attack,
+	ghost_moving
+
+Animation hitbox pour toutes les images
+[
+	[ [ 245, 415] , [385,373] , [245, 650] , [ 385 ,650]    ]
+]
+
+
+pour : ghost_death  
+rien car il est mort
+
