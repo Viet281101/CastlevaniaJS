@@ -22,3 +22,10 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
 3) Fonts:
    - Castlevania Font : download from [here](https://hyperpix.net/fonts/castlevania-font/)
      
+
+
+### Participants:
+- Viet Nguyen 
+- Damien Geoffroy
+- Wilfried Ben Brahim
+- Alexandre L'humeau

@@ -9,7 +9,7 @@ const Display = function(canvas) {
 	/* This function draws the map to the buffer. */
 	this.drawMap = function(map, columns) {
 
-		for (let index = map.length - 1; index > -1; -- index) {
+		for (let index = map.length; index > -1; -- index) {
 
 			let value = map[index];
 			let source_x =           (value % this.tile_sheet.columns) * this.tile_sheet.tile_size;
@@ -30,7 +30,7 @@ const Display = function(canvas) {
 	};
 
 	this.drawPlayer = function(rectangle, color1, color2) {
-
+		this.buffer.clearRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 		this.buffer.fillStyle = color1;
 		this.buffer.fillRect(
 			Math.round(rectangle.x), 

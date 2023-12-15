@@ -231,7 +231,7 @@ Game.World.Object.prototype = {
   
 Game.World.Player = function(x, y) {
 
-	Game.World.Object.call(this, 100, 100, 32, 32);
+	Game.World.Object.call(this, 100, 100, 20, 20);
 
 	this.color1     = "#404040";
 	this.color2     = "#f0f0f0";
@@ -247,13 +247,13 @@ Game.World.Player.prototype = {
 	jump:function() {
 		if (!this.jumping) {
 			this.jumping     = true;
-			this.velocity_y -= 35;
+			this.velocity_y -= 30;
 
 		}
 	},
 
-	moveLeft:function()  { this.velocity_x -= 1.0; },
-	moveRight:function() { this.velocity_x += 1.0; },
+	moveLeft:function()  { this.velocity_x -= 1.5; },
+	moveRight:function() { this.velocity_x += 1.5; },
 
 	update:function() {
 
