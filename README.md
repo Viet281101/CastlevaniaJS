@@ -16,7 +16,7 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
 
 2) Images:
    - Tiles Assets Packs : [2D Environment Platformer Asset Pack: Castle of Despair](https://brullov.itch.io/2d-platformer-asset-pack-castle-of-despair)
-   - Player : [Sprite Héros (Alucard)](https://www.castlevaniacrypt.com/wp-content/img/sotn/sprites/alucard-8.png)
+   - Player : [Sprite Héros (Alucard)](https://www.castlevaniacrypt.com/wp-content/img/sotn/sprites/alucard.png)
    - Butterfly : [OpenGameArt.org with the forest monsters pack](https://opengameart.org/content/forest-monsters)
 
 3) Fonts:

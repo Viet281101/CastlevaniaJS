@@ -31,31 +31,17 @@ Game.World = function(friction = 0.9, gravity = 3) {
 				73,74,73,74,73,74,73,74,73,73,73,74,73,73,74,74,73,74,73,74,
 				73,74,73,74,73,74,73,74,73,73,73,74,73,73,74,74,73,74,73,74,
 				73,74,73,74,73,74,73,74,73,73,73,74,73,73,74,74,73,74,73,74,
-				00,01,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,03];
+				0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3];
 
-	/* These collision values correspond to collision functions in the Collider class.
-	00 is nothing. everything else is run through a switch statement and routed to the
-	appropriate collision functions. These particular values aren't arbitrary. Their binary
-	representation can be used to describe which sides of the tile have boundaries.
-
-	0000 = 0  tile 0:    0    tile 1:   1     tile 2:    0    tile 15:    1
-	0001 = 1           0   0          0   0            0   1            1   1
-	0010 = 2             0              0                0                1
-	1111 = 15        No walls     Wall on top      Wall on Right      four walls
-
-	This binary representation can be used to describe which sides of a tile are boundaries.
-	Each bit represents a side: 0 0 0 0 = l b r t (left bottom right top). Keep in mind
-	that this is just one way to look at it. You could assign your collision values
-	any way you want. */
-	this.collision_map = [00,04,04,04,00,00,04,04,04,04,04,04,04,00,04,04,04,04,04,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-						  00,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01];
+	this.collision_map = [ 0, 4, 4, 4, 0, 0, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 	this.height   = this.tile_size * this.rows;
 	this.width    = this.tile_size * this.columns;
