@@ -10,7 +10,7 @@ var gamePaused;
 var enemiesKilled;
 var levelDisplay;
 var currentLevel;
-var currentZone;
+var currentZone = "00";
 
 var score = 0;
 var currentScore = 0;

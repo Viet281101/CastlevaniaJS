@@ -21,6 +21,7 @@ const Game = function() {
 		animate:function() {
 			switch(this.mode) {
 				case "loop" : this.loop(); break;
+				case "once" : this.play(); break;
 				case "pause":              break;
 			}
 		},
@@ -45,7 +46,23 @@ const Game = function() {
 
 				this.frame_value = this.frame_set[this.frame_index];
 			}
-		}
+		},
+
+		//// play animation once ////
+		play:function() {
+			this.count ++;
+			while(this.count > this.delay) {
+				this.count -= this.delay;
+
+				if (this.frame_index < this.frame_set.length - 1) {
+					this.frame_index ++;
+				} else {
+					this.mode = "pause";
+				}
+
+				this.frame_value = this.frame_set[this.frame_index];
+			}
+		},
 	};
   
 	Game.Collider = function() {
@@ -128,7 +145,7 @@ const Game = function() {
 				return true;
 
 			} return false;
-		}
+		},
 	};
 
 	Game.Frame = function(x, y, width, height, offset_x, offset_y) {
@@ -221,6 +238,7 @@ const Game = function() {
 		Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 6);
 
 		this.jumping     = true;
+		this.squatting   = false;
 		this.direction_x = -1;
 		this.velocity_x  = 0;
 		this.velocity_y  = 0;
@@ -234,6 +252,8 @@ const Game = function() {
 			"jump-right": [17, 18, 19, 20, 21, 22, 23],
 			"move-left" : [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38],
 			"move-right": [39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 ,50, 51, 52, 53],
+			"sit-left"  : [54, 55, 56, 57, 58, 59, 60, 61, 62, 63 ,64, 65, 66, 67, 68, 69],
+			"sit-right" : [70, 71, 72, 73, 74, 75, 76, 77, 78, 79 ,80, 81, 82, 83, 84, 85],
 		},
 
 		jump: function() {
@@ -254,6 +274,12 @@ const Game = function() {
 			this.velocity_x += 0.55;
 		},
 
+		squat:function() {
+			if (!this.jumping) {
+				this.squatting = true;
+			}
+		},
+
 		updateAnimation:function() {
 			if (this.velocity_y < 0) {
 				if (this.direction_x < 0) {
@@ -265,13 +291,28 @@ const Game = function() {
 				}
 			} else if (this.direction_x < 0) {
 				if (this.velocity_x < -0.1) {
-					this.changeFrameSet(this.frame_sets["move-left"], "loop", 15);
+					this.changeFrameSet(this.frame_sets["move-left"], "once", 15);
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
 				}
 			} else if (this.direction_x > 0) {
 				if (this.velocity_x > 0.1) {
-					this.changeFrameSet(this.frame_sets["move-right"], "loop", 15);
+					this.changeFrameSet(this.frame_sets["move-right"], "once", 15);
+				} else {
+					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
+				}
+			}
+			if (this.squatting) {
+				if (this.direction_x < 0) {
+					this.changeFrameSet(this.frame_sets["sit-left"], "once", 11);
+					this.squatting = false;
+				} else {
+					this.changeFrameSet(this.frame_sets["sit-right"], "once", 11);
+					this.squatting = false;
+				}
+			} else if (!this.squatting) {
+				if (this.direction_x < 0) {
+					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
 				}
@@ -376,6 +417,42 @@ const Game = function() {
 			new f( 4416,   0, 92, 76, 8, 0), // 51
 			new f( 4508,   0, 92, 76, 8, 0), // 52
 			new f( 4400,   0, 92, 76, 8, 0), // 53
+
+			//// Sit Down Left ////
+			new f( 4692,  76, 92, 76, -8, 0), // 54
+			new f( 4784,  76, 92, 76, -8, 0), // 55
+			new f( 4876,  76, 92, 76, -8, 0), // 56
+			new f( 4968,  76, 92, 76, -8, 0), // 57
+			new f( 5060,  76, 92, 76, -8, 0), // 58
+			new f( 5152,  76, 92, 76, -8, 0), // 59
+			new f( 5244,  76, 92, 76, -8, 0), // 60
+			new f( 5336,  76, 92, 76, -8, 0), // 61
+			new f( 5428,  76, 92, 76, -8, 0), // 62
+			new f( 5520,  76, 92, 76, -8, 0), // 63
+			new f( 5612,  76, 92, 76, -8, 0), // 64
+			new f( 5704,  76, 92, 76, -8, 0), // 65
+			new f( 5796,  76, 92, 76, -8, 0), // 66
+			new f( 5888,  76, 92, 76, -8, 0), // 67
+			new f( 5980,  76, 92, 76, -8, 0), // 68
+			new f( 6072,  76, 92, 76, -8, 0), // 69
+
+			//// Sit Down Right ////
+			new f( 4692,   0, 92, 76, 8, 0), // 70
+			new f( 4784,   0, 92, 76, 8, 0), // 71
+			new f( 4876,   0, 92, 76, 8, 0), // 72
+			new f( 4968,   0, 92, 76, 8, 0), // 73
+			new f( 5060,   0, 92, 76, 8, 0), // 74
+			new f( 5152,   0, 92, 76, 8, 0), // 75
+			new f( 5244,   0, 92, 76, 8, 0), // 76
+			new f( 5336,   0, 92, 76, 8, 0), // 77
+			new f( 5428,   0, 92, 76, 8, 0), // 78
+			new f( 5520,   0, 92, 76, 8, 0), // 79
+			new f( 5612,   0, 92, 76, 8, 0), // 80
+			new f( 5704,   0, 92, 76, 8, 0), // 81
+			new f( 5796,   0, 92, 76, 8, 0), // 82
+			new f( 5888,   0, 92, 76, 8, 0), // 83
+			new f( 5980,   0, 92, 76, 8, 0), // 84
+			new f( 6072,   0, 92, 76, 8, 0), // 85
 		];
 	};
 	Game.TileSet.prototype = { constructor: Game.TileSet };
@@ -392,7 +469,7 @@ const Game = function() {
 		this.tile_set  = new Game.TileSet(18, 32);
 		this.player    = new Game.Player(playerPosX, playerPosY);
 
-		this.zone_id   = "00";// The current zone.
+		this.zone_id   = currentZone;
 
 		this.doors     = [];// The array of doors in the level.
 		this.door      = undefined;
