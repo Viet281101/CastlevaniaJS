@@ -1,0 +1,56 @@
+
+coordonée donnée sous la forme des 4 points de la boite comme ceci :
+
+   
+XY        X2 Y2
+  ________
+  |      |
+  | 	 |
+  ________
+
+X3 Y3 	 X4Y4
+
+
+
+
+pour :
+    	Attack,
+
+	  Animation hitbox pour images 1-4
+	  [
+  	     [ [ 250, 380] , [400,380] , [250, 759] , [ 400 ,759]    ]
+	  ]
+
+	  Animation hitbox pour images 5-7
+	  [
+	    [ [ 265, 380] , [430,380] , [265, 759] , [ 430 ,759]    ]
+	  ]
+    	  Animation hitbox pour images 8
+	  [
+	    [ [ 265, 380] , [550,380] , [265, 759] , [ 550 ,759]    ]
+ 	  ]
+	  Animation hitbox pour images 9-12
+	  [
+	    [ [ 265, 415] , [590,415] , [265, 759] , [ 590 ,759]    ]
+	  ]
+
+	  Animation hitbox pour images 13
+	  [
+	     [ [ 265, 390] , [500,390] , [265, 759] , [ 500 ,759]    ]
+	  ]
+	  Animation hitbox pour images 14-16
+	  [
+  	     [ [ 250, 380] , [400,380] , [250, 759] , [ 400 ,759]    ]
+	  ]
+
+
+      Walking,
+	
+	Animation hitbox pour TOUTES images 
+	  [
+  	     [ [ 250, 380] , [400,380] , [250, 759] , [ 400 ,759]    ]
+	  ]
+
+pour : ghost_death  
+rien car il est mort
+
