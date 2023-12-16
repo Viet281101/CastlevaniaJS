@@ -101,6 +101,8 @@ const Game = function() {
 						if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
 						if (this.collidePlatformLeft   (object, tile_x            )) return;
 							this.collidePlatformRight  (object, tile_x + tile_size); break;
+				case 16:     this.collideSlopeTopRight  (object, tile_x + tile_size, tile_y, tile_size); break;
+				case 17:     this.collideSlopeTopLeft   (object, tile_x, tile_y, tile_size); break;
 			}
 		}
 	};
@@ -146,6 +148,32 @@ const Game = function() {
 
 			} return false;
 		},
+
+		collideSlopeTopLeft:function(object, tile_left, tile_right, tile_top) {
+			let y = tile_top - (object.getRight() - tile_left) - 1;
+
+			if (object.getTop() < y && object.getOldTop() >= y) {
+
+				object.setTop(y);
+				object.velocity_y = 0;
+				object.jumping    = false;
+				return true;
+
+			} return false;
+		},
+
+		collideSlopeTopRight:function(object, tile_left, tile_right, tile_top) {
+			let y = tile_top - (tile_right - object.getLeft()) - 1;
+
+			if (object.getTop() < y && object.getOldTop() >= y) {
+
+				object.setTop(y);
+				object.velocity_y = 0;
+				object.jumping    = false;
+				return true;
+
+			} return false;
+		},
 	};
 
 	Game.Frame = function(x, y, width, height, offset_x, offset_y) {
@@ -178,7 +206,7 @@ const Game = function() {
 		setCenterY: function(y) { this.y = y - this.height * 0.5;    },
 		setLeft   : function(x) { this.x = x;                        },
 		setRight  : function(x) { this.x = x - this.width;           },
-		setTop    : function(y) { this.y = y;                        }
+		setTop    : function(y) { this.y = y;                        },
 	};
 
 	Game.MovingObject = function(x, y, width, height, velocity_max = 15) {
@@ -250,10 +278,12 @@ const Game = function() {
 			"idle-right": [5, 6, 7, 8, 9],
 			"jump-left" : [10, 11, 12, 13, 14, 15, 16],
 			"jump-right": [17, 18, 19, 20, 21, 22, 23],
-			"move-left" : [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38],
-			"move-right": [39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 ,50, 51, 52, 53],
-			"sit-left"  : [54, 55, 56, 57, 58, 59, 60, 61, 62, 63 ,64, 65, 66, 67, 68, 69],
-			"sit-right" : [70, 71, 72, 73, 74, 75, 76, 77, 78, 79 ,80, 81, 82, 83, 84, 85],
+			"move-left" : [24, 25, 26, 27, 28, 29, 30, 31, 32, 33 ,34, 35, 36, 37],
+			"move-right": [38, 39, 40, 41, 42, 43, 44, 45, 46, 47 ,48, 49, 50, 51],
+			"sit-left"  : [52, 53, 54, 55, 56, 57, 58, 59, 60, 61 ,62, 63, 64, 65],
+			"sit-right" : [66, 67, 68, 69, 70, 71, 72, 73, 74, 75 ,76, 77, 78, 79],
+			"attack-left"  : [80, 81, 82, 83, 84, 85, 86, 87, 88, 89 ,90, 91, 92, 93, 94, 95, 96, 97, 98],
+			"attack-right" : [99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ,109, 110, 111, 112, 113, 114, 115, 116, 117]
 		},
 
 		jump: function() {
@@ -298,7 +328,7 @@ const Game = function() {
 				if (this.velocity_x < -0.1 && !this.jumping) {
 					this.changeFrameSet(this.frame_sets["move-left"], "once", 10);
 				} else if (this.squatting) {
-					this.changeFrameSet(this.frame_sets["sit-left"], "once", 15);
+					this.changeFrameSet(this.frame_sets["sit-left"], "once", 10);
 					this.squatting = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
@@ -307,7 +337,7 @@ const Game = function() {
 				if (this.velocity_x > 0.1 && !this.jumping) {
 					this.changeFrameSet(this.frame_sets["move-right"], "once", 10);
 				} else if (this.squatting) {
-					this.changeFrameSet(this.frame_sets["sit-right"], "once", 15);
+					this.changeFrameSet(this.frame_sets["sit-right"], "once", 10);
 					this.squatting = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
@@ -395,60 +425,97 @@ const Game = function() {
 			new f( 4324,  76, 92, 76, -8, 0), // 35
 			new f( 4416,  76, 92, 76, -8, 0), // 36
 			new f( 4508,  76, 92, 76, -8, 0), // 37
-			new f( 4400,  76, 92, 76, -8, 0), // 38
 						
 			//// Move Right ////
-			new f( 3312,   0, 92, 76, 8, 0), // 39
-			new f( 3404,   0, 92, 76, 8, 0), // 40
-			new f( 3496,   0, 92, 76, 8, 0), // 41
-			new f( 3588,   0, 92, 76, 8, 0), // 42
-			new f( 3680,   0, 92, 76, 8, 0), // 43
-			new f( 3772,   0, 92, 76, 8, 0), // 44
-			new f( 3864,   0, 92, 76, 8, 0), // 45
-			new f( 3956,   0, 92, 76, 8, 0), // 46
-			new f( 4048,   0, 92, 76, 8, 0), // 47
-			new f( 4140,   0, 92, 76, 8, 0), // 48
-			new f( 4232,   0, 92, 76, 8, 0), // 49
-			new f( 4324,   0, 92, 76, 8, 0), // 50
-			new f( 4416,   0, 92, 76, 8, 0), // 51
-			new f( 4508,   0, 92, 76, 8, 0), // 52
-			new f( 4400,   0, 92, 76, 8, 0), // 53
+			new f( 3312,   0, 92, 76, 8, 0), // 38
+			new f( 3404,   0, 92, 76, 8, 0), // 39
+			new f( 3496,   0, 92, 76, 8, 0), // 40
+			new f( 3588,   0, 92, 76, 8, 0), // 41
+			new f( 3680,   0, 92, 76, 8, 0), // 42
+			new f( 3772,   0, 92, 76, 8, 0), // 43
+			new f( 3864,   0, 92, 76, 8, 0), // 44
+			new f( 3956,   0, 92, 76, 8, 0), // 45
+			new f( 4048,   0, 92, 76, 8, 0), // 46
+			new f( 4140,   0, 92, 76, 8, 0), // 47
+			new f( 4232,   0, 92, 76, 8, 0), // 48
+			new f( 4324,   0, 92, 76, 8, 0), // 49
+			new f( 4416,   0, 92, 76, 8, 0), // 50
+			new f( 4508,   0, 92, 76, 8, 0), // 51
 
 			//// Sit Down Left ////
-			new f( 4692,  76, 92, 76, -8, 0), // 54
-			new f( 4784,  76, 92, 76, -8, 0), // 55
-			new f( 4876,  76, 92, 76, -8, 0), // 56
-			new f( 4968,  76, 92, 76, -8, 0), // 57
-			new f( 5060,  76, 92, 76, -8, 0), // 58
-			new f( 5152,  76, 92, 76, -8, 0), // 59
-			new f( 5244,  76, 92, 76, -8, 0), // 60
-			new f( 5336,  76, 92, 76, -8, 0), // 61
-			new f( 5428,  76, 92, 76, -8, 0), // 62
-			new f( 5520,  76, 92, 76, -8, 0), // 63
-			new f( 5612,  76, 92, 76, -8, 0), // 64
-			new f( 5704,  76, 92, 76, -8, 0), // 65
-			new f( 5796,  76, 92, 76, -8, 0), // 66
-			new f( 5888,  76, 92, 76, -8, 0), // 67
-			new f( 5980,  76, 92, 76, -8, 0), // 68
-			new f( 6072,  76, 92, 76, -8, 0), // 69
+			new f( 4692,  76, 92, 76, -8, 0), // 52
+			new f( 4784,  76, 92, 76, -8, 0), // 53
+			new f( 4876,  76, 92, 76, -8, 0), // 54
+			new f( 4968,  76, 92, 76, -8, 0), // 55
+			new f( 5060,  76, 92, 76, -8, 0), // 56
+			new f( 5152,  76, 92, 76, -8, 0), // 57
+			new f( 5244,  76, 92, 76, -8, 0), // 58
+			new f( 5336,  76, 92, 76, -8, 0), // 59
+			new f( 5428,  76, 92, 76, -8, 0), // 60
+			new f( 5520,  76, 92, 76, -8, 0), // 61
+			new f( 5612,  76, 92, 76, -8, 0), // 62
+			new f( 5704,  76, 92, 76, -8, 0), // 63
+			new f( 5796,  76, 92, 76, -8, 0), // 64
+			new f( 5888,  76, 92, 76, -8, 0), // 65
 
 			//// Sit Down Right ////
-			new f( 4692,   0, 92, 76, 8, 0), // 70
-			new f( 4784,   0, 92, 76, 8, 0), // 71
-			new f( 4876,   0, 92, 76, 8, 0), // 72
-			new f( 4968,   0, 92, 76, 8, 0), // 73
-			new f( 5060,   0, 92, 76, 8, 0), // 74
-			new f( 5152,   0, 92, 76, 8, 0), // 75
-			new f( 5244,   0, 92, 76, 8, 0), // 76
-			new f( 5336,   0, 92, 76, 8, 0), // 77
-			new f( 5428,   0, 92, 76, 8, 0), // 78
-			new f( 5520,   0, 92, 76, 8, 0), // 79
-			new f( 5612,   0, 92, 76, 8, 0), // 80
-			new f( 5704,   0, 92, 76, 8, 0), // 81
-			new f( 5796,   0, 92, 76, 8, 0), // 82
-			new f( 5888,   0, 92, 76, 8, 0), // 83
-			new f( 5980,   0, 92, 76, 8, 0), // 84
-			new f( 6072,   0, 92, 76, 8, 0), // 85
+			new f( 4692,   0, 92, 76, 8, 0), // 66
+			new f( 4784,   0, 92, 76, 8, 0), // 67
+			new f( 4876,   0, 92, 76, 8, 0), // 68
+			new f( 4968,   0, 92, 76, 8, 0), // 69
+			new f( 5060,   0, 92, 76, 8, 0), // 70
+			new f( 5152,   0, 92, 76, 8, 0), // 71
+			new f( 5244,   0, 92, 76, 8, 0), // 72
+			new f( 5336,   0, 92, 76, 8, 0), // 73
+			new f( 5428,   0, 92, 76, 8, 0), // 74
+			new f( 5520,   0, 92, 76, 8, 0), // 75
+			new f( 5612,   0, 92, 76, 8, 0), // 76
+			new f( 5704,   0, 92, 76, 8, 0), // 77
+			new f( 5796,   0, 92, 76, 8, 0), // 78
+			new f( 5888,   0, 92, 76, 8, 0), // 79
+
+			//// Attack Left ////
+			new f(  0,  76, 92, 76, -8, 0), // 80
+			new f( 92,  76, 92, 76, -8, 0), // 81
+			new f(184,  76, 92, 76, -8, 0), // 82
+			new f(276,  76, 92, 76, -8, 0), // 83
+			new f(368,  76, 92, 76, -8, 0), // 84
+			new f(460,  76, 92, 76, -8, 0), // 85
+			new f(552,  76, 92, 76, -8, 0), // 86
+			new f(644,  76, 92, 76, -8, 0), // 87
+			new f(736,  76, 92, 76, -8, 0), // 88
+			new f(828,  76, 92, 76, -8, 0), // 89
+			new f(920,  76, 92, 76, -8, 0), // 90
+			new f(1012, 76, 92, 76, -8, 0), // 91
+			new f(1104, 76, 92, 76, -8, 0), // 92
+			new f(1196, 76, 92, 76, -8, 0), // 93
+			new f(1288, 76, 92, 76, -8, 0), // 94
+			new f(1380, 76, 92, 76, -8, 0), // 95
+			new f(1472, 76, 92, 76, -8, 0), // 96
+			new f(1564, 76, 92, 76, -8, 0), // 97
+			new f(1656, 76, 92, 76, -8, 0), // 98
+
+			//// Attack Right ////
+			new f(  0,   0, 92, 76, 8, 0), // 99
+			new f( 92,   0, 92, 76, 8, 0), // 100
+			new f(184,   0, 92, 76, 8, 0), // 101
+			new f(276,   0, 92, 76, 8, 0), // 102
+			new f(368,   0, 92, 76, 8, 0), // 103
+			new f(460,   0, 92, 76, 8, 0), // 104
+			new f(552,   0, 92, 76, 8, 0), // 105
+			new f(644,   0, 92, 76, 8, 0), // 106
+			new f(736,   0, 92, 76, 8, 0), // 107
+			new f(828,   0, 92, 76, 8, 0), // 108
+			new f(920,   0, 92, 76, 8, 0), // 109
+			new f(1012,  0, 92, 76, 8, 0), // 110
+			new f(1104,  0, 92, 76, 8, 0), // 111
+			new f(1196,  0, 92, 76, 8, 0), // 112
+			new f(1288,  0, 92, 76, 8, 0), // 113
+			new f(1380,  0, 92, 76, 8, 0), // 114
+			new f(1472,  0, 92, 76, 8, 0), // 115
+			new f(1564,  0, 92, 76, 8, 0), // 116
+			new f(1656,  0, 92, 76, 8, 0), // 117
+
 		];
 	};
 	Game.TileSet.prototype = { constructor: Game.TileSet };
