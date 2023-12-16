@@ -9,12 +9,16 @@ var gameWon;
 var gamePaused;
 var enemiesKilled;
 var levelDisplay;
+var currentLevel;
+var currentZone;
 
 var score = 0;
 var currentScore = 0;
 var playerCharacter;
 var playerHealth;
 var playerMaxHealth;
+var playerPosX = 0;
+var playerPosY = 130;
 
 var optionId= '';
 const userKeys = {
@@ -117,12 +121,16 @@ function saveGame() {
 		levelDisplay: levelDisplay,
 		score: score,
 		currentScore: currentScore,
+		currentLevel: currentLevel,
+		currentZone: currentZone,
 		playerCharacter: playerCharacter,
 		playerHealth: playerHealth,
 		playerMaxHealth: playerMaxHealth,
+		playerPosX: playerPosX,
+		playerPosY: playerPosY,
 		userKeys: userKeys
 	};
-	localStorage.setItem("save", JSON.stringify(save));
+	localStorage.setItem("save",JSON.stringify(save));
 }
 function loadGame() {
 	let save = JSON.parse(localStorage.getItem("save"));
@@ -130,9 +138,13 @@ function loadGame() {
 		levelDisplay = save.levelDisplay;
 		score = save.score;
 		currentScore = save.currentScore;
+		currentLevel = save.currentLevel;
+		currentZone = save.currentZone;
 		playerCharacter = save.playerCharacter;
 		playerHealth = save.playerHealth;
 		playerMaxHealth = save.playerMaxHealth;
+		playerPosX = save.playerPosX;
+		playerPosY = save.playerPosY;
 		userKeys = save.userKeys;
 	}
 }

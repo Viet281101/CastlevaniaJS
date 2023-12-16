@@ -8,6 +8,8 @@ Voici une checklist pour les choses à faire
 1) Compléter de concevoir les niveau 1 (**lvl1/**) et 2 (**lvl2/**) du jeu
     - [ ] Disposer les tiles ![alt text](assets/Tiles/tiles_grid.png) sur l'écran de jeu (Référer part 3 et 4 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
+    - [ ] Faire l'animation des tiles et décorations (Référer [Tiles Animation](https://www.youtube.com/watch?v=AQABpi9nLfU&t=41s))
+    
     - [X] Faire animation pour le personnage (Référer part 5 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
     - [ ] Créer le Hitbox et HurtBox des characters

@@ -256,20 +256,25 @@ const Game = function() {
 
 		updateAnimation:function() {
 			if (this.velocity_y < 0) {
-
-				if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "loop", 8);
-				else this.changeFrameSet(this.frame_sets["jump-right"], "loop", 8);
-
+				if (this.direction_x < 0) {
+					this.changeFrameSet(this.frame_sets["jump-left"], "loop", 8);
+					this.velocity_x *= 1.2;
+				} else {
+					this.changeFrameSet(this.frame_sets["jump-right"], "loop", 8);
+					this.velocity_x *= 1.2;
+				}
 			} else if (this.direction_x < 0) {
-
-				if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 15);
-				else this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
-
+				if (this.velocity_x < -0.1) {
+					this.changeFrameSet(this.frame_sets["move-left"], "loop", 15);
+				} else {
+					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
+				}
 			} else if (this.direction_x > 0) {
-
-				if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 15);
-				else this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
-
+				if (this.velocity_x > 0.1) {
+					this.changeFrameSet(this.frame_sets["move-right"], "loop", 15);
+				} else {
+					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
+				}
 			}
 			this.animate();
 		},
@@ -290,6 +295,9 @@ const Game = function() {
 
 			this.x += this.velocity_x;
 			this.y += this.velocity_y;
+
+			playerPosX = this.x;
+			playerPosY = this.y;
 		}
 	};
 	Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
@@ -304,70 +312,70 @@ const Game = function() {
 
 		this.frames = [
 			//// Idle Left ////
-			new f(11776, 76, 92, 76, 0, 0), // 0
-			new f(11868, 76, 92, 76, 0, 0), // 1
-			new f(11960, 76, 92, 76, 0, 0), // 2 
-			new f(12052, 76, 92, 76, 0, 0), // 3
-			new f(12144, 76, 92, 76, 0, 0), // 4
+			new f(11776, 76, 92, 76, -8, 0), // 0
+			new f(11868, 76, 92, 76, -8, 0), // 1
+			new f(11960, 76, 92, 76, -8, 0), // 2 
+			new f(12052, 76, 92, 76, -8, 0), // 3
+			new f(12144, 76, 92, 76, -8, 0), // 4
 
 			//// Idle Right ////
-			new f(11776, 0, 92, 76, 0, 0), // 5
-			new f(11868, 0, 92, 76, 0, 0), // 6
-			new f(11960, 0, 92, 76, 0, 0), // 7
-			new f(12052, 0, 92, 76, 0, 0), // 8
-			new f(12144, 0, 92, 76, 0, 0), // 9
+			new f(11776,  0, 92, 76, 8, 0), // 5
+			new f(11868,  0, 92, 76, 8, 0), // 6
+			new f(11960,  0, 92, 76, 8, 0), // 7
+			new f(12052,  0, 92, 76, 8, 0), // 8
+			new f(12144,  0, 92, 76, 8, 0), // 9
 						
 			//// Jump Left ////
-			new f( 8188,  76, 92, 76, 0, 0), // 10
-			new f( 8280,  76, 92, 76, 0, 0), // 11
-			new f( 8372,  76, 92, 76, 0, 0), // 12
-			new f( 8464,  76, 92, 76, 0, 0), // 13
-			new f( 8556,  76, 92, 76, 0, 0), // 14
-			new f( 8648,  76, 92, 76, 0, 0), // 15
-			new f( 8740,  76, 92, 76, 0, 0), // 16
+			new f( 8188,  76, 92, 76, -8, 0), // 10
+			new f( 8280,  76, 92, 76, -8, 0), // 11
+			new f( 8372,  76, 92, 76, -8, 0), // 12
+			new f( 8464,  76, 92, 76, -8, 0), // 13
+			new f( 8556,  76, 92, 76, -8, 0), // 14
+			new f( 8648,  76, 92, 76, -8, 0), // 15
+			new f( 8740,  76, 92, 76, -8, 0), // 16
 
 			//// Jump Right ////
-			new f( 8188,  0, 92, 76, 0, 0), // 17
-			new f( 8280,  0, 92, 76, 0, 0), // 18
-			new f( 8372,  0, 92, 76, 0, 0), // 19
-			new f( 8464,  0, 92, 76, 0, 0), // 20
-			new f( 8556,  0, 92, 76, 0, 0), // 21
-			new f( 8648,  0, 92, 76, 0, 0), // 22
-			new f( 8740,  0, 92, 76, 0, 0), // 23
+			new f( 8188,  0, 92, 76, 8, 0), // 17
+			new f( 8280,  0, 92, 76, 8, 0), // 18
+			new f( 8372,  0, 92, 76, 8, 0), // 19
+			new f( 8464,  0, 92, 76, 8, 0), // 20
+			new f( 8556,  0, 92, 76, 8, 0), // 21
+			new f( 8648,  0, 92, 76, 8, 0), // 22
+			new f( 8740,  0, 92, 76, 8, 0), // 23
 						
 			//// Move Left ////
-			new f( 3312,  76, 92, 76, 0, 0), // 24
-			new f( 3404,  76, 92, 76, 0, 0), // 25
-			new f( 3496,  76, 92, 76, 0, 0), // 26
-			new f( 3588,  76, 92, 76, 0, 0), // 27
-			new f( 3680,  76, 92, 76, 0, 0), // 28
-			new f( 3772,  76, 92, 76, 0, 0), // 29
-			new f( 3864,  76, 92, 76, 0, 0), // 30
-			new f( 3956,  76, 92, 76, 0, 0), // 31
-			new f( 4048,  76, 92, 76, 0, 0), // 32
-			new f( 4140,  76, 92, 76, 0, 0), // 33
-			new f( 4232,  76, 92, 76, 0, 0), // 34
-			new f( 4324,  76, 92, 76, 0, 0), // 35
-			new f( 4416,  76, 92, 76, 0, 0), // 36
-			new f( 4508,  76, 92, 76, 0, 0), // 37
-			new f( 4400,  76, 92, 76, 0, 0), // 38
+			new f( 3312,  76, 92, 76, -8, 0), // 24
+			new f( 3404,  76, 92, 76, -8, 0), // 25
+			new f( 3496,  76, 92, 76, -8, 0), // 26
+			new f( 3588,  76, 92, 76, -8, 0), // 27
+			new f( 3680,  76, 92, 76, -8, 0), // 28
+			new f( 3772,  76, 92, 76, -8, 0), // 29
+			new f( 3864,  76, 92, 76, -8, 0), // 30
+			new f( 3956,  76, 92, 76, -8, 0), // 31
+			new f( 4048,  76, 92, 76, -8, 0), // 32
+			new f( 4140,  76, 92, 76, -8, 0), // 33
+			new f( 4232,  76, 92, 76, -8, 0), // 34
+			new f( 4324,  76, 92, 76, -8, 0), // 35
+			new f( 4416,  76, 92, 76, -8, 0), // 36
+			new f( 4508,  76, 92, 76, -8, 0), // 37
+			new f( 4400,  76, 92, 76, -8, 0), // 38
 						
 			//// Move Right ////
-			new f( 3312,   0, 92, 76, 0, 0), // 39
-			new f( 3404,   0, 92, 76, 0, 0), // 40
-			new f( 3496,   0, 92, 76, 0, 0), // 41
-			new f( 3588,   0, 92, 76, 0, 0), // 42
-			new f( 3680,   0, 92, 76, 0, 0), // 43
-			new f( 3772,   0, 92, 76, 0, 0), // 44
-			new f( 3864,   0, 92, 76, 0, 0), // 45
-			new f( 3956,   0, 92, 76, 0, 0), // 46
-			new f( 4048,   0, 92, 76, 0, 0), // 47
-			new f( 4140,   0, 92, 76, 0, 0), // 48
-			new f( 4232,   0, 92, 76, 0, 0), // 49
-			new f( 4324,   0, 92, 76, 0, 0), // 50
-			new f( 4416,   0, 92, 76, 0, 0), // 51
-			new f( 4508,   0, 92, 76, 0, 0), // 52
-			new f( 4400,   0, 92, 76, 0, 0), // 53
+			new f( 3312,   0, 92, 76, 8, 0), // 39
+			new f( 3404,   0, 92, 76, 8, 0), // 40
+			new f( 3496,   0, 92, 76, 8, 0), // 41
+			new f( 3588,   0, 92, 76, 8, 0), // 42
+			new f( 3680,   0, 92, 76, 8, 0), // 43
+			new f( 3772,   0, 92, 76, 8, 0), // 44
+			new f( 3864,   0, 92, 76, 8, 0), // 45
+			new f( 3956,   0, 92, 76, 8, 0), // 46
+			new f( 4048,   0, 92, 76, 8, 0), // 47
+			new f( 4140,   0, 92, 76, 8, 0), // 48
+			new f( 4232,   0, 92, 76, 8, 0), // 49
+			new f( 4324,   0, 92, 76, 8, 0), // 50
+			new f( 4416,   0, 92, 76, 8, 0), // 51
+			new f( 4508,   0, 92, 76, 8, 0), // 52
+			new f( 4400,   0, 92, 76, 8, 0), // 53
 		];
 	};
 	Game.TileSet.prototype = { constructor: Game.TileSet };
@@ -382,7 +390,7 @@ const Game = function() {
 		this.rows      = 9;
 
 		this.tile_set  = new Game.TileSet(18, 32);
-		this.player    = new Game.Player(136, 1);
+		this.player    = new Game.Player(playerPosX, playerPosY);
 
 		this.zone_id   = "00";// The current zone.
 
