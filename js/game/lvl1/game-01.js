@@ -261,6 +261,7 @@ const Game = function() {
 			if (!this.jumping && this.velocity_y < 10) {
 				this.jumping     = true;
 				this.velocity_y -= 20;
+				this.velocity_x *= 1.2;
 			}
 		},
 
@@ -280,39 +281,34 @@ const Game = function() {
 			}
 		},
 
+		attack:function() {
+			if (!this.jumping) {
+				this.attacking = true;
+			}
+		},
+
 		updateAnimation:function() {
 			if (this.velocity_y < 0) {
 				if (this.direction_x < 0) {
-					this.changeFrameSet(this.frame_sets["jump-left"], "loop", 8);
-					this.velocity_x *= 1.2;
+					this.changeFrameSet(this.frame_sets["jump-left"], "once", 15);
 				} else {
-					this.changeFrameSet(this.frame_sets["jump-right"], "loop", 8);
-					this.velocity_x *= 1.2;
+					this.changeFrameSet(this.frame_sets["jump-right"], "once", 15);
 				}
 			} else if (this.direction_x < 0) {
-				if (this.velocity_x < -0.1) {
-					this.changeFrameSet(this.frame_sets["move-left"], "once", 15);
+				if (this.velocity_x < -0.1 && !this.jumping) {
+					this.changeFrameSet(this.frame_sets["move-left"], "once", 10);
+				} else if (this.squatting) {
+					this.changeFrameSet(this.frame_sets["sit-left"], "once", 15);
+					this.squatting = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
 				}
 			} else if (this.direction_x > 0) {
-				if (this.velocity_x > 0.1) {
-					this.changeFrameSet(this.frame_sets["move-right"], "once", 15);
-				} else {
-					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
-				}
-			}
-			if (this.squatting) {
-				if (this.direction_x < 0) {
-					this.changeFrameSet(this.frame_sets["sit-left"], "once", 11);
+				if (this.velocity_x > 0.1 && !this.jumping) {
+					this.changeFrameSet(this.frame_sets["move-right"], "once", 10);
+				} else if (this.squatting) {
+					this.changeFrameSet(this.frame_sets["sit-right"], "once", 15);
 					this.squatting = false;
-				} else {
-					this.changeFrameSet(this.frame_sets["sit-right"], "once", 11);
-					this.squatting = false;
-				}
-			} else if (!this.squatting) {
-				if (this.direction_x < 0) {
-					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
 				}

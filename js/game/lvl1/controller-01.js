@@ -4,19 +4,21 @@
 
 const Controller = function() {
 
-	this.left  = new Controller.ButtonInput();
-	this.right = new Controller.ButtonInput();
-	this.up    = new Controller.ButtonInput();
-	this.squat = new Controller.ButtonInput();
+	this.left   = new Controller.ButtonInput();
+	this.right  = new Controller.ButtonInput();
+	this.up     = new Controller.ButtonInput();
+	this.squat  = new Controller.ButtonInput();
+	this.attack = new Controller.ButtonInput();
 
 	this.keyDownUp = function(type, key_code) {
 
 		var down = (type == "keydown") ? true : false;
 
 		switch(key_code) {
-			case userKeys.LEFT:  this.left.getInput(down);  break;
-			case userKeys.UP:    this.up.getInput(down);    break;
-			case userKeys.DOWN:  this.squat.getInput(down); break;
+			case userKeys.LEFT:  this.left.getInput(down);   break;
+			case userKeys.UP:    this.up.getInput(down);     break;
+			case userKeys.DOWN:  this.squat.getInput(down);  break;
+			case userKeys.SPACE: this.attack.getInput(down); break;
 			case userKeys.RIGHT: this.right.getInput(down);
 		}
 

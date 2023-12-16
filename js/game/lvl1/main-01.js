@@ -92,10 +92,11 @@ window.addEventListener("load", function(event) {
 	};
 
 	var update = function() {
-		if (controller.left.active ) { game.world.player.moveLeft (); }
-		if (controller.right.active) { game.world.player.moveRight(); }
-		if (controller.squat.active) { game.world.player.squat();   }
-		if (controller.up.active   ) { 
+		if (controller.left.active  )  { game.world.player.moveLeft (); }
+		if (controller.right.active )  { game.world.player.moveRight(); }
+		if (controller.squat.active )  { game.world.player.squat();     }
+		if (controller.attack.active)  { game.world.player.attack();    }
+		if (controller.up.active    )  { 
 			game.world.player.jump();
 			controller.up.active = false; 
 		}
