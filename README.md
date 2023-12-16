@@ -31,4 +31,4 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
 - Viet Nguyen 
 - Damien Geoffroy
 - Wilfried Ben Brahim
-- Alexandre L'humeau
+- Jonny Mathanaruban

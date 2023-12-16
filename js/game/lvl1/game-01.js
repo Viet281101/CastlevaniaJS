@@ -8,13 +8,13 @@ const Game = function() {
 	};
 	Game.prototype = { constructor : Game };
 
-	Game.Animator = function(frame_set, delay) {
+	Game.Animator = function(frame_set, delay, mode = "loop") {
 		this.count       = 0;
 		this.delay       = (delay >= 1) ? delay : 1;
 		this.frame_set   = frame_set;
 		this.frame_index = 0;
 		this.frame_value = frame_set[0];
-		this.mode        = "pause";
+		this.mode        = mode;
 	};
 	Game.Animator.prototype = {
 		constructor:Game.Animator,
@@ -66,7 +66,6 @@ const Game = function() {
 	};
   
 	Game.Collider = function() {
-		/* I changed this so all the checks happen in y first order. */
 		this.collide = function(value, object, tile_x, tile_y, tile_size) {
 			switch(value) {
 				case  1:     this.collidePlatformTop    (object, tile_y            ); break;
@@ -101,8 +100,8 @@ const Game = function() {
 						if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
 						if (this.collidePlatformLeft   (object, tile_x            )) return;
 							this.collidePlatformRight  (object, tile_x + tile_size); break;
-				case 16:     this.collideSlopeTopRight  (object, tile_x + tile_size, tile_y, tile_size); break;
-				case 17:     this.collideSlopeTopLeft   (object, tile_x, tile_y, tile_size); break;
+				case 16:     this.collideSlopeRight  (object, tile_x + tile_size, tile_y, tile_size); break;
+				case 17:     this.collideSlopeLeft   (object, tile_x, tile_y, tile_size); break;
 			}
 		}
 	};
@@ -149,30 +148,42 @@ const Game = function() {
 			} return false;
 		},
 
-		collideSlopeTopLeft:function(object, tile_left, tile_right, tile_top) {
-			let y = tile_top - (object.getRight() - tile_left) - 1;
+		collideSlopeLeft:function(object, tile_x, tile_y, tile_size) {
+			var tile_bottom = tile_y + tile_size;
+			var tile_right  = tile_x + tile_size;
 
-			if (object.getTop() < y && object.getOldTop() >= y) {
+			var object_bottom = object.getBottom();
+			var object_right  = object.getRight();
 
-				object.setTop(y);
-				object.velocity_y = 0;
-				object.jumping    = false;
-				return true;
-
-			} return false;
+			if (object_bottom > tile_y && object_right > tile_x) {
+				var slope = (tile_bottom - object.getTop()) / (tile_right - object.getLeft());
+				if (slope > 1) {
+					object.setBottom(tile_bottom);
+					object.velocity_y = 0;
+				} else if (slope < 1) {
+					object.setRight(tile_right);
+					object.velocity_x = 0;
+				}
+			}
 		},
 
-		collideSlopeTopRight:function(object, tile_left, tile_right, tile_top) {
-			let y = tile_top - (tile_right - object.getLeft()) - 1;
+		collideSlopeRight:function(object, tile_x, tile_y, tile_size) {
+			var tile_bottom = tile_y + tile_size;
+			var tile_left   = tile_x;
 
-			if (object.getTop() < y && object.getOldTop() >= y) {
+			var object_bottom = object.getBottom();
+			var object_left   = object.getLeft();
 
-				object.setTop(y);
-				object.velocity_y = 0;
-				object.jumping    = false;
-				return true;
-
-			} return false;
+			if (object_bottom > tile_y && object_left < tile_x) {
+				var slope = (tile_bottom - object.getTop()) / (object.getRight() - tile_left);
+				if (slope > 1) {
+					object.setBottom(tile_bottom);
+					object.velocity_y = 0;
+				} else if (slope < 1) {
+					object.setLeft(tile_left - object.width);
+					object.velocity_x = 0;
+				}
+			}
 		},
 	};
 
