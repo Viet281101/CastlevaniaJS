@@ -175,7 +175,7 @@ const Game = function() {
 		},
 	};
 
-	Game.Frame = function(x, y, width, height, offset_x, offset_y) {
+	Game.Frame = function(x, y, width, height, offset_x = 0, offset_y = 0) {
 		this.x        = x;
 		this.y        = y;
 		this.width    = width;
@@ -194,6 +194,30 @@ const Game = function() {
 	/* I added getCenterX, getCenterY, setCenterX, and setCenterY */
 	Game.Object.prototype = {
 		constructor:Game.Object,
+
+		/* Now does rectangular collision detection. */
+		collideObject:function(object) {
+
+			if (this.getRight()  < object.getLeft()  ||
+				this.getBottom() < object.getTop()   ||
+				this.getLeft()   > object.getRight() ||
+				this.getTop()    > object.getBottom()) return false;
+
+			return true;
+		},
+
+		/* Does rectangular collision detection with the center of the object. */
+		collideObjectCenter:function(object) {
+
+			let center_x = object.getCenterX();
+			let center_y = object.getCenterY();
+
+			if (center_x < this.getLeft() || center_x > this.getRight() ||
+				center_y < this.getTop()  || center_y > this.getBottom()) return false;
+
+			return true;
+		},
+
 		getBottom : function()  { return this.y + this.height;       },
 		getCenterX: function()  { return this.x + this.width  * 0.5; },
 		getCenterY: function()  { return this.y + this.height * 0.5; },
@@ -330,7 +354,7 @@ const Game = function() {
 					this.changeFrameSet(this.frame_sets["sit-left"], "once", 10);
 					this.squatting = false;
 				} else if (this.attacking) {
-					this.changeFrameSet(this.frame_sets["attack-left"], "once", 5);
+					this.changeFrameSet(this.frame_sets["attack-left"], "loop", 5);
 					this.attacking = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
@@ -342,7 +366,7 @@ const Game = function() {
 					this.changeFrameSet(this.frame_sets["sit-right"], "once", 10);
 					this.squatting = false;
 				} else if (this.attacking) {
-					this.changeFrameSet(this.frame_sets["attack-right"], "once", 5);
+					this.changeFrameSet(this.frame_sets["attack-right"], "loop", 5);
 					this.attacking = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
