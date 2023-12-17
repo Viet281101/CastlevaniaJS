@@ -14,7 +14,9 @@ Voici une checklist pour les choses à faire
     
     - [ ] Créer le Hitbox et HurtBox des characters
     
-    - [ ] Créer des ennemis (Référer cette vidéo tuto [Simple Enemy AI in JavaScript](https://www.youtube.com/watch?v=zbqwFb8DJgQ))
+    - [X] Créer des ennemis (Référer cette vidéo tuto [Simple Enemy AI in JavaScript](https://www.youtube.com/watch?v=zbqwFb8DJgQ))
+    
+    - [ ] Mettre des sprites et annimations sur tous les perso et ennemie du jeux
     
     - [ ] Créer la musique de fond pour chaque niveau
     
