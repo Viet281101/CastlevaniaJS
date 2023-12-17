@@ -91,8 +91,15 @@ class SettingsMenu {
                 </td>
 			</tr>
 			<tr>
-				<td>Controls:</td>
-				<td> ... </td>
+			<tr style="height: 10px;"></tr>
+			<td>Controls:</td>
+				<td>
+				    <div>&uarr;: Sauter</div>
+                    <div>&darr;: Accroupie</div>
+                    <div>&larr;: Gauche</div>
+                    <div>&rarr;: Droite</div> 
+                    <div>Espace:  Attaquer</div>    
+                </td>
 			</tr>
 		`;
 

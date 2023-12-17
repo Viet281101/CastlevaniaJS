@@ -2,13 +2,26 @@
 const Game = function() {
 
 	this.world = new Game.World();
+	this.paused = false;
 
 	this.update = function() {
-		this.world.update();
+		if (!this.paused) {
+			this.world.update();
+		}
 	};
 };
   
-Game.prototype = { constructor : Game };
+Game.prototype = { constructor : Game,
+	               togglePause: function (){
+				   		this.paused	= !this.paused;
+					},
+					pause: function (){
+						this.paused = true;
+					},
+					resume: function (){
+						this.paused = false;
+					}
+};
   
 Game.World = function(friction = 0.9, gravity = 3) {
 

@@ -3,6 +3,7 @@ const Display = function(canvas) {
 
 	this.buffer  = document.createElement("canvas").getContext("2d"),
 	this.context = canvas.getContext("2d");
+	this.paused = false; // Ajout de l'état de pause
 
 	this.tile_sheet = new Display.TileSheet(32, 18);
 
@@ -77,6 +78,7 @@ Display.prototype = {
 		); 
 	},
 };
+
 
 Display.TileSheet = function(tile_size, columns) {
 	this.image = new Image();
