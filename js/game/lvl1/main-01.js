@@ -87,6 +87,8 @@ window.addEventListener("load", function(event) {
 			game.world.player.y + frame.offset_y, 
 			frame.width, frame.height
 		);
+
+		// display.drawCollisionMap(game.world.collision_map, game.world.columns, game.world.tile_set.tile_size);
 		display.render();
 
 	};

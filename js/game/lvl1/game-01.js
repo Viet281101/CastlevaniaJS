@@ -100,8 +100,8 @@ const Game = function() {
 						if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
 						if (this.collidePlatformLeft   (object, tile_x            )) return;
 							this.collidePlatformRight  (object, tile_x + tile_size); break;
-				case 16:     this.collideSlopeRight  (object, tile_x + tile_size, tile_y, tile_size); break;
-				case 17:     this.collideSlopeLeft   (object, tile_x, tile_y, tile_size); break;
+				case 16:    this.collideSlopeRight  (object, tile_x + tile_size, tile_y, tile_size); break;
+				case 17:    this.collideSlopeLeft   (object, tile_x, tile_y, tile_size); break;
 			}
 		}
 	};
@@ -148,42 +148,30 @@ const Game = function() {
 			} return false;
 		},
 
-		collideSlopeLeft:function(object, tile_x, tile_y, tile_size) {
-			var tile_bottom = tile_y + tile_size;
-			var tile_right  = tile_x + tile_size;
-
-			var object_bottom = object.getBottom();
-			var object_right  = object.getRight();
-
-			if (object_bottom > tile_y && object_right > tile_x) {
-				var slope = (tile_bottom - object.getTop()) / (tile_right - object.getLeft());
-				if (slope > 1) {
-					object.setBottom(tile_bottom);
-					object.velocity_y = 0;
-				} else if (slope < 1) {
-					object.setRight(tile_right);
-					object.velocity_x = 0;
-				}
+		collideSlopeLeft: function(object, tile_x, tile_y, tile_size) {
+			let base_y = tile_y + tile_size;
+			let slope = (object.x - tile_x) / tile_size;
+			let top_y = base_y - slope * tile_size;
+		
+			if (object.getBottom() > top_y) {
+				object.setBottom(top_y - 0.01);
+				object.velocity_y = 0;
+				object.jumping = false;
+				return true;
 			}
+			return false;
 		},
-
-		collideSlopeRight:function(object, tile_x, tile_y, tile_size) {
-			var tile_bottom = tile_y + tile_size;
-			var tile_left   = tile_x;
-
-			var object_bottom = object.getBottom();
-			var object_left   = object.getLeft();
-
-			if (object_bottom > tile_y && object_left < tile_x) {
-				var slope = (tile_bottom - object.getTop()) / (object.getRight() - tile_left);
-				if (slope > 1) {
-					object.setBottom(tile_bottom);
-					object.velocity_y = 0;
-				} else if (slope < 1) {
-					object.setLeft(tile_left - object.width);
-					object.velocity_x = 0;
-				}
+		collideSlopeRight: function(object, tile_x, tile_y, tile_size) {
+			let slope = (tile_x + tile_size - object.getRight()) / tile_size;
+			let top_y = tile_y + slope * tile_size;
+		
+			if (object.getBottom() > top_y) {
+				object.setBottom(top_y - 0.01);
+				object.velocity_y = 0;
+				object.jumping = false;
+				return true;
 			}
+			return false;
 		},
 	};
 
@@ -317,13 +305,13 @@ const Game = function() {
 		},
 
 		squat:function() {
-			if (!this.jumping) {
+			if (!this.jumping && !this.squatting) {
 				this.squatting = true;
 			}
 		},
 
 		attack:function() {
-			if (!this.jumping) {
+			if (!this.attacking) {
 				this.attacking = true;
 			}
 		},
@@ -341,6 +329,9 @@ const Game = function() {
 				} else if (this.squatting) {
 					this.changeFrameSet(this.frame_sets["sit-left"], "once", 10);
 					this.squatting = false;
+				} else if (this.attacking) {
+					this.changeFrameSet(this.frame_sets["attack-left"], "once", 5);
+					this.attacking = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
 				}
@@ -350,6 +341,9 @@ const Game = function() {
 				} else if (this.squatting) {
 					this.changeFrameSet(this.frame_sets["sit-right"], "once", 10);
 					this.squatting = false;
+				} else if (this.attacking) {
+					this.changeFrameSet(this.frame_sets["attack-right"], "once", 5);
+					this.attacking = false;
 				} else {
 					this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
 				}
