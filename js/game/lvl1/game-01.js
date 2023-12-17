@@ -195,28 +195,28 @@ const Game = function() {
 	Game.Object.prototype = {
 		constructor:Game.Object,
 
-		/* Now does rectangular collision detection. */
-		collideObject:function(object) {
+		// /* Now does rectangular collision detection. */
+		// collideObject:function(object) {
 
-			if (this.getRight()  < object.getLeft()  ||
-				this.getBottom() < object.getTop()   ||
-				this.getLeft()   > object.getRight() ||
-				this.getTop()    > object.getBottom()) return false;
+		// 	if (this.getRight()  < object.getLeft()  ||
+		// 		this.getBottom() < object.getTop()   ||
+		// 		this.getLeft()   > object.getRight() ||
+		// 		this.getTop()    > object.getBottom()) return false;
 
-			return true;
-		},
+		// 	return true;
+		// },
 
-		/* Does rectangular collision detection with the center of the object. */
-		collideObjectCenter:function(object) {
+		// /* Does rectangular collision detection with the center of the object. */
+		// collideObjectCenter:function(object) {
 
-			let center_x = object.getCenterX();
-			let center_y = object.getCenterY();
+		// 	let center_x = object.getCenterX();
+		// 	let center_y = object.getCenterY();
 
-			if (center_x < this.getLeft() || center_x > this.getRight() ||
-				center_y < this.getTop()  || center_y > this.getBottom()) return false;
+		// 	if (center_x < this.getLeft() || center_x > this.getRight() ||
+		// 		center_y < this.getTop()  || center_y > this.getBottom()) return false;
 
-			return true;
-		},
+		// 	return true;
+		// },
 
 		getBottom : function()  { return this.y + this.height;       },
 		getCenterX: function()  { return this.x + this.width  * 0.5; },
