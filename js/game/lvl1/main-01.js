@@ -61,8 +61,8 @@ window.addEventListener("load", function(event) {
 
 	var resize = function(event) {
 		display.resize(
-			document.documentElement.clientWidth, 
-			document.documentElement.clientHeight, 
+			document.documentElement.clientWidth - 16, 
+			document.documentElement.clientHeight - 16, 
 			game.world.height / game.world.width
 		);
 		display.render();
@@ -87,6 +87,8 @@ window.addEventListener("load", function(event) {
 			game.world.player.y + frame.offset_y, 
 			frame.width, frame.height
 		);
+
+		// display.drawCollisionMap(game.world.collision_map, game.world.columns, game.world.tile_set.tile_size);
 		display.render();
 
 	};
