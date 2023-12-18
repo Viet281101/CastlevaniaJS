@@ -116,26 +116,32 @@ window.addEventListener("load", function(event) {
 	};
 
 	var update = function() {
-		if (controller.left.active  )  { game.world.player.moveLeft (); }
-		if (controller.right.active )  { game.world.player.moveRight(); }
-		if (controller.squat.active )  { game.world.player.squat();     }
-		if (controller.attack.active)  { game.world.player.attack();    }
-		if (controller.up.active    )  { 
-			game.world.player.jump();
-			controller.up.active = false; 
-		}
+		if (!game.paused) {
+			if (controller.left.active) { game.world.player.moveLeft(); }
+			if (controller.right.active) { game.world.player.moveRight(); }
+			if (controller.squat.active) { game.world.player.squat(); }
+			if (controller.attack.active) { game.world.player.attack(); }
+			if (controller.up.active) {
+				game.world.player.jump();
+				controller.up.active = false;
+			}
 
-		game.update();
+			game.update();
 
-		if (game.world.door) {
-			engine.stop();
-			assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
-				game.world.setup(zone);
-				engine.start();
-			});
-			return;
+			if (game.world.door) {
+				engine.stop();
+				assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
+					game.world.setup(zone);
+					engine.start();
+				});
+				return;
+			}
+		} else {
+			console.log("Le jeu est en pause");
+			pauseMenu.show();
 		}
 	};
+
 
 	/////////////////
 	//// OBJECTS ////
@@ -146,6 +152,7 @@ window.addEventListener("load", function(event) {
 	var display        = new Display(document.querySelector("canvas"));
 	var game           = new Game();
 	var engine         = new Engine(1000/40, render, update);
+	var pauseMenu = initPauseMenu();
 
 	var p = document.createElement("p");
 	p.setAttribute("style", "color: red; position: fixed;");
@@ -178,7 +185,18 @@ window.addEventListener("load", function(event) {
 			assets_manager.heal_health_image = image;
 		});
 	});
-
+	window.addEventListener('keydown', function(event) {
+		console.log("Touche enfoncée :", event.key);
+		if (event.key === 'p' || event.key === 'P') {
+			if (game.paused) {
+				game.resume();
+				pauseMenu.hide();
+			} else {
+				game.pause();
+				pauseMenu.show();
+			}
+		}
+	});
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);
 	window.addEventListener("resize" , resize);

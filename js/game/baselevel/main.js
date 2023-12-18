@@ -43,6 +43,9 @@ window.addEventListener("load", function(event) {
 			game.world.player.jump(); 
 			controller.up.active = false; 
 		}
+		if(controller.pause.active){
+			pauseMenu.show();
+		}
 
 		game.update();
 
