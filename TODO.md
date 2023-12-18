@@ -12,7 +12,7 @@ Voici une checklist pour les choses à faire
     
     - [X] Faire animation pour le personnage (Référer part 5 de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
     
-    - [ ] Créer le Hitbox et HurtBox des characters
+    - [X] Créer le Hitbox et HurtBox des characters
     
     - [X] Créer des ennemis (Référer cette vidéo tuto [Simple Enemy AI in JavaScript](https://www.youtube.com/watch?v=zbqwFb8DJgQ))
     
