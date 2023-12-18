@@ -26,7 +26,7 @@
     - **stats.js** : gérer les attributs, les données pour sauvegarder et charger le jeu
     
 
-    - **baselevel/** exemple pour le système exécuter un niveau du jeu (Référer directement à partir de cette YouTube tuto [How To Write A JavaScript Platformer](https://www.youtube.com/playlist?list=PLcN6MkgfgN4CpMUgWEM5d70ANMWgcmBp8))
+    - **baselevel/** exemple pour le système exécuter un niveau du jeu 
       + **controller.js** : le contrôleur alerte uniquement l'utilisateur chaque fois qu'il appuie sur une touche, mais il définit également la classe ButtonInput, qui est utilisée pour suivre l'état des boutons
       + **display.js** : gestionnaire d'événements de redimensionnement d'écran et gère également dessiner les couleurs dans le tampon, puis dans l'écran
       + **game.js** : logique pour le niveau du jeu, progressivement modifiez

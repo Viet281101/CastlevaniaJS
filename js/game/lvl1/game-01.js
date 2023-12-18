@@ -301,9 +301,13 @@ Game.Player = function(x, y) {
 	this.direction_x = -1;
 	this.velocity_x  = 0;
 	this.velocity_y  = 0;
+	this.attacking     = false;
 };
 
 Game.Player.prototype = {
+
+	constructor: Game.Player,
+
 	frame_sets: {
 		"idle-left" : [0, 1, 2, 3, 4],
 		"idle-right": [5, 6, 7, 8, 9],
@@ -418,9 +422,6 @@ Game.Player.prototype = {
 };
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
-Game.Player.prototype.constructor = Game.Player;
-
-
 
 ////* ---------- Game Enemies ----------- *////
 Game.Enemy = function(x, y) {
@@ -484,36 +485,33 @@ Game.Ennemie.prototype = {
         );
     },
 
-		updatePosition:function(gravity, friction, player, health) {
-			this.x_old = this.x;
-			this.y_old = this.y;
-	
-			this.velocity_y += gravity;
-			this.velocity_x *= friction;
-	
-			if (Math.abs(this.velocity_x) > this.velocity_max)
-				this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
-			
-			if (Math.abs(this.velocity_y) > this.velocity_max)
-				this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+	updatePosition:function(gravity, friction, player, health) {
+		this.x_old = this.x;
+		this.y_old = this.y;
+		this.velocity_y += gravity;
+		this.velocity_x *= friction;
 
-			// Suivre la position horizontale du joueur
-			if (!this.collideWithPlayer(player)) {
-				if (this.x-15 < player.x) {
-						this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-				} else if (this.x > player.x) {
-						this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-				} else {
-						this.velocity_x = 0;
-				}
+		if (Math.abs(this.velocity_x) > this.velocity_max)
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+
+		if (Math.abs(this.velocity_y) > this.velocity_max)
+			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+
+		if (!this.collideWithPlayer(player)) {
+			if (this.x-15 < player.x) {
+				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+			} else if (this.x+15 > player.x) {
+				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
 			} else {
-					this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
-					health -= 1;
+				this.velocity_x = 0;
 			}
-	
-			this.x += this.velocity_x;
-			this.y += this.velocity_y;
-		},
+		} else {
+			this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
+			health -= 1;
+		}
+		this.x += this.velocity_x;
+		this.y += this.velocity_y;
+	},
 };
 
 
@@ -591,7 +589,7 @@ Game.EnnemieSauteur.prototype = {
 	
 			if (this.x-15 < player.x) {
 				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-			} else if (this.x > player.x) {
+			} else if (this.x+15 > player.x) {
 				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
 			} else {
 				this.velocity_x = 0;
@@ -686,7 +684,7 @@ Game.EnnemieJumpContact.prototype = {
 	
 			if (this.x-15 < player.x) {
 				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-			} else if (this.x > player.x) {
+			} else if (this.x+15 > player.x) {
 				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
 			} else {
 				this.velocity_x = 0;
@@ -774,7 +772,7 @@ Game.EnnemieVolant.prototype = {
             // Suivre la position horizontale
             if (this.x-15 < player.x) {
                 this.velocity_x = this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-            } else if (this.x > player.x) {
+            } else if (this.x+15 > player.x) {
                 this.velocity_x = -this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
             } else {
                 this.velocity_x = 0;
@@ -783,7 +781,7 @@ Game.EnnemieVolant.prototype = {
             // Suivre la position verticale
             if (this.y-25 < player.y) {
                 this.velocity_y = this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-            } else if (this.y > player.y) {
+            } else if (this.y+25 > player.y) {
                 this.velocity_y = -this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
             } else {
                 this.velocity_y = 0;
@@ -985,7 +983,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
 	this.monster_jumper = [];
 	this.monster_contactjump = [];
 	this.monster_fly = [];
-	this.health 	= 10;
+	this.health 	= 100;
 	this.doors     = [];
 	this.door      = undefined;
 
@@ -1115,24 +1113,64 @@ Game.World.prototype = {
 			let monster_normale = this.monster_normale[index];
 			this.collideObject(monster_normale);
 			monster_normale.updatePosition(this.gravity, this.friction, this.player, this.health);
+			if (monster_normale.collideObject(this.player)) {
+				if (this.player.attacking == true)
+				{
+					this.monster_normale.splice(this.monster_normale.indexOf(monster_normale), 1);
+				}
+				else
+				{
+					this.health -= 1;
+				}
+			}
 		}
 
 		for (let index = this.monster_contactjump.length - 1; index > -1; -- index) {
 			let monster_contactjump = this.monster_contactjump[index];
 			this.collideObject(monster_contactjump);
 			monster_contactjump.updatePosition(this.gravity, this.friction, this.player);
+			if (monster_contactjump.collideObject(this.player)) {
+				if (this.player.attacking == true)
+				{
+					this.monster_contactjump.splice(this.monster_contactjump.indexOf(monster_contactjump), 1);
+				}
+				else
+				{
+					this.health -= 1;
+				}
+			}
 		}
 
 		for (let index = this.monster_fly.length - 1; index > -1; -- index) {
 			let monster_fly = this.monster_fly[index];
 			this.collideObject(monster_fly);
 			monster_fly.updatePosition(this.gravity, this.friction, this.player);
+			if (monster_fly.collideObject(this.player)) {
+				if (this.player.attacking == true)
+				{
+					this.monster_fly.splice(this.monster_fly.indexOf(monster_fly), 1);
+				}
+				else
+				{
+					this.health -= 1;
+				}
+			}
 		}
 
 		for (let index = this.monster_jumper.length - 1; index > -1; -- index) {
 			let monster_jumper = this.monster_jumper[index];
 			this.collideObject(monster_jumper);
 			monster_jumper.updatePosition(this.gravity, this.friction, this.player);
+			if (monster_jumper.collideObject(this.player)) {
+				if (this.player.attacking == true)
+				{
+					this.monster_jumper.splice(this.monster_jumper.indexOf(monster_jumper), 1);
+				}
+				else
+				{
+					this.health -= 1;
+				}
+			}
 		}
 	},
 };
