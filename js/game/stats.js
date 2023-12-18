@@ -33,7 +33,9 @@ const userKeys = {
 	SPACE: 32,
 	P: 80,
 	M: 77,
-	C: 67
+	C: 67,
+	PAUSE:19,
+	ESCAPE: 27,
 };
 const specialKeys = {
 	8:'Backspace',
@@ -76,19 +78,22 @@ const specialKeys = {
 
 
 function pauseGame() {
-    gamePaused = !gamePaused;
-    if (gamePaused) {
-        engine.stop();
-        stopMusic(gameLvl1Music);
-        stopMusic(gameLvl2Music);
-        stopMusic(bossMusic);
-    }
-    else {
-        engine.start();
-        if (levelDisplay == "01") playMusic(gameLvl1Music);
-        else if (levelDisplay == "02") playMusic(gameLvl2Music);
-        else if (levelDisplay == "03") playMusic(bossMusic);
-    }
+	gamePaused = !gamePaused;
+	if (gamePaused) {
+		engine.stop();
+		stopMusic(gameLvl1Music);
+		stopMusic(gameLvl2Music);
+		stopMusic(bossMusic);
+		// Afficher le menu pause
+		pauseMenu.show();
+	} else {
+		engine.start();
+		if (levelDisplay == "01") playMusic(gameLvl1Music);
+		else if (levelDisplay == "02") playMusic(gameLvl2Music);
+		else if (levelDisplay == "03") playMusic(bossMusic);
+		// Masquer le menu pause
+		pauseMenu.hide();
+	}
 }
 
 function changeOption(key){

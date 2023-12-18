@@ -98,7 +98,8 @@ class SettingsMenu {
                     <div>&darr;: Accroupie</div>
                     <div>&larr;: Gauche</div>
                     <div>&rarr;: Droite</div> 
-                    <div>Espace:  Attaquer</div>    
+                    <div>Espace:  Attaquer</div>
+                    <div>P : Pause</div>    
                 </td>
 			</tr>
 		`;

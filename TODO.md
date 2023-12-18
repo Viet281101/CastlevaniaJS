@@ -35,7 +35,7 @@ Voici une checklist pour les choses à faire
    - [ ] ajouter une touche pour appeler l'écran pause dans le jeu
 
 3) Compléter le système de menu du projet
-   - [ ] compléter le fichier menu_settings.js
+   - [X] compléter le fichier menu_settings.js
    - [ ] ajout de la posibilité de gérer les raccourir, clés controls du projet
 
 4) Créer plus des niveaux du jeu et des combats de boss
