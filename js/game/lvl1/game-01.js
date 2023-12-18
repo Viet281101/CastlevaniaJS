@@ -186,7 +186,6 @@ Game.Object = function(x, y, width, height) {
 Game.Object.prototype = {
 	constructor:Game.Object,
 
-	/* Now does rectangular collision detection. */
 	collideObject:function(object) {
 		if (this.getRight()  < object.getLeft()  ||
 			this.getBottom() < object.getTop()   ||
@@ -195,7 +194,6 @@ Game.Object.prototype = {
 		return true;
 	},
 
-	/* Does rectangular collision detection with the center of the object. */
 	collideObjectCenter:function(object) {
 		let center_x = object.getCenterX();
 		let center_y = object.getCenterY();
@@ -221,8 +219,7 @@ Game.Object.prototype = {
 Game.MovingObject = function(x, y, width, height, velocity_max = 15) {
 	Game.Object.call(this, x, y, width, height);
 	this.jumping      = false;
-	this.velocity_max = velocity_max;// added velocity_max so velocity can't go past 16
-	this.velocity_x   = 0;
+	this.velocity_max = velocity_max;
 	this.velocity_y   = 0;
 	this.x_old        = x;
 	this.y_old        = y;
@@ -308,7 +305,6 @@ Game.Player.prototype = {
 		"attack-right" : [99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ,109, 110, 111, 112, 113, 114, 115, 116, 117]
 	},
 	jump: function() {
-		/* Made it so you can only jump if you aren't falling faster than 10px per frame. */
 		if (!this.jumping && this.velocity_y < 10) {
 			this.jumping     = true;
 			this.velocity_y -= 20;
@@ -374,7 +370,6 @@ Game.Player.prototype = {
 		this.velocity_y += gravity;
 		this.velocity_x *= friction;
 
-		/* Made it so that velocity cannot exceed velocity_max */
 		if (Math.abs(this.velocity_x) > this.velocity_max)
 		this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
 		
