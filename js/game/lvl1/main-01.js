@@ -17,6 +17,7 @@ window.addEventListener("load", function(event) {
 		this.player_image = undefined;
 		this.heal_health_image = undefined;
 		this.torch_image = undefined;
+		this.fire_skull_image = undefined;
 	};
 
 	AssetsManager.prototype = {
@@ -129,7 +130,7 @@ window.addEventListener("load", function(event) {
 		}
 
 		for (let index = game.world.monster_fly.length - 1; index > -1; -- index) {
-			let monster_normale = game.world.monster_normale[index];
+			let monster_fly = game.world.monster_fly[index];
 
 			display.drawEnnemy(
 				monster_fly, 
@@ -140,11 +141,13 @@ window.addEventListener("load", function(event) {
 
 		for (let index = game.world.monster_jumper.length - 1; index > -1; -- index) {
 			let monster_jumper = game.world.monster_jumper[index];
-
-			display.drawEnnemy(
-				monster_jumper, 
-				monster_jumper.color1, 
-				monster_jumper.color2
+			frame = game.world.tile_set.frames[monster_jumper.frame_value];
+			display.drawObject(
+				assets_manager.fire_skull_image,
+				frame.x, frame.y,
+				monster_jumper.x + Math.floor(monster_jumper.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+				monster_jumper.y + frame.offset_y, 
+				frame.width, frame.height
 			);
 		}
 
@@ -212,6 +215,8 @@ window.addEventListener("load", function(event) {
 		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {assets_manager.heal_health_image = image; });
 
 		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => {assets_manager.torch_image = image; });
+
+		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => {assets_manager.fire_skull_image = image; });
 	});
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);

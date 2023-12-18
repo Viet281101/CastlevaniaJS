@@ -1,7 +1,7 @@
 
 ////* ----------- Game ------------- *////
 const Game = function() {
-	this.world    = new Game.World();
+	this.world	= new Game.World();
 
 	this.update   = function() {
 		this.world.update();
@@ -11,12 +11,12 @@ Game.prototype = { constructor : Game };
 
 ////* ---------- Game Animations -------------- *////
 Game.Animator = function(frame_set, delay, mode = "loop") {
-	this.count       = 0;
-	this.delay       = (delay >= 1) ? delay : 1;
+	this.count	   = 0;
+	this.delay	   = (delay >= 1) ? delay : 1;
 	this.frame_set   = frame_set;
 	this.frame_index = 0;
 	this.frame_value = frame_set[0];
-	this.mode        = mode;
+	this.mode		= mode;
 };
 Game.Animator.prototype = {
 	constructor:Game.Animator,
@@ -24,17 +24,17 @@ Game.Animator.prototype = {
 		switch(this.mode) {
 			case "loop" : this.loop(); break;
 			case "once" : this.play(); break;
-			case "pause":              break;
+			case "pause":			  break;
 		}
 	},
 	changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) {
 		if (this.frame_set === frame_set) { return; }
-		this.count       = 0;
-		this.delay       = delay;
+		this.count	   = 0;
+		this.delay	   = delay;
 		this.frame_set   = frame_set;
 		this.frame_index = frame_index;
 		this.frame_value = frame_set[frame_index];
-		this.mode        = mode;
+		this.mode		= mode;
 	},
 	loop:function() {
 		this.count ++;
@@ -63,42 +63,42 @@ Game.Animator.prototype = {
 Game.Collider = function() {
 	this.collide = function(value, object, tile_x, tile_y, tile_size) {
 		switch(value) {
-			case  1:     this.collidePlatformTop    (object, tile_y            ); break;
-			case  2:     this.collidePlatformRight  (object, tile_x + tile_size); break;
-			case  3: if (this.collidePlatformTop    (object, tile_y            )) return;
+			case  1:	 this.collidePlatformTop	(object, tile_y			); break;
+			case  2:	 this.collidePlatformRight  (object, tile_x + tile_size); break;
+			case  3: if (this.collidePlatformTop	(object, tile_y			)) return;
 						this.collidePlatformRight  (object, tile_x + tile_size); break;
-			case  4:     this.collidePlatformBottom (object, tile_y + tile_size); break;
-			case  5: if (this.collidePlatformTop    (object, tile_y            )) return;
+			case  4:	 this.collidePlatformBottom (object, tile_y + tile_size); break;
+			case  5: if (this.collidePlatformTop	(object, tile_y			)) return;
 						this.collidePlatformBottom (object, tile_y + tile_size); break;
 			case  6: if (this.collidePlatformRight  (object, tile_x + tile_size)) return;
 						this.collidePlatformBottom (object, tile_y + tile_size); break;
-			case  7: if (this.collidePlatformTop    (object, tile_y            )) return;
+			case  7: if (this.collidePlatformTop	(object, tile_y			)) return;
 					if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
 						this.collidePlatformRight  (object, tile_x + tile_size); break;
-			case  8:     this.collidePlatformLeft   (object, tile_x            ); break;
-			case  9: if (this.collidePlatformTop    (object, tile_y            )) return;
-						this.collidePlatformLeft   (object, tile_x            ); break;
-			case 10: if (this.collidePlatformLeft   (object, tile_x            )) return;
+			case  8:	 this.collidePlatformLeft   (object, tile_x			); break;
+			case  9: if (this.collidePlatformTop	(object, tile_y			)) return;
+						this.collidePlatformLeft   (object, tile_x			); break;
+			case 10: if (this.collidePlatformLeft   (object, tile_x			)) return;
 						this.collidePlatformRight  (object, tile_x + tile_size); break;
-			case 11: if (this.collidePlatformTop    (object, tile_y            )) return;
-					if (this.collidePlatformLeft   (object, tile_x            )) return;
+			case 11: if (this.collidePlatformTop	(object, tile_y			)) return;
+					if (this.collidePlatformLeft   (object, tile_x			)) return;
 						this.collidePlatformRight  (object, tile_x + tile_size); break;
 			case 12: if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
-						this.collidePlatformLeft   (object, tile_x            ); break;
-			case 13: if (this.collidePlatformTop    (object, tile_y            )) return;
+						this.collidePlatformLeft   (object, tile_x			); break;
+			case 13: if (this.collidePlatformTop	(object, tile_y			)) return;
 					if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
-						this.collidePlatformLeft   (object, tile_x            ); break;
+						this.collidePlatformLeft   (object, tile_x			); break;
 			case 14: if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
-					if (this.collidePlatformLeft   (object, tile_x            )) return;
+					if (this.collidePlatformLeft   (object, tile_x			)) return;
 						this.collidePlatformRight  (object, tile_x + tile_size); break;
-			case 15: if (this.collidePlatformTop    (object, tile_y            )) return;
+			case 15: if (this.collidePlatformTop	(object, tile_y			)) return;
 					if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
-					if (this.collidePlatformLeft   (object, tile_x            )) return;
+					if (this.collidePlatformLeft   (object, tile_x			)) return;
 						this.collidePlatformRight  (object, tile_x + tile_size); break;
-			case 16:    this.collideSlopeRight  (object, tile_x + tile_size, tile_y, tile_size); break;
-			case 17:    this.collideSlopeLeft   (object, tile_x, tile_y, tile_size); break;
-			case 18: if (this.collidePlatformTop  (object, tile_y            )) return;
-					if (this.collidePlatformLeft (object, tile_x            )) return;
+			case 16:	this.collideSlopeRight  (object, tile_x + tile_size, tile_y, tile_size); break;
+			case 17:	this.collideSlopeLeft   (object, tile_x, tile_y, tile_size); break;
+			case 18: if (this.collidePlatformTop  (object, tile_y			)) return;
+					if (this.collidePlatformLeft (object, tile_x			)) return;
 					if (this.collidePlatformRight(object, tile_x + tile_size)) return;
 					this.collidePlatformSolid(object, (tile_x + 1) * tile_size, tile_x * tile_size, 
 					tile_y * tile_size, (tile_y + 1) * tile_size); break;
@@ -132,7 +132,7 @@ Game.Collider.prototype = {
 		if (object.getBottom() > tile_top && object.getOldBottom() <= tile_top) {
 			object.setBottom(tile_top - 0.01);
 			object.velocity_y = 0;
-			object.jumping    = false;
+			object.jumping	= false;
 			return true;
 		} return false;
 	},
@@ -168,9 +168,9 @@ Game.Collider.prototype = {
 };
 
 Game.Frame = function(x, y, width, height, offset_x = 0, offset_y = 0) {
-	this.x        = x;
-	this.y        = y;
-	this.width    = width;
+	this.x		= x;
+	this.y		= y;
+	this.width	= width;
 	this.height   = height;
 	this.offset_x = offset_x;
 	this.offset_y = offset_y;
@@ -180,20 +180,18 @@ Game.Frame.prototype = { constructor: Game.Frame };
 Game.Object = function(x, y, width, height) {
 	this.height = height;
 	this.width  = width;
-	this.x      = x;
-	this.y      = y;
+	this.x	  = x;
+	this.y	  = y;
 };
 Game.Object.prototype = {
 	constructor:Game.Object,
-
 	collideObject:function(object) {
 		if (this.getRight()  < object.getLeft()  ||
 			this.getBottom() < object.getTop()   ||
 			this.getLeft()   > object.getRight() ||
-			this.getTop()    > object.getBottom()) return false;
+			this.getTop()	> object.getBottom()) return false;
 		return true;
 	},
-
 	collideObjectCenter:function(object) {
 		let center_x = object.getCenterX();
 		let center_y = object.getCenterY();
@@ -201,42 +199,41 @@ Game.Object.prototype = {
 			center_y < this.getTop()  || center_y > this.getBottom()) return false;
 		return true;
 	},
-
-	getBottom : function()  { return this.y + this.height;       },
+	getBottom : function()  { return this.y + this.height;	   },
 	getCenterX: function()  { return this.x + this.width  * 0.5; },
 	getCenterY: function()  { return this.y + this.height * 0.5; },
-	getLeft   : function()  { return this.x;                     },
-	getRight  : function()  { return this.x + this.width;        },
-	getTop    : function()  { return this.y;                     },
-	setBottom : function(y) { this.y = y - this.height;          },
-	setCenterX: function(x) { this.x = x - this.width  * 0.5;    },
-	setCenterY: function(y) { this.y = y - this.height * 0.5;    },
-	setLeft   : function(x) { this.x = x;                        },
-	setRight  : function(x) { this.x = x - this.width;           },
-	setTop    : function(y) { this.y = y;                        },
+	getLeft   : function()  { return this.x;					 },
+	getRight  : function()  { return this.x + this.width;		},
+	getTop	: function()  { return this.y;					 },
+	setBottom : function(y) { this.y = y - this.height;		  },
+	setCenterX: function(x) { this.x = x - this.width  * 0.5;	},
+	setCenterY: function(y) { this.y = y - this.height * 0.5;	},
+	setLeft   : function(x) { this.x = x;						},
+	setRight  : function(x) { this.x = x - this.width;		   },
+	setTop	: function(y) { this.y = y;						},
 };
 
 Game.MovingObject = function(x, y, width, height, velocity_max = 15) {
 	Game.Object.call(this, x, y, width, height);
-	this.jumping      = false;
+	this.jumping	  = false;
 	this.velocity_max = velocity_max;
 	this.velocity_y   = 0;
-	this.x_old        = x;
-	this.y_old        = y;
+	this.x_old		= x;
+	this.y_old		= y;
 };
 Game.MovingObject.prototype = {
-	getOldBottom : function()  { return this.y_old + this.height;       },
+	getOldBottom : function()  { return this.y_old + this.height;	   },
 	getOldCenterX: function()  { return this.x_old + this.width  * 0.5; },
 	getOldCenterY: function()  { return this.y_old + this.height * 0.5; },
-	getOldLeft   : function()  { return this.x_old;                     },
-	getOldRight  : function()  { return this.x_old + this.width;        },
-	getOldTop    : function()  { return this.y_old;                     },
-	setOldBottom : function(y) { this.y_old = y    - this.height;       },
-	setOldCenterX: function(x) { this.x_old = x    - this.width  * 0.5; },
-	setOldCenterY: function(y) { this.y_old = y    - this.height * 0.5; },
-	setOldLeft   : function(x) { this.x_old = x;                        },
-	setOldRight  : function(x) { this.x_old = x    - this.width;        },
-	setOldTop    : function(y) { this.y_old = y;                        }
+	getOldLeft   : function()  { return this.x_old;					 },
+	getOldRight  : function()  { return this.x_old + this.width;		},
+	getOldTop	: function()  { return this.y_old;					 },
+	setOldBottom : function(y) { this.y_old = y	- this.height;	   },
+	setOldCenterX: function(x) { this.x_old = x	- this.width  * 0.5; },
+	setOldCenterY: function(y) { this.y_old = y	- this.height * 0.5; },
+	setOldLeft   : function(x) { this.x_old = x;						},
+	setOldRight  : function(x) { this.x_old = x	- this.width;		},
+	setOldTop	: function(y) { this.y_old = y;						}
 };
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
@@ -247,8 +244,8 @@ Game.HealHealth = function(x, y) {
 	Game.Object.call(this, x, y, 18, 18);
 	Game.Animator.call(this, Game.HealHealth.prototype.frame_sets["twirl"], 15);
 	this.frame_index = Math.floor(Math.random() * 2);
-	this.base_x     = x;
-	this.base_y     = y;
+	this.base_x	 = x;
+	this.base_y	 = y;
 	this.position_x = Math.random() * Math.PI * 2;
 	this.position_y = this.position_x * 2;
 };
@@ -283,8 +280,8 @@ Object.assign(Game.Torch.prototype, Game.Animator.prototype);
 Game.Door = function(door) {
 	Game.Object.call(this, door.x, door.y, door.width, door.height);
 
-	this.destination_x    = door.destination_x;
-	this.destination_y    = door.destination_y;
+	this.destination_x	= door.destination_x;
+	this.destination_y	= door.destination_y;
 	this.destination_zone = door.destination_zone;
 };
 Game.Door.prototype = {};
@@ -296,18 +293,16 @@ Game.Door.prototype.constructor = Game.Door;
 Game.Player = function(x, y) {
 	Game.MovingObject.call(this, x, y, 92, 76);
 	Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 6);
-	this.jumping     = true;
+	this.jumping	 = true;
 	this.squatting   = false;
 	this.direction_x = -1;
 	this.velocity_x  = 0;
 	this.velocity_y  = 0;
-	this.attacking     = false;
+	this.attacking	 = false;
 };
 
 Game.Player.prototype = {
-
 	constructor: Game.Player,
-
 	frame_sets: {
 		"idle-left" : [0, 1, 2, 3, 4],
 		"idle-right": [5, 6, 7, 8, 9],
@@ -327,7 +322,6 @@ Game.Player.prototype = {
 			this.velocity_x *= 1.8;
 		}
 	},
-
 	getHitbox: function() {
 		return {
 				left: this.getLeft(),
@@ -336,7 +330,6 @@ Game.Player.prototype = {
 				bottom: this.getBottom()
 		};
 	},
-
 	getHurtbox: function() {
 			// Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
 			const hitbox = this.getHitbox();
@@ -347,7 +340,6 @@ Game.Player.prototype = {
 					bottom: hitbox.bottom
 			};
 	},
-
 	moveLeft: function() {
 		this.direction_x = -1;
 		this.velocity_x -= 0.55;
@@ -423,68 +415,44 @@ Game.Player.prototype = {
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
 
+
 ////* ---------- Game Enemies ----------- *////
-Game.Enemy = function(x, y) {
-	Game.MovingObject.call(this, x, y, 92, 76);
-	Game.Animator.call(this, Game.Enemy.prototype.frame_sets["idle-right"], 6);
-	this.direction_x = -1;
-	this.velocity_x  = 0;
-	this.velocity_y  = 0;
-};
-Game.Enemy.prototype = {
-	frame_sets: {},
-	updateAnimation:function() {},
-	updatePosition:function(gravity, friction) {}
-};
-
 Game.Ennemie = function(x, y) {
-
 	Game.MovingObject.call(this, x, y, 32, 32);
-
-	this.color1     = "#f22525";
-	this.color2     = "#c53232";
-
+	this.color1	 = "#f22525";
+	this.color2	 = "#c53232";
 	this.velocity_x = 0;
 	this.velocity_y = 0;
-
 };
-
 Game.Ennemie.prototype = {
-
 	constructor: Game.Ennemie,
-
 	getHitbox: function() {
-        return {
-            left: this.getLeft(),
-            right: this.getRight(),
-            top: this.getTop(),
-            bottom: this.getBottom()
-        };
-    },
-
-    getHurtbox: function() {
-        // Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
-        const hitbox = this.getHitbox();
-        return {
-            left: hitbox.left,
-            right: hitbox.right,
-            top: hitbox.top,
-            bottom: hitbox.bottom
-        };
-    },
-
+		return {
+			left: this.getLeft(),
+			right: this.getRight(),
+			top: this.getTop(),
+			bottom: this.getBottom()
+		};
+	},
+	getHurtbox: function() {
+		const hitbox = this.getHitbox();
+		return {
+			left: hitbox.left,
+			right: hitbox.right,
+			top: hitbox.top,
+			bottom: hitbox.bottom
+		};
+	},
 	collideWithPlayer: function(player) {
-        const ennemieHitbox = this.getHitbox();
-        const playerHurtbox = player.getHurtbox();
-
-        return (
-            ennemieHitbox.left < playerHurtbox.right &&
-            ennemieHitbox.right > playerHurtbox.left &&
-            ennemieHitbox.top < playerHurtbox.bottom &&
-            ennemieHitbox.bottom > playerHurtbox.top
-        );
-    },
-
+		const ennemieHitbox = this.getHitbox();
+		const playerHurtbox = player.getHurtbox();
+		return (
+			ennemieHitbox.left < playerHurtbox.right &&
+			ennemieHitbox.right > playerHurtbox.left &&
+			ennemieHitbox.top < playerHurtbox.bottom &&
+			ennemieHitbox.bottom > playerHurtbox.top
+		);
+	},
 	updatePosition:function(gravity, friction, player, health) {
 		this.x_old = this.x;
 		this.y_old = this.y;
@@ -514,289 +482,232 @@ Game.Ennemie.prototype = {
 	},
 };
 
-
+////* ---------- Enemies Jumper ----------- *////
 Game.EnnemieSauteur = function(x, y) {
-
-	Game.MovingObject.call(this, x, y, 32, 32);
-
-	this.color1     = "#f22525";
-	this.color2     = "#c53232";
-
-	this.jumping    = true;
+	Game.MovingObject.call(this, x, y, 48, 56);
+	Game.Animator.call(this, Game.EnnemieSauteur.prototype.frame_sets["skull_jump-left"], 9);
+	this.jumping	= true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
-
 };
-
 Game.EnnemieSauteur.prototype = {
-    constructor: Game.EnnemieSauteur,
-
-    jump: function() {
-        if (!this.jumping) {
-            this.jumping = true;
-            this.velocity_y -= 30;
-        }
-    },
-
-    getHitbox: function() {
-        return {
-            left: this.getLeft(),
-            right: this.getRight(),
-            top: this.getTop(),
-            bottom: this.getBottom()
-        };
-    },
-
-    getHurtbox: function() {
-        // Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
-        const hitbox = this.getHitbox();
-        return {
-            left: hitbox.left,
-            right: hitbox.right,
-            top: hitbox.top,
-            bottom: hitbox.bottom
-        };
-    },
-
+	frame_sets: { 
+		"skull_jump-left" : [126, 127, 128, 129, 130, 131, 132, 133],
+		"skull_jump-right": [134, 135, 136, 137, 138, 139, 140, 141],
+	 },
+	jump: function() {
+		if (!this.jumping) {
+			this.jumping = true;
+			this.velocity_y -= 30;
+		}
+	},
+	getHitbox: function() {
+		return {
+			left: this.getLeft(),
+			right: this.getRight(),
+			top: this.getTop(),
+			bottom: this.getBottom()
+		};
+	},
+	getHurtbox: function() {
+		const hitbox = this.getHitbox();
+		return {
+			left: hitbox.left,
+			right: hitbox.right,
+			top: hitbox.top,
+			bottom: hitbox.bottom
+		};
+	},
 	collideWithPlayer: function(player) {
-        const ennemieHitbox = this.getHitbox();
-        const playerHurtbox = player.getHurtbox();
-
-        return (
-            ennemieHitbox.left < playerHurtbox.right &&
-            ennemieHitbox.right > playerHurtbox.left &&
-            ennemieHitbox.top < playerHurtbox.bottom &&
-            ennemieHitbox.bottom > playerHurtbox.top
-        );
-    },
-
-
-		updatePosition:function(gravity, friction, player) {
-			this.x_old = this.x;
-			this.y_old = this.y;
-	
-			this.velocity_y += gravity;
-			this.velocity_x *= friction;
-	
-			if (Math.abs(this.velocity_x) > this.velocity_max)
-				this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
-			
-			if (Math.abs(this.velocity_y) > this.velocity_max)
-				this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
-
-			if (!this.collideWithPlayer(player)) {
-			const originalX = this.x; // Mémoriser la position actuelle
-	
+		const ennemieHitbox = this.getHitbox();
+		const playerHurtbox = player.getHurtbox();
+		return (
+			ennemieHitbox.left < playerHurtbox.right &&
+			ennemieHitbox.right > playerHurtbox.left &&
+			ennemieHitbox.top < playerHurtbox.bottom &&
+			ennemieHitbox.bottom > playerHurtbox.top
+		);
+	},
+	updatePosition:function(gravity, friction, player) {
+		this.x_old = this.x;
+		this.y_old = this.y;
+		this.velocity_y += gravity;
+		this.velocity_x *= friction;
+		if (Math.abs(this.velocity_x) > this.velocity_max)
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+		if (Math.abs(this.velocity_y) > this.velocity_max)
+			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+		if (!this.collideWithPlayer(player)) {
+			const originalX = this.x;
 			if (this.x-15 < player.x) {
-				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+				this.velocity_x = 2;
+				this.changeFrameSet(this.frame_sets["skull_jump-right"], "loop", 8);
 			} else if (this.x+15 > player.x) {
-				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+				this.velocity_x = -2;
+				this.changeFrameSet(this.frame_sets["skull_jump-left"], "loop", 8);
 			} else {
 				this.velocity_x = 0;
 			}
-	
-			this.x_old = originalX; // Restaurer la position actuelle après mise à jour de la vélocité
-			} else {
-				this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
-			}
-		
-			// Vérifier si l'ennemi est bloqué dans sa position (collision avec un mur)
-			if (this.x === this.x_old) {
-				// Il est bloqué, donc saute
-				this.jump();
-			}
-	
-			this.x += this.velocity_x;
-			this.y += this.velocity_y;
-		},
+			this.x_old = originalX;
+		} else {
+			this.velocity_x = 0;
+		}
+		if (this.x === this.x_old) {
+			this.jump();
+		}
+		this.x += this.velocity_x;
+		this.y += this.velocity_y;
+	},
 };
+Object.assign(Game.EnnemieSauteur.prototype, Game.MovingObject.prototype);
+Object.assign(Game.EnnemieSauteur.prototype, Game.Animator.prototype);
+Game.EnnemieSauteur.prototype.constructor = Game.EnnemieSauteur;
+
 
 Game.EnnemieJumpContact = function(x, y) {
-
 	Game.MovingObject.call(this, x, y, 32, 32);
-
-	this.color1     = "#f22525";
-	this.color2     = "#c53232";
-
-	this.jumping    = true;
+	this.color1	 = "#f22525";
+	this.color2	 = "#c53232";
+	this.jumping	= true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
-
 };
-
 Game.EnnemieJumpContact.prototype = {
-    constructor: Game.EnnemieSauteur,
-
-    jump: function() {
-        if (!this.jumping) {
-            this.jumping = true;
-            this.velocity_y -= 30;
-        }
-    },
-
-    getHitbox: function() {
-        return {
-            left: this.getLeft(),
-            right: this.getRight(),
-            top: this.getTop(),
-            bottom: this.getBottom()
-        };
-    },
-
-    getHurtbox: function() {
-        // Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
-        const hitbox = this.getHitbox();
-        return {
-            left: hitbox.left,
-            right: hitbox.right,
-            top: hitbox.top,
-            bottom: hitbox.bottom
-        };
-    },
-
+	constructor: Game.EnnemieSauteur,
+	jump: function() {
+		if (!this.jumping) {
+			this.jumping = true;
+			this.velocity_y -= 30;
+		}
+	},
+	getHitbox: function() {
+		return {
+			left: this.getLeft(),
+			right: this.getRight(),
+			top: this.getTop(),
+			bottom: this.getBottom()
+		};
+	},
+	getHurtbox: function() {
+		// Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
+		const hitbox = this.getHitbox();
+		return {
+			left: hitbox.left,
+			right: hitbox.right,
+			top: hitbox.top,
+			bottom: hitbox.bottom
+		};
+	},
 	collideWithPlayer: function(player) {
-        const ennemieHitbox = this.getHitbox();
-        const playerHurtbox = player.getHurtbox();
-
-        return (
-            ennemieHitbox.left < playerHurtbox.right &&
-            ennemieHitbox.right > playerHurtbox.left &&
-            ennemieHitbox.top < playerHurtbox.bottom &&
-            ennemieHitbox.bottom > playerHurtbox.top
-        );
-    },
-
-		updatePosition:function(gravity, friction, player) {
-			this.x_old = this.x;
-			this.y_old = this.y;
-	
-			this.velocity_y += gravity;
-			this.velocity_x *= friction;
-	
-			if (Math.abs(this.velocity_x) > this.velocity_max)
-				this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
-			
-			if (Math.abs(this.velocity_y) > this.velocity_max)
-				this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
-
-			if (!this.collideWithPlayer(player)) {
-			const originalX = this.x; // Mémoriser la position actuelle
-	
+		const ennemieHitbox = this.getHitbox();
+		const playerHurtbox = player.getHurtbox();
+		return (
+			ennemieHitbox.left < playerHurtbox.right &&
+			ennemieHitbox.right > playerHurtbox.left &&
+			ennemieHitbox.top < playerHurtbox.bottom &&
+			ennemieHitbox.bottom > playerHurtbox.top
+		);
+	},
+	updatePosition:function(gravity, friction, player) {
+		this.x_old = this.x;
+		this.y_old = this.y;
+		this.velocity_y += gravity;
+		this.velocity_x *= friction;
+		if (Math.abs(this.velocity_x) > this.velocity_max)
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+		if (Math.abs(this.velocity_y) > this.velocity_max)
+			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+		if (!this.collideWithPlayer(player)) {
+			const originalX = this.x;
 			if (this.x-15 < player.x) {
-				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+				this.velocity_x = 2;
 			} else if (this.x+15 > player.x) {
-				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+				this.velocity_x = -2;
 			} else {
 				this.velocity_x = 0;
 			}
-	
-			this.x_old = originalX; // Restaurer la position actuelle après mise à jour de la vélocité
-			} else {
-				this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
-			}
-		
-			// Vérifier si l'ennemi est bloqué dans sa position (collision avec un mur)
-			if (this.velocity_x > 0 && this.x_old == this.x) {
-				// Il est bloqué, donc saute
-				this.jump();
-			}
-	
-			this.x += this.velocity_x;
-			this.y += this.velocity_y;
-		},
+			this.x_old = originalX;
+		} else {
+			this.velocity_x = 0;
+		}
+		if (this.velocity_x > 0 && this.x_old == this.x) {
+			this.jump();
+		}
+		this.x += this.velocity_x;
+		this.y += this.velocity_y;
+	},
 };
 
 Game.EnnemieVolant = function(x, y) {
-
 	Game.MovingObject.call(this, x, y, 32, 32);
-
-	this.color1     = "#f22525";
-	this.color2     = "#c53232";
-
+	this.color1	 = "#f22525";
+	this.color2	 = "#c53232";
 	this.velocity_x = 0;
 	this.velocity_y = 0;
-	this.speed = 2; // Adjust the speed of the flying enemy as needed
-
+	this.speed = 2;
 };
-
 Game.EnnemieVolant.prototype = {
-
-	constructor: Game.EnnemieVolant,
-
 	getHitbox: function() {
-        return {
-            left: this.getLeft(),
-            right: this.getRight(),
-            top: this.getTop(),
-            bottom: this.getBottom()
-        };
-    },
-
-    getHurtbox: function() {
-        // Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
-        const hitbox = this.getHitbox();
-        return {
-            left: hitbox.left,
-            right: hitbox.right,
-            top: hitbox.top,
-            bottom: hitbox.bottom
-        };
-    },
-
+		return {
+			left: this.getLeft(),
+			right: this.getRight(),
+			top: this.getTop(),
+			bottom: this.getBottom()
+		};
+	},
+	getHurtbox: function() {
+		const hitbox = this.getHitbox();
+		return {
+			left: hitbox.left,
+			right: hitbox.right,
+			top: hitbox.top,
+			bottom: hitbox.bottom
+		};
+	},
 	collideWithPlayer: function(player) {
-        const ennemieHitbox = this.getHitbox();
-        const playerHurtbox = player.getHurtbox();
+		const ennemieHitbox = this.getHitbox();
+		const playerHurtbox = player.getHurtbox();
 
-        return (
-            ennemieHitbox.left < playerHurtbox.right &&
-            ennemieHitbox.right > playerHurtbox.left &&
-            ennemieHitbox.top < playerHurtbox.bottom &&
-            ennemieHitbox.bottom > playerHurtbox.top
-        );
-    },
-
-		updatePosition:function(gravity, friction, player) {
-			this.x_old = this.x;
-			this.y_old = this.y;
-	
-			this.velocity_y += gravity;
-			this.velocity_x *= friction;
-	
-			if (Math.abs(this.velocity_x) > this.velocity_max)
-				this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
-			
-			if (Math.abs(this.velocity_y) > this.velocity_max)
-				this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
-
-			if (!this.collideWithPlayer(player)) {
-            // Suivre la position horizontale
-            if (this.x-15 < player.x) {
-                this.velocity_x = this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-            } else if (this.x+15 > player.x) {
-                this.velocity_x = -this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-            } else {
-                this.velocity_x = 0;
-            }
-
-            // Suivre la position verticale
-            if (this.y-25 < player.y) {
-                this.velocity_y = this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-            } else if (this.y+25 > player.y) {
-                this.velocity_y = -this.speed; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-            } else {
-                this.velocity_y = 0;
-            }
-					} else {
-							this.velocity_x = 0; // Arrêter le mouvement horizontal en cas de collision avec le joueur
-							this.velocity_y = 0; // Arrêter le mouvement vertical en cas de collision avec le joueur
-					}
-	
-			this.x += this.velocity_x;
-			this.y += this.velocity_y;
-		},
+		return (
+			ennemieHitbox.left < playerHurtbox.right &&
+			ennemieHitbox.right > playerHurtbox.left &&
+			ennemieHitbox.top < playerHurtbox.bottom &&
+			ennemieHitbox.bottom > playerHurtbox.top
+		);
+	},
+	updatePosition:function(gravity, friction, player) {
+		this.x_old = this.x;
+		this.y_old = this.y;
+		this.velocity_y += gravity;
+		this.velocity_x *= friction;
+		if (Math.abs(this.velocity_x) > this.velocity_max)
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+		if (Math.abs(this.velocity_y) > this.velocity_max)
+			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+		if (!this.collideWithPlayer(player)) {
+			if (this.x-15 < player.x) {
+				this.velocity_x = this.speed;
+			} else if (this.x+15 > player.x) {
+				this.velocity_x = -this.speed;
+			} else {
+				this.velocity_x = 0;
+			}
+			if (this.y-25 < player.y) {
+				this.velocity_y = this.speed;
+			} else if (this.y+25 > player.y) {
+				this.velocity_y = -this.speed;
+			} else {
+				this.velocity_y = 0;
+			}
+		} else {
+			this.velocity_x = 0;
+			this.velocity_y = 0;
+		}
+		this.x += this.velocity_x;
+		this.y += this.velocity_y;
+	},
 };
 Object.assign(Game.Ennemie.prototype, Game.MovingObject.prototype);
-Object.assign(Game.EnnemieSauteur.prototype, Game.MovingObject.prototype);
 Object.assign(Game.EnnemieJumpContact.prototype, Game.MovingObject.prototype);
 Object.assign(Game.EnnemieVolant.prototype, Game.MovingObject.prototype);
 
@@ -804,7 +715,7 @@ Object.assign(Game.EnnemieVolant.prototype, Game.MovingObject.prototype);
 
 ////* ----------- Game Frames Images & Tiles ------------ *////
 Game.TileSet = function(columns, tile_size) {
-	this.columns    = columns;
+	this.columns	= columns;
 	this.tile_size  = tile_size;
 
 	let f = Game.Frame;
@@ -958,6 +869,26 @@ Game.TileSet = function(columns, tile_size) {
 		new f(3*41, 0, 41, 57), // 123
 		new f(4*41, 0, 41, 57), // 124
 		new f(5*41, 0, 41, 57), // 125
+
+		//// Skull Jumper Left ////
+		new f(0*48, 0, 48, 56), // 126
+		new f(1*48, 0, 48, 56), // 127
+		new f(2*48, 0, 48, 56), // 128
+		new f(3*48, 0, 48, 56), // 129
+		new f(4*48, 0, 48, 56), // 130
+		new f(5*48, 0, 48, 56), // 131
+		new f(6*48, 0, 48, 56), // 132
+		new f(7*48, 0, 48, 56), // 133
+
+		//// Skull Jumper Right ////
+		new f(8*48, 0, 48, 56), // 134
+		new f(9*48, 0, 48, 56), // 135
+		new f(10*48, 0, 48, 56), // 136
+		new f(11*48, 0, 48, 56), // 137
+		new f(12*48, 0, 48, 56), // 138
+		new f(13*48, 0, 48, 56), // 139
+		new f(14*48, 0, 48, 56), // 140
+		new f(15*48, 0, 48, 56), // 141
 	];
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
@@ -971,10 +902,10 @@ Game.World = function(friction = 0.85, gravity = 2) {
 	this.gravity   = gravity;
 
 	this.columns   = 20;
-	this.rows      = 9;
+	this.rows	  = 9;
 
 	this.tile_set  = new Game.TileSet(18, 32);
-	this.player    = new Game.Player(playerPosX, playerPosY);
+	this.player	= new Game.Player(playerPosX, playerPosY);
 
 	this.zone_id   = currentZone;
 
@@ -983,24 +914,25 @@ Game.World = function(friction = 0.85, gravity = 2) {
 	this.monster_jumper = [];
 	this.monster_contactjump = [];
 	this.monster_fly = [];
-	this.health 	= 100;
-	this.doors     = [];
-	this.door      = undefined;
+	this.health 	= 20;
+	this.cooldown 	= 0;
+	this.doors	 = [];
+	this.door	  = undefined;
 
-	this.height    = this.tile_set.tile_size * this.rows;
-	this.width     = this.tile_set.tile_size * this.columns;
+	this.height	= this.tile_set.tile_size * this.rows;
+	this.width	 = this.tile_set.tile_size * this.columns;
 };
 Game.World.prototype = {
 	constructor: Game.World,
 	collideObject:function(object) {
 		var bottom, left, right, top, value;
 
-		top    = Math.floor(object.getTop()    / this.tile_set.tile_size);
+		top	= Math.floor(object.getTop()	/ this.tile_set.tile_size);
 		left   = Math.floor(object.getLeft()   / this.tile_set.tile_size);
 		value  = this.collision_map[top * this.columns + left];
 		this.collider.collide(value, object, left * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
 
-		top    = Math.floor(object.getTop()    / this.tile_set.tile_size);
+		top	= Math.floor(object.getTop()	/ this.tile_set.tile_size);
 		right  = Math.floor(object.getRight()  / this.tile_set.tile_size);
 		value  = this.collision_map[top * this.columns + right];
 		this.collider.collide(value, object, right * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
@@ -1018,46 +950,43 @@ Game.World.prototype = {
 
 	setup:function(zone) {
 		this.heal_health 		= new Array();
-		this.monster_normale    = new Array();
+		this.monster_normale	= new Array();
 		this.monster_jumper = new Array();
 		this.monster_contactjump = new Array();
 		this.monster_fly = new Array();
 		this.torch 				= new Array();
-		this.doors              = new Array();
-		this.collision_map      = zone.collision_map;
-		this.graphical_map      = zone.graphical_map;
-		this.columns            = zone.columns;
-		this.rows               = zone.rows;
-		this.zone_id            = zone.id;
-
+		this.doors			  = new Array();
+		this.collision_map	  = zone.collision_map;
+		this.graphical_map	  = zone.graphical_map;
+		this.columns			= zone.columns;
+		this.rows			   = zone.rows;
+		this.zone_id			= zone.id;
 		/* Generate items heal_health */
 		for (let index = zone.heal_health.length - 1; index > -1; -- index) {
 			let heal_health = zone.heal_health[index];
 			this.heal_health[index] = new Game.HealHealth(heal_health[0] * this.tile_set.tile_size + 5, heal_health[1] * this.tile_set.tile_size - 2);
 		}
-
 		/* Generate new torchs. */
 		for (let index = zone.torch.length - 1; index > -1; -- index) {
 			let torch = zone.torch[index];
 			this.torch[index] = new Game.Torch(torch[0] * this.tile_set.tile_size, torch[1] * this.tile_set.tile_size + 12);
 		}
-
 		/* Generate new normal monster. */
 		for (let index = zone.monster_normale.length - 1; index > -1; -- index) {
 			let monster_normale = zone.monster_normale[index];
 			this.monster_normale[index] = new Game.Ennemie(monster_normale[0] * this.tile_set.tile_size, monster_normale[1] * this.tile_set.tile_size);
 		}
-
+		/* Generate new flying monster. */
 		for (let index = zone.monster_fly.length - 1; index > -1; -- index) {
 			let monster_fly = zone.monster_fly[index];
 			this.monster_fly[index] = new Game.EnnemieVolant(monster_fly[0] * this.tile_set.tile_size, monster_fly[1] * this.tile_set.tile_size);
 		}
-
+		/* Generate new jumping monster. */
 		for (let index = zone.monster_jumper.length - 1; index > -1; -- index) {
 			let monster_jumper = zone.monster_jumper[index];
 			this.monster_jumper[index] = new Game.EnnemieSauteur(monster_jumper[0] * this.tile_set.tile_size, monster_jumper[1] * this.tile_set.tile_size);
 		}
-
+		/* Generate new jumping contact monster. */
 		for (let index = zone.monster_contactjump.length - 1; index > -1; -- index) {
 			let monster_contactjump = zone.monster_contactjump[index];
 			this.monster_contactjump[index] = new Game.EnnemieJumpContact(monster_contactjump[0] * this.tile_set.tile_size, monster_contactjump[1] * this.tile_set.tile_size);
@@ -1117,10 +1046,9 @@ Game.World.prototype = {
 				if (this.player.attacking == true)
 				{
 					this.monster_normale.splice(this.monster_normale.indexOf(monster_normale), 1);
-				}
-				else
-				{
+				} else if (this.cooldown == 0) {
 					this.health -= 1;
+					this.cooldown = 50;
 				}
 			}
 		}
@@ -1133,10 +1061,9 @@ Game.World.prototype = {
 				if (this.player.attacking == true)
 				{
 					this.monster_contactjump.splice(this.monster_contactjump.indexOf(monster_contactjump), 1);
-				}
-				else
-				{
+				} else if (this.cooldown == 0) {
 					this.health -= 1;
+					this.cooldown = 50;
 				}
 			}
 		}
@@ -1149,10 +1076,9 @@ Game.World.prototype = {
 				if (this.player.attacking == true)
 				{
 					this.monster_fly.splice(this.monster_fly.indexOf(monster_fly), 1);
-				}
-				else
-				{
+				} else if (this.cooldown == 0) {
 					this.health -= 1;
+					this.cooldown = 50;
 				}
 			}
 		}
@@ -1160,17 +1086,21 @@ Game.World.prototype = {
 		for (let index = this.monster_jumper.length - 1; index > -1; -- index) {
 			let monster_jumper = this.monster_jumper[index];
 			this.collideObject(monster_jumper);
+			monster_jumper.animate();
 			monster_jumper.updatePosition(this.gravity, this.friction, this.player);
 			if (monster_jumper.collideObject(this.player)) {
 				if (this.player.attacking == true)
 				{
 					this.monster_jumper.splice(this.monster_jumper.indexOf(monster_jumper), 1);
-				}
-				else
-				{
+				} else if (this.cooldown == 0) {
 					this.health -= 1;
+					this.cooldown = 50;
 				}
 			}
+		}
+
+		if (this.cooldown > 0) {
+			this.cooldown -= 1;
 		}
 	},
 };
