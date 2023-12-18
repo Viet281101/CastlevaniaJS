@@ -22,7 +22,21 @@ const Display = function(canvas) {
 				destination_x, destination_y, 
 				tile_size, tile_size
 			);
+		}
+	};
 
+	//// Show collision map to screen (just for debuging and test) ////
+	this.drawCollisionMap = function(collision_map, map_columns, tile_size) {
+		this.buffer.strokeStyle = "red";
+		this.buffer.lineWidth = 2;
+
+		for (let index = collision_map.length - 1; index > -1; -- index) {
+			let value		 = collision_map[index];
+			if (value) {
+				let destination_x =           (index % map_columns  ) * tile_size;
+				let destination_y = Math.floor(index / map_columns  ) * tile_size;
+				this.buffer.strokeRect(destination_x, destination_y, tile_size, tile_size);
+			}
 		}
 	};
 

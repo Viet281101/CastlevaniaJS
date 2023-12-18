@@ -247,7 +247,7 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 
 ////* ----------- Game Item Heal Health ------------- *////
 Game.HealHealth = function(x, y) {
-	Game.Object.call(this, x, y, 36, 36);
+	Game.Object.call(this, x, y, 18, 18);
 	Game.Animator.call(this, Game.HealHealth.prototype.frame_sets["twirl"], 15);
 	this.frame_index = Math.floor(Math.random() * 2);
 	this.base_x     = x;
@@ -256,7 +256,7 @@ Game.HealHealth = function(x, y) {
 	this.position_y = this.position_x * 2;
 };
 Game.HealHealth.prototype = {
-	frame_sets: { "twirl": [118] },
+	frame_sets: { "twirl": [118, 119] },
 	updatePosition:function() {
 		this.position_x += 0.1;
 		this.position_y += 0.2;
@@ -539,11 +539,13 @@ Game.TileSet = function(columns, tile_size) {
 		new f(1656,  0, 92, 76, 8, 0), // 117
 
 		//// Heal Health ////
-		new f(   0,  0, 36, 36), // 118
+		new f(   0,  0, 18, 18), // 118
+		new f(  18,  0, 18, 18), // 119
 
 	];
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
+
 
 ////* ----------- Game World ------------ *////
 Game.World = function(friction = 0.85, gravity = 2) {
@@ -632,6 +634,16 @@ Game.World.prototype = {
 	update:function() {
 		this.player.updatePosition(this.gravity, this.friction);
 		this.collideObject(this.player);
+
+		for (let index = this.heal_health.length - 1; index > -1; -- index) {
+			let heal_health = this.heal_health[index];
+			heal_health.updatePosition();
+			heal_health.animate();
+			if (heal_health.collideObject(this.player)) {
+				this.heal_health.splice(this.heal_health.indexOf(heal_health), 1);
+				this.health += 1;
+			}
+		}
 
 		for(let index = this.doors.length - 1; index > -1; -- index) {
 			let door = this.doors[index];

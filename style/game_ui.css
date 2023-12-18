@@ -1,7 +1,7 @@
 
 @font-face {
-    font-family: 'Castlevania';
-    src: url('../assets/Font/fette-unz-fraktur.ttf') format('truetype');
+    font-family: 'alagard';
+    src: url('../assets/Font/alagard.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -15,7 +15,7 @@ body, html {
     overflow-y: hidden;  
     overflow-x: hidden;
     background-color: black;
-    font-family: 'Castlevania', sans-serif;
+    font-family: 'alagard', sans-serif;
 }
 
 

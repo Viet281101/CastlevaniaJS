@@ -1,4 +1,5 @@
 {
+	"heal_health": [[7, 8], [14, 8]],
 	"doors" : [
 		{ "x":640, "y":64, "width":16, "height":1600,
 		"destination_zone":"01", "destination_x":0, "destination_y":-1 }
@@ -29,3 +30,5 @@
 	],
 	"id":"00"
 }
+
+

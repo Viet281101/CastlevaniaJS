@@ -14,6 +14,7 @@ window.addEventListener("load", function(event) {
 	const AssetsManager = function() {
 		this.tile_set_image = undefined;
 		this.player_image = undefined;
+		this.heal_health_image = undefined;
 	};
 
 	AssetsManager.prototype = {
@@ -66,9 +67,16 @@ window.addEventListener("load", function(event) {
 			game.world.height / game.world.width
 		);
 		display.render();
+
+		var rectangle = display.context.canvas.getBoundingClientRect();
+		p.style.left = rectangle.left + "px";
+		p.style.top  = rectangle.top  + "px";
+		p.style.fontSize = game.world.tile_set.tile_size * rectangle.height / game.world.height + "px";
 	};
 
 	var render = function() {
+
+		var frame = undefined;
 
 		display.drawMap(
 			assets_manager.tile_set_image,
@@ -78,7 +86,21 @@ window.addEventListener("load", function(event) {
 			game.world.tile_set.tile_size
 		);
 
-		let frame = game.world.tile_set.frames[game.world.player.frame_value];
+		for (let index = game.world.heal_health.length - 1; index > -1; -- index) {
+			let heal_health = game.world.heal_health[index];
+			frame = game.world.tile_set.frames[heal_health.frame_value];
+
+			display.drawObject(
+				assets_manager.heal_health_image,
+				frame.x, frame.y,
+				heal_health.x + Math.floor(heal_health.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+				heal_health.y + frame.offset_y, 
+				frame.width, frame.height
+			);
+		}
+		p.innerHTML = "HEALTH: " + game.world.health;
+
+		frame = game.world.tile_set.frames[game.world.player.frame_value];
 
 		display.drawObject(
 			assets_manager.player_image,
@@ -125,6 +147,11 @@ window.addEventListener("load", function(event) {
 	var game           = new Game();
 	var engine         = new Engine(1000/40, render, update);
 
+	var p = document.createElement("p");
+	p.setAttribute("style", "color: red; position: fixed;");
+	p.innerHTML = "HEALTH: 0";
+	document.body.appendChild(p);
+
 	////////////////////
 	//// INITIALIZE ////
 	////////////////////
@@ -145,6 +172,10 @@ window.addEventListener("load", function(event) {
 
 		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => {
 			assets_manager.player_image = image;
+		});
+
+		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {
+			assets_manager.heal_health_image = image;
 		});
 	});
 
