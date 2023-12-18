@@ -113,23 +113,37 @@ window.addEventListener("load", function(event) {
 	};
 
 	var update = function() {
-		if (controller.left.active) { game.world.player.moveLeft(); }
-		if (controller.right.active) { game.world.player.moveRight(); }
-		if (controller.squat.active) { game.world.player.squat(); }
-		if (controller.attack.active) { game.world.player.attack(); }
-		if (controller.up.active) {
-			game.world.player.jump();
-			controller.up.active = false;
-		}
-		game.update();
-		if (game.world.door) {
+		if(controller.pause.active){
+			console.log('pause activé')
 			engine.stop();
-			assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
-				game.world.setup(zone);
-				engine.start();
-			});
-			return;
 		}
+			if (controller.left.active) {
+				game.world.player.moveLeft();
+			}
+			if (controller.right.active) {
+				game.world.player.moveRight();
+			}
+			if (controller.squat.active) {
+				game.world.player.squat();
+			}
+			if (controller.attack.active) {
+				game.world.player.attack();
+			}
+			if (controller.up.active) {
+				game.world.player.jump();
+				controller.up.active = false;
+			}
+
+			game.update();
+			if (game.world.door) {
+				engine.stop();
+				assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
+					game.world.setup(zone);
+					engine.start();
+				});
+				return;
+			}
+
 	};
 
 

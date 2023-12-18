@@ -83,13 +83,13 @@ function pauseGame() {
 		stopMusic(gameLvl1Music);
 		stopMusic(gameLvl2Music);
 		stopMusic(bossMusic);
-		pauseMenu.show();
+		//pauseMenu();
 	} else {
 		engine.start();
 		if (levelDisplay == "01") playMusic(gameLvl1Music);
 		else if (levelDisplay == "02") playMusic(gameLvl2Music);
 		else if (levelDisplay == "03") playMusic(bossMusic);
-		pauseMenu.hide();
+		//pauseMenu();
 	}
 }
 
