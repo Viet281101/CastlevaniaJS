@@ -16,6 +16,7 @@ window.addEventListener("load", function(event) {
 		this.tile_set_image = undefined;
 		this.player_image = undefined;
 		this.heal_health_image = undefined;
+		this.torch_image = undefined;
 	};
 
 	AssetsManager.prototype = {
@@ -93,6 +94,19 @@ window.addEventListener("load", function(event) {
 			frame.width, frame.height
 		);
 
+		for (let index = game.world.torch.length - 1; index > -1; -- index) {
+			let torch = game.world.torch[index];
+			frame = game.world.tile_set.frames[torch.frame_value];
+
+			display.drawObject(
+				assets_manager.torch_image,
+				frame.x, frame.y,
+				torch.x + frame.offset_x,
+				torch.y + frame.offset_y, 
+				frame.width, frame.height
+			);
+		}
+
 		// display.drawCollisionMap(game.world.collision_map, game.world.columns, game.world.tile_set.tile_size);
 		display.render();
 
@@ -152,13 +166,11 @@ window.addEventListener("load", function(event) {
 			engine.start();
 		});
 
-		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => {
-			assets_manager.player_image = image;
-		});
+		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => {assets_manager.player_image = image;});
 
-		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {
-			assets_manager.heal_health_image = image;
-		});
+		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {assets_manager.heal_health_image = image; });
+
+		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => {assets_manager.torch_image = image; });
 	});
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);
