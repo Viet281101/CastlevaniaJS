@@ -19,9 +19,8 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
    - Tiles Assets Packs2: [https://www.spriters-resource.com/fullview/3460/?source=genre]
    - Player : [Sprite Héros (Alucard)](https://www.castlevaniacrypt.com/wp-content/img/sotn/sprites/alucard.png)
    - Butterfly : [OpenGameArt.org Forest monsters pack](https://opengameart.org/content/forest-monsters)
-   - Ghost : [OpenGameArt.org Gothicvania monsters packs](https://opengameart.org/content/gothicvania-patreons-collection)
+   - Ghost & Hell Hound: [OpenGameArt.org Gothicvania monsters packs](https://opengameart.org/content/gothicvania-patreons-collection)
    - Bitterfly : [https://www.castlevaniacrypt.com/wp-content/img/sotn/sprites/bitterfly.png]
-   - Hammer_ennemy : [https://www.castlevaniacrypt.com/wp-content/img/sotn/sprites/hammer.png]
 
 3) Fonts:
    - Castlevania Font : download from [here](https://hyperpix.net/fonts/castlevania-font/)
