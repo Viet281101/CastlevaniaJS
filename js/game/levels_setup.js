@@ -61,17 +61,8 @@ function loadScripts() {
 	musicsScript.setAttribute("src", "./js/sound/music.js");
 	document.head.appendChild(musicsScript);
 
-
 	fadeInEffect();
 	defineFadeInKeyframes();
-	window.addEventListener('keydown', function(event) {
-		console.log("Touche enfoncée :", event.key);
-		if (event.key === 'p' || event.key === 'P') {
-			pauseGame();  // Appeler la fonction pauseGame()
-		}
-	});
-
-
 
 	console.log("Loaded part " + levelDisplay + " of the game.");
 };

@@ -286,6 +286,7 @@ Game.Player = function(x, y) {
 	Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 6);
 
 	this.jumping     = true;
+	this.double_jump = false;
 	this.squatting   = false;
 	this.direction_x = -1;
 	this.velocity_x  = 0;
@@ -302,13 +303,13 @@ Game.Player.prototype = {
 		"sit-left"  : [52, 53, 54, 55, 56, 57, 58, 59, 60, 61 ,62, 63, 64, 65],
 		"sit-right" : [66, 67, 68, 69, 70, 71, 72, 73, 74, 75 ,76, 77, 78, 79],
 		"attack-left"  : [80, 81, 82, 83, 84, 85, 86, 87, 88, 89 ,90, 91, 92, 93, 94, 95, 96, 97, 98],
-		"attack-right" : [99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ,109, 110, 111, 112, 113, 114, 115, 116, 117]
+		"attack-right" : [99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ,109, 110, 111, 112, 113, 114, 115, 116, 117],
 	},
 	jump: function() {
-		if (!this.jumping && this.velocity_y < 10) {
-			this.jumping     = true;
-			this.velocity_y -= 20;
-			this.velocity_x *= 1.2;
+		if (!this.jumping && !this.double_jump && this.velocity_y < 10) {
+			this.jumping = true;
+			this.velocity_y -= 25;
+			this.velocity_x *= 1.8;
 		}
 	},
 	moveLeft: function() {
@@ -332,9 +333,9 @@ Game.Player.prototype = {
 	updateAnimation:function() {
 		if (this.velocity_y < 0) {
 			if (this.direction_x < 0) {
-				this.changeFrameSet(this.frame_sets["jump-left"], "once", 15);
+				this.changeFrameSet(this.frame_sets["jump-left"], "once", 5);
 			} else {
-				this.changeFrameSet(this.frame_sets["jump-right"], "once", 15);
+				this.changeFrameSet(this.frame_sets["jump-right"], "once", 5);
 			}
 		} else if (this.direction_x < 0) {
 			if (this.velocity_x < -0.1 && !this.jumping) {
@@ -371,7 +372,7 @@ Game.Player.prototype = {
 		this.velocity_x *= friction;
 
 		if (Math.abs(this.velocity_x) > this.velocity_max)
-		this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
 		
 		if (Math.abs(this.velocity_y) > this.velocity_max)
 			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
@@ -386,6 +387,23 @@ Game.Player.prototype = {
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
 Game.Player.prototype.constructor = Game.Player;
+
+
+
+////* ---------- Game Enemies ----------- *////
+Game.Enemy = function(x, y) {
+	Game.MovingObject.call(this, x, y, 92, 76);
+	Game.Animator.call(this, Game.Enemy.prototype.frame_sets["idle-right"], 6);
+	this.direction_x = -1;
+	this.velocity_x  = 0;
+	this.velocity_y  = 0;
+};
+Game.Enemy.prototype = {
+	frame_sets: {},
+	updateAnimation:function() {},
+	updatePosition:function(gravity, friction) {}
+};
+
 
 
 ////* ----------- Game Frames Images & Tiles ------------ *////
@@ -558,7 +576,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
 	this.zone_id   = currentZone;
 
 	this.heal_health = [];
-	this.health = 0;
+	this.health 	= 10;
 	this.doors     = [];
 	this.door      = undefined;
 
@@ -615,14 +633,13 @@ Game.World.prototype = {
 		if (this.door) {
 			if (this.door.destination_x != -1) {
 				this.player.setCenterX   (this.door.destination_x);
-				this.player.setOldCenterX(this.door.destination_x);// It's important to reset the old position as well.
+				this.player.setOldCenterX(this.door.destination_x);
 			}
-
 			if (this.door.destination_y != -1) {
 				this.player.setCenterY   (this.door.destination_y);
 				this.player.setOldCenterY(this.door.destination_y);
 			}
-			this.door = undefined;// Make sure to reset this.door so we don't trigger a zone load.
+			this.door = undefined;
 		}
 	},
 

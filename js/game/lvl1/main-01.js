@@ -2,8 +2,9 @@
 window.addEventListener("load", function(event) {
 
 	"use strict";
-
+	////////////////////
 	//// CONSTANTS ////
+	////////////////////
 
 	const ZONE_PREFIX = "js/game/lvl1/zone";
 	const ZONE_SUFFIX = ".json";
@@ -18,36 +19,23 @@ window.addEventListener("load", function(event) {
 	};
 
 	AssetsManager.prototype = {
-
 		constructor: Game.AssetsManager,
 
-		/* Requests a file and hands the callback function the contents of that file
-		parsed by JSON.parse. */
 		requestJSON:function(url, callback) {
-	
 			let request = new XMLHttpRequest();
-
 			request.addEventListener("load", function(event) {
 				callback(JSON.parse(this.responseText));
 			}, { once:true });
-
 			request.open("GET", url);
 			request.send();
-
 		},
 
-		/* Creates a new Image and sets its src attribute to the specified url. When
-		the image loads, the callback function is called. */
 		requestImage:function(url, callback) {
-
 			let image = new Image();
-
 			image.addEventListener("load", function(event) {
 				callback(image);
 			}, { once:true });
-
 			image.src = url;
-
 		},
 
 	};
@@ -67,11 +55,6 @@ window.addEventListener("load", function(event) {
 			game.world.height / game.world.width
 		);
 		display.render();
-
-		var rectangle = display.context.canvas.getBoundingClientRect();
-		p.style.left = rectangle.left + "px";
-		p.style.top  = rectangle.top  + "px";
-		p.style.fontSize = game.world.tile_set.tile_size * rectangle.height / game.world.height + "px";
 	};
 
 	var render = function() {
@@ -116,29 +99,22 @@ window.addEventListener("load", function(event) {
 	};
 
 	var update = function() {
-		if (!game.paused) {
-			if (controller.left.active) { game.world.player.moveLeft(); }
-			if (controller.right.active) { game.world.player.moveRight(); }
-			if (controller.squat.active) { game.world.player.squat(); }
-			if (controller.attack.active) { game.world.player.attack(); }
-			if (controller.up.active) {
-				game.world.player.jump();
-				controller.up.active = false;
-			}
-
-			game.update();
-
-			if (game.world.door) {
-				engine.stop();
-				assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
-					game.world.setup(zone);
-					engine.start();
-				});
-				return;
-			}
-		} else {
-			console.log("Le jeu est en pause");
-			pauseMenu.show();
+		if (controller.left.active) { game.world.player.moveLeft(); }
+		if (controller.right.active) { game.world.player.moveRight(); }
+		if (controller.squat.active) { game.world.player.squat(); }
+		if (controller.attack.active) { game.world.player.attack(); }
+		if (controller.up.active) {
+			game.world.player.jump();
+			controller.up.active = false;
+		}
+		game.update();
+		if (game.world.door) {
+			engine.stop();
+			assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
+				game.world.setup(zone);
+				engine.start();
+			});
+			return;
 		}
 	};
 
@@ -152,10 +128,9 @@ window.addEventListener("load", function(event) {
 	var display        = new Display(document.querySelector("canvas"));
 	var game           = new Game();
 	var engine         = new Engine(1000/40, render, update);
-	var pauseMenu = initPauseMenu();
 
 	var p = document.createElement("p");
-	p.setAttribute("style", "color: red; position: fixed;");
+	p.setAttribute("style", "color: red; font-size:28px; position: fixed;");
 	p.innerHTML = "HEALTH: 0";
 	document.body.appendChild(p);
 
@@ -184,18 +159,6 @@ window.addEventListener("load", function(event) {
 		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {
 			assets_manager.heal_health_image = image;
 		});
-	});
-	window.addEventListener('keydown', function(event) {
-		console.log("Touche enfoncée :", event.key);
-		if (event.key === 'p' || event.key === 'P') {
-			if (game.paused) {
-				game.resume();
-				pauseMenu.hide();
-			} else {
-				game.pause();
-				pauseMenu.show();
-			}
-		}
 	});
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);

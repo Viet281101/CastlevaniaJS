@@ -80,18 +80,15 @@ const specialKeys = {
 function pauseGame() {
 	gamePaused = !gamePaused;
 	if (gamePaused) {
-		engine.stop();
 		stopMusic(gameLvl1Music);
 		stopMusic(gameLvl2Music);
 		stopMusic(bossMusic);
-		// Afficher le menu pause
 		pauseMenu.show();
 	} else {
 		engine.start();
 		if (levelDisplay == "01") playMusic(gameLvl1Music);
 		else if (levelDisplay == "02") playMusic(gameLvl2Music);
 		else if (levelDisplay == "03") playMusic(bossMusic);
-		// Masquer le menu pause
 		pauseMenu.hide();
 	}
 }

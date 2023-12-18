@@ -186,7 +186,6 @@ Game.Object = function(x, y, width, height) {
 Game.Object.prototype = {
 	constructor:Game.Object,
 
-	/* Now does rectangular collision detection. */
 	collideObject:function(object) {
 		if (this.getRight()  < object.getLeft()  ||
 			this.getBottom() < object.getTop()   ||
@@ -195,7 +194,6 @@ Game.Object.prototype = {
 		return true;
 	},
 
-	/* Does rectangular collision detection with the center of the object. */
 	collideObjectCenter:function(object) {
 		let center_x = object.getCenterX();
 		let center_y = object.getCenterY();
@@ -221,8 +219,7 @@ Game.Object.prototype = {
 Game.MovingObject = function(x, y, width, height, velocity_max = 15) {
 	Game.Object.call(this, x, y, width, height);
 	this.jumping      = false;
-	this.velocity_max = velocity_max;// added velocity_max so velocity can't go past 16
-	this.velocity_x   = 0;
+	this.velocity_max = velocity_max;
 	this.velocity_y   = 0;
 	this.x_old        = x;
 	this.y_old        = y;
@@ -247,7 +244,7 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 
 ////* ----------- Game Item Heal Health ------------- *////
 Game.HealHealth = function(x, y) {
-	Game.Object.call(this, x, y, 36, 36);
+	Game.Object.call(this, x, y, 18, 18);
 	Game.Animator.call(this, Game.HealHealth.prototype.frame_sets["twirl"], 15);
 	this.frame_index = Math.floor(Math.random() * 2);
 	this.base_x     = x;
@@ -256,7 +253,7 @@ Game.HealHealth = function(x, y) {
 	this.position_y = this.position_x * 2;
 };
 Game.HealHealth.prototype = {
-	frame_sets: { "twirl": [118] },
+	frame_sets: { "twirl": [118, 119] },
 	updatePosition:function() {
 		this.position_x += 0.1;
 		this.position_y += 0.2;
@@ -289,6 +286,7 @@ Game.Player = function(x, y) {
 	Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 6);
 
 	this.jumping     = true;
+	this.double_jump = false;
 	this.squatting   = false;
 	this.direction_x = -1;
 	this.velocity_x  = 0;
@@ -305,14 +303,13 @@ Game.Player.prototype = {
 		"sit-left"  : [52, 53, 54, 55, 56, 57, 58, 59, 60, 61 ,62, 63, 64, 65],
 		"sit-right" : [66, 67, 68, 69, 70, 71, 72, 73, 74, 75 ,76, 77, 78, 79],
 		"attack-left"  : [80, 81, 82, 83, 84, 85, 86, 87, 88, 89 ,90, 91, 92, 93, 94, 95, 96, 97, 98],
-		"attack-right" : [99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ,109, 110, 111, 112, 113, 114, 115, 116, 117]
+		"attack-right" : [99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ,109, 110, 111, 112, 113, 114, 115, 116, 117],
 	},
 	jump: function() {
-		/* Made it so you can only jump if you aren't falling faster than 10px per frame. */
-		if (!this.jumping && this.velocity_y < 10) {
-			this.jumping     = true;
-			this.velocity_y -= 20;
-			this.velocity_x *= 1.2;
+		if (!this.jumping && !this.double_jump && this.velocity_y < 10) {
+			this.jumping = true;
+			this.velocity_y -= 25;
+			this.velocity_x *= 1.8;
 		}
 	},
 	moveLeft: function() {
@@ -336,9 +333,9 @@ Game.Player.prototype = {
 	updateAnimation:function() {
 		if (this.velocity_y < 0) {
 			if (this.direction_x < 0) {
-				this.changeFrameSet(this.frame_sets["jump-left"], "once", 15);
+				this.changeFrameSet(this.frame_sets["jump-left"], "once", 5);
 			} else {
-				this.changeFrameSet(this.frame_sets["jump-right"], "once", 15);
+				this.changeFrameSet(this.frame_sets["jump-right"], "once", 5);
 			}
 		} else if (this.direction_x < 0) {
 			if (this.velocity_x < -0.1 && !this.jumping) {
@@ -374,9 +371,8 @@ Game.Player.prototype = {
 		this.velocity_y += gravity;
 		this.velocity_x *= friction;
 
-		/* Made it so that velocity cannot exceed velocity_max */
 		if (Math.abs(this.velocity_x) > this.velocity_max)
-		this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
 		
 		if (Math.abs(this.velocity_y) > this.velocity_max)
 			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
@@ -391,6 +387,23 @@ Game.Player.prototype = {
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
 Game.Player.prototype.constructor = Game.Player;
+
+
+
+////* ---------- Game Enemies ----------- *////
+Game.Enemy = function(x, y) {
+	Game.MovingObject.call(this, x, y, 92, 76);
+	Game.Animator.call(this, Game.Enemy.prototype.frame_sets["idle-right"], 6);
+	this.direction_x = -1;
+	this.velocity_x  = 0;
+	this.velocity_y  = 0;
+};
+Game.Enemy.prototype = {
+	frame_sets: {},
+	updateAnimation:function() {},
+	updatePosition:function(gravity, friction) {}
+};
+
 
 
 ////* ----------- Game Frames Images & Tiles ------------ *////
@@ -539,11 +552,13 @@ Game.TileSet = function(columns, tile_size) {
 		new f(1656,  0, 92, 76, 8, 0), // 117
 
 		//// Heal Health ////
-		new f(   0,  0, 36, 36), // 118
+		new f(   0,  0, 18, 18), // 118
+		new f(  18,  0, 18, 18), // 119
 
 	];
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
+
 
 ////* ----------- Game World ------------ *////
 Game.World = function(friction = 0.85, gravity = 2) {
@@ -561,7 +576,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
 	this.zone_id   = currentZone;
 
 	this.heal_health = [];
-	this.health = 0;
+	this.health 	= 10;
 	this.doors     = [];
 	this.door      = undefined;
 
@@ -618,20 +633,29 @@ Game.World.prototype = {
 		if (this.door) {
 			if (this.door.destination_x != -1) {
 				this.player.setCenterX   (this.door.destination_x);
-				this.player.setOldCenterX(this.door.destination_x);// It's important to reset the old position as well.
+				this.player.setOldCenterX(this.door.destination_x);
 			}
-
 			if (this.door.destination_y != -1) {
 				this.player.setCenterY   (this.door.destination_y);
 				this.player.setOldCenterY(this.door.destination_y);
 			}
-			this.door = undefined;// Make sure to reset this.door so we don't trigger a zone load.
+			this.door = undefined;
 		}
 	},
 
 	update:function() {
 		this.player.updatePosition(this.gravity, this.friction);
 		this.collideObject(this.player);
+
+		for (let index = this.heal_health.length - 1; index > -1; -- index) {
+			let heal_health = this.heal_health[index];
+			heal_health.updatePosition();
+			heal_health.animate();
+			if (heal_health.collideObject(this.player)) {
+				this.heal_health.splice(this.heal_health.indexOf(heal_health), 1);
+				this.health += 1;
+			}
+		}
 
 		for(let index = this.doors.length - 1; index > -1; -- index) {
 			let door = this.doors[index];
