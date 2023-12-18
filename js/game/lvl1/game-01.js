@@ -485,36 +485,33 @@ Game.Ennemie.prototype = {
         );
     },
 
-		updatePosition:function(gravity, friction, player, health) {
-			this.x_old = this.x;
-			this.y_old = this.y;
-	
-			this.velocity_y += gravity;
-			this.velocity_x *= friction;
-	
-			if (Math.abs(this.velocity_x) > this.velocity_max)
-				this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
-			
-			if (Math.abs(this.velocity_y) > this.velocity_max)
-				this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+	updatePosition:function(gravity, friction, player, health) {
+		this.x_old = this.x;
+		this.y_old = this.y;
+		this.velocity_y += gravity;
+		this.velocity_x *= friction;
 
-			// Suivre la position horizontale du joueur
-			if (!this.collideWithPlayer(player)) {
-				if (this.x-15 < player.x) {
-						this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-				} else if (this.x+15 > player.x) {
-						this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
-				} else {
-						this.velocity_x = 0;
-				}
+		if (Math.abs(this.velocity_x) > this.velocity_max)
+			this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+
+		if (Math.abs(this.velocity_y) > this.velocity_max)
+			this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+
+		if (!this.collideWithPlayer(player)) {
+			if (this.x-15 < player.x) {
+				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+			} else if (this.x+15 > player.x) {
+				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
 			} else {
-					this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
-					health -= 1;
+				this.velocity_x = 0;
 			}
-	
-			this.x += this.velocity_x;
-			this.y += this.velocity_y;
-		},
+		} else {
+			this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
+			health -= 1;
+		}
+		this.x += this.velocity_x;
+		this.y += this.velocity_y;
+	},
 };
 
 
