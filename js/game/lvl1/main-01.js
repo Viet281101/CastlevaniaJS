@@ -107,6 +107,47 @@ window.addEventListener("load", function(event) {
 			);
 		}
 
+
+		for (let index = game.world.monster_normale.length - 1; index > -1; -- index) {
+			let monster_normale = game.world.monster_normale[index];
+
+			display.drawEnnemy(
+				monster_normale, 
+				monster_normale.color1, 
+				monster_normale.color2
+			);
+		}
+
+		for (let index = game.world.monster_contactjump.length - 1; index > -1; -- index) {
+			let monster_contactjump = game.world.monster_contactjump[index];
+
+			display.drawEnnemy(
+				monster_contactjump, 
+				monster_contactjump.color1, 
+				monster_contactjump.color2
+			);
+		}
+
+		for (let index = game.world.monster_fly.length - 1; index > -1; -- index) {
+			let monster_normale = game.world.monster_normale[index];
+
+			display.drawEnnemy(
+				monster_fly, 
+				monster_fly.color1, 
+				monster_fly.color2
+			);
+		}
+
+		for (let index = game.world.monster_jumper.length - 1; index > -1; -- index) {
+			let monster_jumper = game.world.monster_jumper[index];
+
+			display.drawEnnemy(
+				monster_jumper, 
+				monster_jumper.color1, 
+				monster_jumper.color2
+			);
+		}
+
 		// display.drawCollisionMap(game.world.collision_map, game.world.columns, game.world.tile_set.tile_size);
 		display.render();
 
