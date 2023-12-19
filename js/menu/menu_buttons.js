@@ -69,17 +69,11 @@ function attachMenuButtonEvents() {
 		stopMusic(mainMenuMusic);
 	});
 
+	//////*  Demo button   *//////
 	document.getElementById('demoButton').addEventListener('click', function () {
 		clickSound.play();
 		stopMusic(mainMenuMusic);
-		let menuCreditScript = document.createElement("script");
-		menuCreditScript.setAttribute("type", "text/javascript");
-		menuCreditScript.setAttribute("src", "./js/menu/menu_demo.js");
-		document.body.appendChild(menuCreditScript);
-		transitionEffect.start(function() {
-			let creditMenu = new CreditMenu();
-			creditMenu.show();
-		});
+		transitionEffect.start("./Demo.webm");
 	});
 
 	//////*  Credits button   *//////
