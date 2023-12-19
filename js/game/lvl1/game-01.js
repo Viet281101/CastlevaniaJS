@@ -573,15 +573,17 @@ Game.EnnemieSauteur.prototype.constructor = Game.EnnemieSauteur;
 
 
 Game.EnnemieJumpContact = function(x, y) {
-	Game.MovingObject.call(this, x, y, 32, 32);
-	this.color1	 = "#f22525";
-	this.color2	 = "#c53232";
+	Game.MovingObject.call(this, x, y, 48, 56);
+	Game.Animator.call(this, Game.EnnemieJumpContact.prototype.frame_sets["skull_jump-left"], 9);
 	this.jumping	= true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
 };
 Game.EnnemieJumpContact.prototype = {
-	constructor: Game.EnnemieSauteur,
+	frame_sets: {
+		"skull_jump-left" : [126, 127, 128, 129, 130, 131, 132, 133],
+		"skull_jump-right": [134, 135, 136, 137, 138, 139, 140, 141],
+	},
 	jump: function() {
 		if (!this.jumping) {
 			this.jumping = true;
@@ -628,8 +630,10 @@ Game.EnnemieJumpContact.prototype = {
 			const originalX = this.x;
 			if (this.x-15 < player.x) {
 				this.velocity_x = 2;
+				this.changeFrameSet(this.frame_sets["skull_jump-right"], "loop", 8);
 			} else if (this.x+15 > player.x) {
 				this.velocity_x = -2;
+				this.changeFrameSet(this.frame_sets["skull_jump-left"], "loop", 8);
 			} else {
 				this.velocity_x = 0;
 			}
@@ -644,6 +648,9 @@ Game.EnnemieJumpContact.prototype = {
 		this.y += this.velocity_y;
 	},
 };
+Object.assign(Game.EnnemieJumpContact.prototype, Game.MovingObject.prototype);
+Object.assign(Game.EnnemieJumpContact.prototype, Game.Animator.prototype);
+Game.EnnemieJumpContact.prototype.constructor = Game.EnnemieJumpContact;
 
 Game.EnnemieVolant = function(x, y) {
 	Game.MovingObject.call(this, x, y, 32, 32);
@@ -713,7 +720,6 @@ Game.EnnemieVolant.prototype = {
 		this.y += this.velocity_y;
 	},
 };
-Object.assign(Game.EnnemieJumpContact.prototype, Game.MovingObject.prototype);
 Object.assign(Game.EnnemieVolant.prototype, Game.MovingObject.prototype);
 
 
@@ -1074,6 +1080,7 @@ Game.World.prototype = {
 		for (let index = this.monster_contactjump.length - 1; index > -1; -- index) {
 			let monster_contactjump = this.monster_contactjump[index];
 			this.collideObject(monster_contactjump);
+			monster_contactjump.animate();
 			monster_contactjump.updatePosition(this.gravity, this.friction, this.player);
 			if (monster_contactjump.collideObject(this.player)) {
 				if (this.player.attacking == true)

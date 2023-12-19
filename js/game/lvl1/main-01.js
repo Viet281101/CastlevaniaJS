@@ -19,6 +19,7 @@ window.addEventListener("load", function(event) {
 		this.torch_image = undefined;
 		this.fire_skull_image = undefined;
 		this.nightmare_image = undefined;
+		this.dark_skull_image = undefined;
 	};
 
 	AssetsManager.prototype = {
@@ -124,11 +125,13 @@ window.addEventListener("load", function(event) {
 
 		for (let index = game.world.monster_contactjump.length - 1; index > -1; -- index) {
 			let monster_contactjump = game.world.monster_contactjump[index];
-
-			display.drawEnnemy(
-				monster_contactjump, 
-				monster_contactjump.color1, 
-				monster_contactjump.color2
+			frame = game.world.tile_set.frames[monster_contactjump.frame_value];
+			display.drawObject(
+				assets_manager.dark_skull_image,
+				frame.x, frame.y,
+				monster_contactjump.x + Math.floor(monster_contactjump.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+				monster_contactjump.y + frame.offset_y, 
+				frame.width, frame.height
 			);
 		}
 
@@ -222,6 +225,8 @@ window.addEventListener("load", function(event) {
 		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => {assets_manager.torch_image = image; });
 
 		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => {assets_manager.fire_skull_image = image; });
+
+		assets_manager.requestImage("assets/Characters/Skull/dark_skull.png", (image) => {assets_manager.dark_skull_image = image; });
 
 		assets_manager.requestImage("assets/Characters/Nightmare/nightmare.png", (image) => {assets_manager.nightmare_image = image; });
 	});
