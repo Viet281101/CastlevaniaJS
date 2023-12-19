@@ -895,13 +895,13 @@ Game.TileSet = function(columns, tile_size) {
 		new f(14*48, 0, 48, 56), // 140
 		new f(15*48, 0, 48, 56), // 141
 
-		//// Nightmare Run Left ////
+		//// Nightmare Run Right ////
 		new f(0*72, 0, 72, 48), // 142
 		new f(1*72, 0, 72, 48), // 143
 		new f(2*72, 0, 72, 48), // 144
 		new f(3*72, 0, 72, 48), // 145
 
-		//// Nightmare Run Right ////
+		//// Nightmare Run Left ////
 		new f(4*72, 0, 72, 48), // 146
 		new f(5*72, 0, 72, 48), // 147
 		new f(6*72, 0, 72, 48), // 148
