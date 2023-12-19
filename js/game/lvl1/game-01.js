@@ -589,7 +589,6 @@ Game.EnnemieJumpContact.prototype = {
 		};
 	},
 	getHurtbox: function() {
-		// Définissez la Hurtbox en fonction de la Hitbox ou ajustez selon vos besoins
 		const hitbox = this.getHitbox();
 		return {
 			left: hitbox.left,
@@ -667,7 +666,6 @@ Game.EnnemieVolant.prototype = {
 	collideWithPlayer: function(player) {
 		const ennemieHitbox = this.getHitbox();
 		const playerHurtbox = player.getHurtbox();
-
 		return (
 			ennemieHitbox.left < playerHurtbox.right &&
 			ennemieHitbox.right > playerHurtbox.left &&
@@ -1101,6 +1099,10 @@ Game.World.prototype = {
 
 		if (this.cooldown > 0) {
 			this.cooldown -= 1;
+		}
+
+		if (this.health <= 0) {
+			document.location.reload(true);
 		}
 	},
 };

@@ -2,7 +2,7 @@
 	"heal_health": [],
 	"monster_normale": [[17, 4.5]],
 	"monster_fly": [],
-	"monster_jumper": [[14, 6.5]],
+	"monster_jumper": [[14, 3.5]],
 	"monster_contactjump": [],
 	"torch": [[3.3, 1], [7.3, 1], [11.3, 1], [15.3, 1]],
 	"doors" : [
