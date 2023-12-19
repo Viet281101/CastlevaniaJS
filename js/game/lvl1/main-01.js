@@ -18,6 +18,7 @@ window.addEventListener("load", function(event) {
 		this.heal_health_image = undefined;
 		this.torch_image = undefined;
 		this.fire_skull_image = undefined;
+		this.nightmare_image = undefined;
 	};
 
 	AssetsManager.prototype = {
@@ -111,11 +112,13 @@ window.addEventListener("load", function(event) {
 
 		for (let index = game.world.monster_normale.length - 1; index > -1; -- index) {
 			let monster_normale = game.world.monster_normale[index];
-
-			display.drawEnnemy(
-				monster_normale, 
-				monster_normale.color1, 
-				monster_normale.color2
+			frame = game.world.tile_set.frames[monster_normale.frame_value];
+			display.drawObject(
+				assets_manager.nightmare_image,
+				frame.x, frame.y,
+				monster_normale.x + Math.floor(monster_normale.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+				monster_normale.y + frame.offset_y, 
+				frame.width, frame.height
 			);
 		}
 
@@ -192,6 +195,8 @@ window.addEventListener("load", function(event) {
 	p.innerHTML = "HEALTH: 0";
 	document.body.appendChild(p);
 
+	playMusic(gameLvl1Music);
+
 	////////////////////
 	//// INITIALIZE ////
 	////////////////////
@@ -217,6 +222,8 @@ window.addEventListener("load", function(event) {
 		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => {assets_manager.torch_image = image; });
 
 		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => {assets_manager.fire_skull_image = image; });
+
+		assets_manager.requestImage("assets/Characters/Nightmare/nightmare.png", (image) => {assets_manager.nightmare_image = image; });
 	});
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);

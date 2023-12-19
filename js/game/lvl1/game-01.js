@@ -418,14 +418,16 @@ Object.assign(Game.Player.prototype, Game.Animator.prototype);
 
 ////* ---------- Game Enemies ----------- *////
 Game.Ennemie = function(x, y) {
-	Game.MovingObject.call(this, x, y, 32, 32);
-	this.color1	 = "#f22525";
-	this.color2	 = "#c53232";
+	Game.MovingObject.call(this, x, y, 72, 48);
+	Game.Animator.call(this, Game.Ennemie.prototype.frame_sets["nightmare_left"], 9);
 	this.velocity_x = 0;
 	this.velocity_y = 0;
 };
 Game.Ennemie.prototype = {
-	constructor: Game.Ennemie,
+	frame_sets: {
+		"nightmare_right" : [142, 143, 144, 145],
+		"nightmare_left": [146, 147, 148, 149],
+	},
 	getHitbox: function() {
 		return {
 			left: this.getLeft(),
@@ -467,20 +469,26 @@ Game.Ennemie.prototype = {
 
 		if (!this.collideWithPlayer(player)) {
 			if (this.x-15 < player.x) {
-				this.velocity_x = 2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+				this.velocity_x = 2;
+				this.changeFrameSet(this.frame_sets["nightmare_right"], "loop", 8);
 			} else if (this.x+15 > player.x) {
-				this.velocity_x = -2; // Ajustez la vitesse de l'ennemi en fonction de vos besoins
+				this.velocity_x = -2;
+				this.changeFrameSet(this.frame_sets["nightmare_left"], "loop", 8);
 			} else {
 				this.velocity_x = 0;
 			}
 		} else {
-			this.velocity_x = 0; // Arrêter le mouvement en cas de collision avec le joueur
+			this.velocity_x = 0;
 			health -= 1;
 		}
 		this.x += this.velocity_x;
 		this.y += this.velocity_y;
 	},
 };
+Object.assign(Game.Ennemie.prototype, Game.MovingObject.prototype);
+Object.assign(Game.Ennemie.prototype, Game.Animator.prototype);
+Game.Ennemie.prototype.constructor = Game.Ennemie;
+
 
 ////* ---------- Enemies Jumper ----------- *////
 Game.EnnemieSauteur = function(x, y) {
@@ -705,7 +713,6 @@ Game.EnnemieVolant.prototype = {
 		this.y += this.velocity_y;
 	},
 };
-Object.assign(Game.Ennemie.prototype, Game.MovingObject.prototype);
 Object.assign(Game.EnnemieJumpContact.prototype, Game.MovingObject.prototype);
 Object.assign(Game.EnnemieVolant.prototype, Game.MovingObject.prototype);
 
@@ -887,6 +894,18 @@ Game.TileSet = function(columns, tile_size) {
 		new f(13*48, 0, 48, 56), // 139
 		new f(14*48, 0, 48, 56), // 140
 		new f(15*48, 0, 48, 56), // 141
+
+		//// Nightmare Run Left ////
+		new f(0*72, 0, 72, 48), // 142
+		new f(1*72, 0, 72, 48), // 143
+		new f(2*72, 0, 72, 48), // 144
+		new f(3*72, 0, 72, 48), // 145
+
+		//// Nightmare Run Right ////
+		new f(4*72, 0, 72, 48), // 146
+		new f(5*72, 0, 72, 48), // 147
+		new f(6*72, 0, 72, 48), // 148
+		new f(7*72, 0, 72, 48), // 149
 	];
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
@@ -1039,6 +1058,7 @@ Game.World.prototype = {
 		for (let index = this.monster_normale.length - 1; index > -1; -- index) {
 			let monster_normale = this.monster_normale[index];
 			this.collideObject(monster_normale);
+			monster_normale.animate();
 			monster_normale.updatePosition(this.gravity, this.friction, this.player, this.health);
 			if (monster_normale.collideObject(this.player)) {
 				if (this.player.attacking == true)
