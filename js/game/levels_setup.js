@@ -61,6 +61,11 @@ function loadScripts() {
 	musicsScript.setAttribute("src", "./js/sound/music.js");
 	document.head.appendChild(musicsScript);
 
+	let menu_pauseScript = document.createElement("script");
+	menu_pauseScript.setAttribute("type", "text/javascript");
+	menu_pauseScript.setAttribute("src", "./js/menu/menu_pause.js");
+	document.head.appendChild(menu_pauseScript);
+
 	fadeInEffect();
 	defineFadeInKeyframes();
 

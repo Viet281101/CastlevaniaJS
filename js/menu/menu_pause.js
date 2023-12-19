@@ -31,13 +31,9 @@ class PauseMenu {
     quit() {
         // Add logic to quit the game
     }
-}
+};
 
 function initPauseMenu() {
     const pauseMenu = new PauseMenu();
     return pauseMenu;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const pauseMenu = initPauseMenu();
-});
+};

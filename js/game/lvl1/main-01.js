@@ -217,17 +217,11 @@ window.addEventListener("load", function(event) {
 			resize();
 			engine.start();
 		});
-
 		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => {assets_manager.player_image = image;});
-
 		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {assets_manager.heal_health_image = image; });
-
 		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => {assets_manager.torch_image = image; });
-
 		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => {assets_manager.fire_skull_image = image; });
-
 		assets_manager.requestImage("assets/Characters/Skull/dark_skull.png", (image) => {assets_manager.dark_skull_image = image; });
-
 		assets_manager.requestImage("assets/Characters/Nightmare/nightmare.png", (image) => {assets_manager.nightmare_image = image; });
 	});
 	window.addEventListener("keydown", keyDownUp);

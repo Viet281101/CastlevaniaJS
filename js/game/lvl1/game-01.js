@@ -299,6 +299,7 @@ Game.Player = function(x, y) {
 	this.velocity_x  = 0;
 	this.velocity_y  = 0;
 	this.attacking	 = false;
+	this.cooldown = 30;
 };
 
 Game.Player.prototype = {
@@ -362,31 +363,37 @@ Game.Player.prototype = {
 		if (this.velocity_y < 0) {
 			if (this.direction_x < 0) {
 				this.changeFrameSet(this.frame_sets["jump-left"], "once", 5);
+				this.attacking = false;
 			} else {
 				this.changeFrameSet(this.frame_sets["jump-right"], "once", 5);
+				this.attacking = false;
 			}
 		} else if (this.direction_x < 0) {
 			if (this.velocity_x < -0.1 && !this.jumping) {
 				this.changeFrameSet(this.frame_sets["move-left"], "once", 10);
+				this.attacking = false;
 			} else if (this.squatting) {
 				this.changeFrameSet(this.frame_sets["sit-left"], "once", 10);
+				this.attacking = false;
 				this.squatting = false;
 			} else if (this.attacking) {
 				this.changeFrameSet(this.frame_sets["attack-left"], "loop", 5);
-				this.attacking = false;
 			} else {
+				this.attacking = false;
 				this.changeFrameSet(this.frame_sets["idle-left"], "loop", 6);
 			}
 		} else if (this.direction_x > 0) {
 			if (this.velocity_x > 0.1 && !this.jumping) {
 				this.changeFrameSet(this.frame_sets["move-right"], "once", 10);
+				this.attacking = false;
 			} else if (this.squatting) {
 				this.changeFrameSet(this.frame_sets["sit-right"], "once", 10);
 				this.squatting = false;
+				this.attacking = false;
 			} else if (this.attacking) {
 				this.changeFrameSet(this.frame_sets["attack-right"], "loop", 5);
-				this.attacking = false;
 			} else {
+				this.attacking = false;
 				this.changeFrameSet(this.frame_sets["idle-right"], "loop", 6);
 			}
 		}
@@ -410,6 +417,14 @@ Game.Player.prototype = {
 
 		playerPosX = this.x;
 		playerPosY = this.y;
+
+		if (this.attacking) {
+			this.cooldown--;
+			if (this.cooldown <= 0) {
+				this.attacking = false;
+				this.cooldown = 30;
+			}
+		}
 	}
 };
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
@@ -419,9 +434,10 @@ Object.assign(Game.Player.prototype, Game.Animator.prototype);
 ////* ---------- Game Enemies ----------- *////
 Game.Ennemie = function(x, y) {
 	Game.MovingObject.call(this, x, y, 72, 48);
-	Game.Animator.call(this, Game.Ennemie.prototype.frame_sets["nightmare_left"], 9);
+	Game.Animator.call(this, Game.Ennemie.prototype.frame_sets["nightmare_left"], 6);
 	this.velocity_x = 0;
 	this.velocity_y = 0;
+	this.direction_x = -1;
 };
 Game.Ennemie.prototype = {
 	frame_sets: {
@@ -470,10 +486,12 @@ Game.Ennemie.prototype = {
 		if (!this.collideWithPlayer(player)) {
 			if (this.x-15 < player.x) {
 				this.velocity_x = 2;
-				this.changeFrameSet(this.frame_sets["nightmare_right"], "loop", 8);
+				this.direction_x = 1;
+				this.changeFrameSet(this.frame_sets["nightmare_right"], "loop", 6);
 			} else if (this.x+15 > player.x) {
 				this.velocity_x = -2;
-				this.changeFrameSet(this.frame_sets["nightmare_left"], "loop", 8);
+				this.direction_x = -1;
+				this.changeFrameSet(this.frame_sets["nightmare_left"], "loop", 6);
 			} else {
 				this.velocity_x = 0;
 			}
@@ -497,6 +515,7 @@ Game.EnnemieSauteur = function(x, y) {
 	this.jumping	= true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
+	this.direction_x = -1;
 };
 Game.EnnemieSauteur.prototype = {
 	frame_sets: { 
@@ -549,9 +568,11 @@ Game.EnnemieSauteur.prototype = {
 			const originalX = this.x;
 			if (this.x-15 < player.x) {
 				this.velocity_x = 2;
+				this.direction_x = 1;
 				this.changeFrameSet(this.frame_sets["skull_jump-right"], "loop", 8);
 			} else if (this.x+15 > player.x) {
 				this.velocity_x = -2;
+				this.direction_x = -1;
 				this.changeFrameSet(this.frame_sets["skull_jump-left"], "loop", 8);
 			} else {
 				this.velocity_x = 0;
@@ -578,6 +599,7 @@ Game.EnnemieJumpContact = function(x, y) {
 	this.jumping	= true;
 	this.velocity_x = 0;
 	this.velocity_y = 0;
+	this.direction_x = -1;
 };
 Game.EnnemieJumpContact.prototype = {
 	frame_sets: {
@@ -630,9 +652,11 @@ Game.EnnemieJumpContact.prototype = {
 			const originalX = this.x;
 			if (this.x-15 < player.x) {
 				this.velocity_x = 2;
+				this.direction_x = 1;
 				this.changeFrameSet(this.frame_sets["skull_jump-right"], "loop", 8);
 			} else if (this.x+15 > player.x) {
 				this.velocity_x = -2;
+				this.direction_x = -1;
 				this.changeFrameSet(this.frame_sets["skull_jump-left"], "loop", 8);
 			} else {
 				this.velocity_x = 0;
@@ -1067,9 +1091,12 @@ Game.World.prototype = {
 			monster_normale.animate();
 			monster_normale.updatePosition(this.gravity, this.friction, this.player, this.health);
 			if (monster_normale.collideObject(this.player)) {
-				if (this.player.attacking == true)
+				if (this.player.attacking == true && this.player.direction_x != monster_normale.direction_x)
 				{
 					this.monster_normale.splice(this.monster_normale.indexOf(monster_normale), 1);
+					if (Math.random() < 0.2) {
+						this.heal_health.push(new Game.HealHealth(monster_normale.x, monster_normale.y));
+					}
 				} else if (this.cooldown == 0) {
 					this.health -= 1;
 					this.cooldown = 50;
@@ -1083,9 +1110,12 @@ Game.World.prototype = {
 			monster_contactjump.animate();
 			monster_contactjump.updatePosition(this.gravity, this.friction, this.player);
 			if (monster_contactjump.collideObject(this.player)) {
-				if (this.player.attacking == true)
+				if (this.player.attacking == true && this.player.direction_x != monster_contactjump.direction_x)
 				{
 					this.monster_contactjump.splice(this.monster_contactjump.indexOf(monster_contactjump), 1);
+					if (Math.random() < 0.5) {
+						this.heal_health.push(new Game.HealHealth(monster_contactjump.x, monster_contactjump.y));
+					}
 				} else if (this.cooldown == 0) {
 					this.health -= 1;
 					this.cooldown = 50;
@@ -1098,9 +1128,12 @@ Game.World.prototype = {
 			this.collideObject(monster_fly);
 			monster_fly.updatePosition(this.gravity, this.friction, this.player);
 			if (monster_fly.collideObject(this.player)) {
-				if (this.player.attacking == true)
+				if (this.player.attacking == true && this.player.direction_x != monster_fly.direction_x)
 				{
 					this.monster_fly.splice(this.monster_fly.indexOf(monster_fly), 1);
+					if (Math.random() < 0.3) {
+						this.heal_health.push(new Game.HealHealth(monster_fly.x, monster_fly.y));
+					}
 				} else if (this.cooldown == 0) {
 					this.health -= 1;
 					this.cooldown = 50;
@@ -1114,9 +1147,12 @@ Game.World.prototype = {
 			monster_jumper.animate();
 			monster_jumper.updatePosition(this.gravity, this.friction, this.player);
 			if (monster_jumper.collideObject(this.player)) {
-				if (this.player.attacking == true)
+				if (this.player.attacking == true && this.player.direction_x != monster_jumper.direction_x)
 				{
 					this.monster_jumper.splice(this.monster_jumper.indexOf(monster_jumper), 1);
+					if (Math.random() < 0.3) {
+						this.heal_health.push(new Game.HealHealth(monster_jumper.x, monster_jumper.y));
+					}
 				} else if (this.cooldown == 0) {
 					this.health -= 1;
 					this.cooldown = 50;
