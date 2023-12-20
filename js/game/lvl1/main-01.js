@@ -20,6 +20,7 @@ window.addEventListener("load", function(event) {
 		this.fire_skull_image = undefined;
 		this.nightmare_image = undefined;
 		this.dark_skull_image = undefined;
+		this.ghost_image = undefined;
 	};
 
 	AssetsManager.prototype = {
@@ -62,7 +63,6 @@ window.addEventListener("load", function(event) {
 	};
 
 	var render = function() {
-
 		var frame = undefined;
 
 		display.drawMap(
@@ -137,11 +137,13 @@ window.addEventListener("load", function(event) {
 
 		for (let index = game.world.monster_fly.length - 1; index > -1; -- index) {
 			let monster_fly = game.world.monster_fly[index];
-
-			display.drawEnnemy(
-				monster_fly, 
-				monster_fly.color1, 
-				monster_fly.color2
+			frame = game.world.tile_set.frames[monster_fly.frame_value];
+			display.drawObject(
+				assets_manager.ghost_image,
+				frame.x, frame.y,
+				monster_fly.x + Math.floor(monster_fly.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+				monster_fly.y + frame.offset_y, 
+				frame.width, frame.height
 			);
 		}
 
@@ -171,6 +173,16 @@ window.addEventListener("load", function(event) {
 			game.world.player.jump();
 			controller.up.active = false;
 		}
+		if (controller.inventory.active) {
+			controller.inventory.active = false;
+		}
+		if (controller.escape.active) {
+			controller.escape.active = false;
+		}
+		if (controller.pause.active) { 
+			pauseGame();
+			controller.pause.active = false;
+		}
 		game.update();
 		if (game.world.door) {
 			engine.stop();
@@ -198,8 +210,6 @@ window.addEventListener("load", function(event) {
 	p.innerHTML = "HEALTH: 0";
 	document.body.appendChild(p);
 
-	playMusic(gameLvl1Music);
-
 	////////////////////
 	//// INITIALIZE ////
 	////////////////////
@@ -208,8 +218,9 @@ window.addEventListener("load", function(event) {
 	display.buffer.canvas.width  = game.world.width;
 	display.buffer.imageSmoothingEnabled = false;
 
-	assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
+	playMusic(gameLvl1Music);
 
+	assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
 		game.world.setup(zone);
 
 		assets_manager.requestImage("assets/Tiles/tiles_spritesheet.png", (image) => {
@@ -223,6 +234,7 @@ window.addEventListener("load", function(event) {
 		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => {assets_manager.fire_skull_image = image; });
 		assets_manager.requestImage("assets/Characters/Skull/dark_skull.png", (image) => {assets_manager.dark_skull_image = image; });
 		assets_manager.requestImage("assets/Characters/Nightmare/nightmare.png", (image) => {assets_manager.nightmare_image = image; });
+		assets_manager.requestImage("assets/Characters/Ghost/ghost_sheet.png", (image) => {assets_manager.ghost_image = image; });
 	});
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);

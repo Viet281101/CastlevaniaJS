@@ -301,7 +301,6 @@ Game.Player = function(x, y) {
 	this.attacking	 = false;
 	this.cooldown = 30;
 };
-
 Game.Player.prototype = {
 	constructor: Game.Player,
 	frame_sets: {
@@ -677,14 +676,22 @@ Object.assign(Game.EnnemieJumpContact.prototype, Game.Animator.prototype);
 Game.EnnemieJumpContact.prototype.constructor = Game.EnnemieJumpContact;
 
 Game.EnnemieVolant = function(x, y) {
-	Game.MovingObject.call(this, x, y, 32, 32);
-	this.color1	 = "#f22525";
-	this.color2	 = "#c53232";
+	Game.MovingObject.call(this, x, y, 64, 80);
+	Game.Animator.call(this, Game.EnnemieVolant.prototype.frame_sets["ghost_apear"], 7);
 	this.velocity_x = 0;
 	this.velocity_y = 0;
 	this.speed = 2;
+	this.direction_x = -1;
+	this.ghost_health = 5;
+	this.attack = false;
 };
 Game.EnnemieVolant.prototype = {
+	frame_sets: {
+		"ghost_apear" : [150, 151, 152, 153, 154, 155],
+		"ghost_disapear": [156, 157, 158, 159, 160, 161, 162],
+		"ghost_fly_left" : [163, 164, 165, 166, 167, 168, 169, 170],
+		"ghost_fly_right": [171, 172, 173, 174, 175, 176, 177, 178],
+	},
 	getHitbox: function() {
 		return {
 			left: this.getLeft(),
@@ -724,8 +731,12 @@ Game.EnnemieVolant.prototype = {
 		if (!this.collideWithPlayer(player)) {
 			if (this.x-15 < player.x) {
 				this.velocity_x = this.speed;
+				this.direction_x = 1;
+				this.changeFrameSet(this.frame_sets["ghost_fly_left"], "loop", 9);
 			} else if (this.x+15 > player.x) {
 				this.velocity_x = -this.speed;
+				this.direction_x = -1;
+				this.changeFrameSet(this.frame_sets["ghost_fly_right"], "loop", 9);
 			} else {
 				this.velocity_x = 0;
 			}
@@ -745,7 +756,8 @@ Game.EnnemieVolant.prototype = {
 	},
 };
 Object.assign(Game.EnnemieVolant.prototype, Game.MovingObject.prototype);
-
+Object.assign(Game.EnnemieVolant.prototype, Game.Animator.prototype);
+Game.EnnemieVolant.prototype.constructor = Game.EnnemieVolant;
 
 
 ////* ----------- Game Frames Images & Tiles ------------ *////
@@ -936,6 +948,43 @@ Game.TileSet = function(columns, tile_size) {
 		new f(5*72, 0, 72, 48), // 147
 		new f(6*72, 0, 72, 48), // 148
 		new f(7*72, 0, 72, 48), // 149
+
+		//// Ghost Apears ////
+		new f(0*64, 0, 64, 80), // 150
+		new f(1*64, 0, 64, 80), // 151
+		new f(2*64, 0, 64, 80), // 152
+		new f(3*64, 0, 64, 80), // 153
+		new f(4*64, 0, 64, 80), // 154
+		new f(5*64, 0, 64, 80), // 155
+
+		//// Ghost Disapears ////
+		new f(17*64, 0, 64, 80), // 156
+		new f(18*64, 0, 64, 80), // 157
+		new f(19*64, 0, 64, 80), // 158
+		new f(20*64, 0, 64, 80), // 159
+		new f(21*64, 0, 64, 80), // 160
+		new f(22*64, 0, 64, 80), // 161
+		new f(23*64, 0, 64, 80), // 162
+
+		//// Ghost Idle Left ////
+		new f(6*64, 0, 64, 80), // 163
+		new f(7*64, 0, 64, 80), // 164
+		new f(8*64, 0, 64, 80), // 165
+		new f(9*64, 0, 64, 80), // 166
+		new f(10*64, 0, 64, 80), // 167
+		new f(11*64, 0, 64, 80), // 168
+		new f(12*64, 0, 64, 80), // 169
+		new f(13*64, 0, 64, 80), // 170
+
+		//// Ghost Idle Right ////
+		new f(6*64, 80, 64, 80), // 171
+		new f(7*64, 80, 64, 80), // 172
+		new f(8*64, 80, 64, 80), // 173
+		new f(9*64, 80, 64, 80), // 174
+		new f(10*64, 80, 64, 80), // 175
+		new f(11*64, 80, 64, 80), // 176
+		new f(12*64, 80, 64, 80), // 177
+		new f(13*64, 80, 64, 80), // 178
 	];
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
@@ -998,15 +1047,15 @@ Game.World.prototype = {
 	setup:function(zone) {
 		this.heal_health 		= new Array();
 		this.monster_normale	= new Array();
-		this.monster_jumper = new Array();
+		this.monster_jumper 	= new Array();
 		this.monster_contactjump = new Array();
-		this.monster_fly = new Array();
+		this.monster_fly 		= new Array();
 		this.torch 				= new Array();
-		this.doors			  = new Array();
-		this.collision_map	  = zone.collision_map;
-		this.graphical_map	  = zone.graphical_map;
+		this.doors			  	= new Array();
+		this.collision_map	  	= zone.collision_map;
+		this.graphical_map	  	= zone.graphical_map;
 		this.columns			= zone.columns;
-		this.rows			   = zone.rows;
+		this.rows			   	= zone.rows;
 		this.zone_id			= zone.id;
 		/* Generate items heal_health */
 		for (let index = zone.heal_health.length - 1; index > -1; -- index) {
@@ -1038,13 +1087,11 @@ Game.World.prototype = {
 			let monster_contactjump = zone.monster_contactjump[index];
 			this.monster_contactjump[index] = new Game.EnnemieJumpContact(monster_contactjump[0] * this.tile_set.tile_size, monster_contactjump[1] * this.tile_set.tile_size);
 		}
-
 		/* Generate new doors. */
 		for (let index = zone.doors.length - 1; index > -1; -- index) {
 			let door = zone.doors[index];
 			this.doors[index] = new Game.Door(door);
 		}
-
 		if (this.door) {
 			if (this.door.destination_x != -1) {
 				this.player.setCenterX   (this.door.destination_x);
@@ -1126,17 +1173,25 @@ Game.World.prototype = {
 		for (let index = this.monster_fly.length - 1; index > -1; -- index) {
 			let monster_fly = this.monster_fly[index];
 			this.collideObject(monster_fly);
+			monster_fly.animate();
 			monster_fly.updatePosition(this.gravity, this.friction, this.player);
 			if (monster_fly.collideObject(this.player)) {
+				monster_fly.attack = true;
 				if (this.player.attacking == true && this.player.direction_x != monster_fly.direction_x)
 				{
-					this.monster_fly.splice(this.monster_fly.indexOf(monster_fly), 1);
-					if (Math.random() < 0.3) {
-						this.heal_health.push(new Game.HealHealth(monster_fly.x, monster_fly.y));
+					if (this.cooldown == 0) {
+						monster_fly.ghost_health -= 1;
+						this.cooldown = 50;
 					}
 				} else if (this.cooldown == 0) {
 					this.health -= 1;
 					this.cooldown = 50;
+				}
+			}
+			if (monster_fly.ghost_health <= 0) {
+				this.monster_fly.splice(this.monster_fly.indexOf(monster_fly), 1);
+				if (Math.random() < 0.3) {
+					this.heal_health.push(new Game.HealHealth(monster_fly.x, monster_fly.y));
 				}
 			}
 		}

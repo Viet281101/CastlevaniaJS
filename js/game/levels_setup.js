@@ -14,7 +14,6 @@ let parts = {
 		"./js/game/lvl1/controller-01.js", 
 		"./js/game/lvl1/display-01.js", 
 		"./js/game/baselevel/engine.js",
-		"./js/menu/menu_pause.js",
 		"./js/game/lvl1/game-01.js", 
 		"./js/game/lvl1/main-01.js"
 	],

@@ -6,7 +6,7 @@ const totalLevels = 2;
 
 var gameOver;
 var gameWon;
-var gamePaused;
+var gamePaused = false;
 var enemiesKilled;
 var levelDisplay;
 var currentLevel;
@@ -36,6 +36,7 @@ const userKeys = {
 	C: 67,
 	PAUSE:19,
 	ESCAPE: 27,
+	TAB: 9,
 };
 const specialKeys = {
 	8:'Backspace',
@@ -83,13 +84,12 @@ function pauseGame() {
 		stopMusic(gameLvl1Music);
 		stopMusic(gameLvl2Music);
 		stopMusic(bossMusic);
-		//pauseMenu();
+		console.log('game paused');
 	} else {
-		engine.start();
+		console.log('game resumed');
 		if (levelDisplay == "01") playMusic(gameLvl1Music);
 		else if (levelDisplay == "02") playMusic(gameLvl2Music);
 		else if (levelDisplay == "03") playMusic(bossMusic);
-		//pauseMenu();
 	}
 }
 

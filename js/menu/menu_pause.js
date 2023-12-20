@@ -1,6 +1,6 @@
-class PauseMenu {
+class MenuPause {
     constructor() {
-        this.pauseMenu = document.getElementById('pauseMenu');
+        this.pause_menu = document.getElementById('pauseMenu');
         this.resumeButton = document.getElementById('resumeButton');
         this.restartButton = document.getElementById('restartButton');
         this.quitButton = document.getElementById('quitButton');
@@ -15,12 +15,12 @@ class PauseMenu {
     }
 
     show() {
-        this.pauseMenu.style.display = 'block';
+        this.pause_menu.style.display = 'block';
         // Pause your game logic here
     }
 
     hide() {
-        this.pauseMenu.style.display = 'none';
+        this.pause_menu.style.display = 'none';
         // Resume your game logic here
     }
 
@@ -34,6 +34,6 @@ class PauseMenu {
 };
 
 function initPauseMenu() {
-    const pauseMenu = new PauseMenu();
+    const pauseMenu = new MenuPause();
     return pauseMenu;
 };
