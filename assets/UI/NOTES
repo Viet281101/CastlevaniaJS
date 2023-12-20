@@ -1,0 +1,43 @@
+Links
+http://www.deixadilson.com/sotn/items/
+https://fantasyanime.com/valhalla/castlevaniasotn/images/castlevsotnMap-Castle1.png
+https://fantasyanime.com/valhalla/castlevaniasotn/images/castlevsotnMap-Castle1GF.gif
+https://www.kirupa.com/html5/drag.htm
+https://www.spriters-resource.com/playstation/cvsotn/
+
+Issues
+http://www.deixadilson.com/sotn/items/
+Missing bottom row of pixels on Ankh of Life item
+Unnecessary pixel on bottom left corner on bwaka knife
+Unnecessary pixel on bottom on healing mail
+Missing pixel on bottom left and bottom on star flail
+
+https://fantasyanime.com/valhalla/castlevaniasotn/images/castlevsotnMap-Castle1.png
+Heart Max Up at 35.5, 30.5 not in NA version
+No save point at 86.5, 22.5
+
+https://fantasyanime.com/valhalla/castlevaniasotn/images/castlevsotnMap-Castle1GF.gif
+Missing boomerang at 114.5, 22.5
+Leap stone shows on a floor below on in-game map
+Missing pork bun at 1.5, 187.5
+
+https://www.spriters-resource.com/playstation/cvsotn/
+Missing room that is unlocked by going through tunnel with wolf and bat on both
+maps
+Unnecessary pixel on faerie scroll item
+Missing outer black pixels on bwaka knife
+Missing black pixels on cross shuriken
+
+Notes
+Grape Juice at 122.5, 58.5 randomly drops if you sit and wait in chair with good
+priest
+Meal ticket shares asset with Library card
+Scimitar shares asset with Broadsword
+Gold Ring appears after defeating Succubus
+Holy Symbol inaccessible until Merman Statue relic obtained
+Life Max Up at 57.5, 109.5 and Heart Max Up at 57.5, 111.5 are under bridge
+which needs to be broken by Skeleton Ape after pressing switch at 58.5, 81.5 with Herald Shield
+Normal castle has 942 rooms
+
+Map
+Brown: #705000

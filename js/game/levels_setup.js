@@ -65,6 +65,21 @@ function loadScripts() {
 	menu_pauseScript.setAttribute("src", "./js/menu/menu_pause.js");
 	document.head.appendChild(menu_pauseScript);
 
+	let leaftletScript = document.createElement("script");
+	leaftletScript.setAttribute("type", "text/javascript");
+	leaftletScript.setAttribute("src", "./js/leaflet/leaflet.js");
+	document.head.appendChild(leaftletScript);
+
+	let leafletStyle = document.createElement("link");
+	leafletStyle.setAttribute("rel", "stylesheet");
+	leafletStyle.setAttribute("type", "text/css");
+	leafletStyle.setAttribute("href", "./js/leaflet/leaflet.css");
+
+	let miniMapScript = document.createElement("script");
+	miniMapScript.setAttribute("type", "text/javascript");
+	miniMapScript.setAttribute("src", "./js/game/mini_map.js");
+	document.head.appendChild(miniMapScript);
+
 	fadeInEffect();
 	defineFadeInKeyframes();
 
