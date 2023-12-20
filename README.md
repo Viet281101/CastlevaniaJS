@@ -7,7 +7,8 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
 
 
 
-[Démo.webm](https://github.com/Viet281101/CastlevaniaJS/assets/77735678/c8854d53-f109-4296-adda-71d466c7e09a)
+
+[Demo.webm](https://github.com/Viet281101/CastlevaniaJS/assets/77735678/9c2a3aca-b8e1-4be8-a5fc-899a3d24f653)
 
 
 
