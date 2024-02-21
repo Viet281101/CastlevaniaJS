@@ -16,6 +16,7 @@ body, html {
     overflow-x: hidden;
     background-color: black;
     font-family: 'alagard', sans-serif;
+    user-select: none;
 }
 
 

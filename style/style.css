@@ -20,6 +20,7 @@ body, html {
     height: 100vh;
     font-family: 'Castlevania', sans-serif;
     position: relative;
+    user-select: none;
 }
 canvas {
     filter: blur(1px);
