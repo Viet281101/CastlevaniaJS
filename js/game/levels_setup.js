@@ -1,115 +1,75 @@
 ////* File: levels_setup.js -> this file is used to load the scripts of the game levels *////
-
-let part = String(window.location).split("?")[1];
-
-let parts = {
-	"00": [
-		"./js/game/baselevel/controller.js", 
-		"./js/game/baselevel/display.js", 
-		"./js/game/baselevel/engine.js", 
-		"./js/game/baselevel/game.js", 
-		"./js/game/baselevel/main.js"
-	],
-	"01":[
-		"./js/game/lvl1/controller-01.js", 
-		"./js/game/lvl1/display-01.js", 
-		"./js/game/baselevel/engine.js",
-		"./js/game/lvl1/game-01.js", 
-		"./js/game/lvl1/main-01.js"
-	],
-	"02":[
-		"./js/game/lvl2/controller-02.js", 
-		"./js/game/lvl2/display-02.js", 
-		"./js/game/baselevel/engine.js", 
-		"./js/game/lvl2/game-02.js", 
-		"./js/game/lvl2/main-02.js"
-	],
-};
-
-switch(part) {
-	case "00": case "01": case "02": break;
-	default:
-		levelDisplay = part = "01";
-};
-
-function loadScripts() {
-	levelDisplay = part;
-	for (let index = 0; index < parts[part].length; index ++) {
-		let script = document.createElement("script");
-		script.setAttribute("type", "text/javascript");
-		script.setAttribute("src", parts[part][index]);
-		document.head.appendChild(script);
+class LevelSetup {
+	constructor() {
+		const j='./js/';
+		this.jg=j+'game/';
+		this.jgb=this.jg+'baselevel/';
+		this.jg1=this.jg+'lvl1/';
+		this.jg2=this.jg+'lvl2/';
+		this.parts = {
+			"00": [this.jgb+"controller.js", this.jgb+"display.js", this.jgb+"engine.js", this.jgb+"game.js", this.jgb+"main.js"],
+			"01": [this.jg1+"controller-01.js", this.jg1+"display-01.js", this.jgb+"engine.js", this.jg1+"game-01.js", this.jg1+"main-01.js"],
+			"02": [this.jg2+"controller-02.js", this.jg2+"display-02.js", this.jgb+"engine.js", this.jg2+"game-02.js", this.jg2+"main-02.js"]
+		};
+		this.part = String(window.location).split("?")[1];
+		if (!this.parts.hasOwnProperty(this.part)) { this.part = "01"; }
 	};
-	let transitionEffectScript = document.createElement("script");
-	transitionEffectScript.setAttribute("type", "text/javascript");
-	transitionEffectScript.setAttribute("src", "./js/effects/transition.js");
-	document.head.appendChild(transitionEffectScript);
 
-	let gameStatsScript = document.createElement("script");
-	gameStatsScript.setAttribute("type", "text/javascript");
-	gameStatsScript.setAttribute("src", "./js/game/stats.js");
-	document.head.appendChild(gameStatsScript);
+	loadScripts() {
+		const scriptsToLoad = [
+			...this.parts[this.part],
+			"./js/effects/transition.js",
+			this.jg+"stats.js",
+			"./js/sound/sound.js",
+			"./js/sound/music.js",
+			"./js/menu/menu_pause.js",
+			"./js/leaflet/leaflet.js",
+			this.jg+"mini_map.js"
+		];
+		scriptsToLoad.forEach(src => {
+			let script = document.createElement("script");
+			script.type = "text/javascript";
+			script.src = src;
+			document.head.appendChild(script);
+		});
+		this.loadLeafletStyle();
+		this.fadeInEffect();
+		this.defineFadeInKeyframes();
+		console.log("Loaded part "+this.part+" of the game.");
+	};
 
-	let soundScript = document.createElement("script");
-	soundScript.setAttribute("type", "text/javascript");
-	soundScript.setAttribute("src", "./js/sound/sound.js");
-	document.head.appendChild(soundScript);
-	
-	let musicsScript = document.createElement("script");
-	musicsScript.setAttribute("type", "text/javascript");
-	musicsScript.setAttribute("src", "./js/sound/music.js");
-	document.head.appendChild(musicsScript);
+	loadLeafletStyle() {
+		let leafletStyle = document.createElement("link");
+		leafletStyle.rel = "stylesheet";
+		leafletStyle.type = "text/css";
+		leafletStyle.href = "./js/leaflet/leaflet.css";
+		document.head.appendChild(leafletStyle);
+	};
 
-	let menu_pauseScript = document.createElement("script");
-	menu_pauseScript.setAttribute("type", "text/javascript");
-	menu_pauseScript.setAttribute("src", "./js/menu/menu_pause.js");
-	document.head.appendChild(menu_pauseScript);
+	fadeInEffect() {
+		var fadeInDiv = document.createElement('div');
+		fadeInDiv.className = 'fade-in';
+		Object.assign(fadeInDiv.style, {
+			background: 'rgb(0, 0, 0, 1)', zIndex: 9,
+			position: 'fixed', top: '0', left: '0', width: '100%', height: '100%',
+			animation: 'fadeIn 12s forwards',
+		});
+		document.body.appendChild(fadeInDiv);
 
-	let leaftletScript = document.createElement("script");
-	leaftletScript.setAttribute("type", "text/javascript");
-	leaftletScript.setAttribute("src", "./js/leaflet/leaflet.js");
-	document.head.appendChild(leaftletScript);
+		fadeInDiv.addEventListener('animationend', () => {
+			fadeInDiv.remove();
+			document.dispatchEvent(new CustomEvent('fadeInEnded'));
+		});
+	};
 
-	let leafletStyle = document.createElement("link");
-	leafletStyle.setAttribute("rel", "stylesheet");
-	leafletStyle.setAttribute("type", "text/css");
-	leafletStyle.setAttribute("href", "./js/leaflet/leaflet.css");
-
-	let miniMapScript = document.createElement("script");
-	miniMapScript.setAttribute("type", "text/javascript");
-	miniMapScript.setAttribute("src", "./js/game/mini_map.js");
-	document.head.appendChild(miniMapScript);
-
-	fadeInEffect();
-	defineFadeInKeyframes();
-
-	console.log("Loaded part " + levelDisplay + " of the game.");
-};
-function fadeInEffect() {
-	var fadeInDiv = document.createElement('div');
-    fadeInDiv.className = 'fade-in';
-    fadeInDiv.style.background = 'rgb(0, 0, 0, 1)';
-    fadeInDiv.style.zIndex = 9;
-    fadeInDiv.style.position = 'fixed';
-    fadeInDiv.style.top = '0';
-    fadeInDiv.style.left = '0';
-    fadeInDiv.style.width = '100%';
-    fadeInDiv.style.height = '100%';
-    fadeInDiv.style.animation = 'fadeIn 12s forwards';
-    document.body.appendChild(fadeInDiv);
-
-	fadeInDiv.addEventListener('animationend', function() {
-        fadeInDiv.remove();
-        document.dispatchEvent(new CustomEvent('fadeInEnded'));
-    });
-};
-function defineFadeInKeyframes() {
-    var styleSheet = document.createElement("style");
-    styleSheet.setAttribute("type", "text/css");
-    styleSheet.innerText = `@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }`;
-    document.head.appendChild(styleSheet);
+	defineFadeInKeyframes() {
+		var styleSheet = document.createElement("style");
+		styleSheet.type = "text/css";
+		styleSheet.innerText = `@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }`;
+		document.head.appendChild(styleSheet);
+	};
 };
 
-loadScripts();
-
+const levelSetup = new LevelSetup();
+levelSetup.loadScripts();
 

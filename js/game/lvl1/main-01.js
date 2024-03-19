@@ -2,52 +2,36 @@
 window.addEventListener("load", function(event) {
 
 	"use strict";
-	////////////////////
 	//// CONSTANTS ////
-	////////////////////
 
 	const ZONE_PREFIX = "js/game/lvl1/zone";
 	const ZONE_SUFFIX = ".json";
 
-	/////////////////
 	//// CLASSES ////
-	/////////////////
-	const AssetsManager = function() {
-		this.tile_set_image = undefined;
-		this.player_image = undefined;
-		this.heal_health_image = undefined;
-		this.torch_image = undefined;
-		this.fire_skull_image = undefined;
-		this.nightmare_image = undefined;
-		this.dark_skull_image = undefined;
-		this.ghost_image = undefined;
-	};
+	class AssetsManager {
+		constructor() {
+			this.tile_set_image = undefined;
+			this.player_image = undefined;
+			this.heal_health_image = undefined;
+			this.torch_image = undefined;
+			this.fire_skull_image = undefined;
+			this.nightmare_image = undefined;
+			this.dark_skull_image = undefined;
+			this.ghost_image = undefined;
+		};
 
-	AssetsManager.prototype = {
-		constructor: Game.AssetsManager,
+		requestJSON(url, callback) {
+			fetch(url).then(response => response.json()).then(data => callback(data)).catch(error => console.error("Failed to load JSON:", error));
+		};
 
-		requestJSON:function(url, callback) {
-			let request = new XMLHttpRequest();
-			request.addEventListener("load", function(event) {
-				callback(JSON.parse(this.responseText));
-			}, { once:true });
-			request.open("GET", url);
-			request.send();
-		},
-
-		requestImage:function(url, callback) {
+		requestImage(url, callback) {
 			let image = new Image();
-			image.addEventListener("load", function(event) {
-				callback(image);
-			}, { once:true });
+			image.onload = () => callback(image);
 			image.src = url;
-		},
-
+		};
 	};
 
-	///////////////////
 	//// FUNCTIONS ////
-	///////////////////
 
 	var keyDownUp = function(event) {
 		controller.keyDownUp(event.type, event.keyCode);
@@ -85,7 +69,7 @@ window.addEventListener("load", function(event) {
 				frame.width, frame.height
 			);
 		}
-		p.innerHTML = "HEALTH: " + game.world.health;
+		p.textContent = "HEALTH: " + game.world.health;
 
 		frame = game.world.tile_set.frames[game.world.player.frame_value];
 
@@ -109,7 +93,6 @@ window.addEventListener("load", function(event) {
 				frame.width, frame.height
 			);
 		}
-
 
 		for (let index = game.world.monster_normale.length - 1; index > -1; -- index) {
 			let monster_normale = game.world.monster_normale[index];
@@ -161,7 +144,6 @@ window.addEventListener("load", function(event) {
 
 		// display.drawCollisionMap(game.world.collision_map, game.world.columns, game.world.tile_set.tile_size);
 		display.render();
-
 	};
 
 	var update = function() {
@@ -169,20 +151,10 @@ window.addEventListener("load", function(event) {
 		if (controller.right.active) { game.world.player.moveRight(); }
 		if (controller.squat.active) { game.world.player.squat(); }
 		if (controller.attack.active) { game.world.player.attack(); }
-		if (controller.up.active) {
-			game.world.player.jump();
-			controller.up.active = false;
-		}
-		if (controller.inventory.active) {
-			controller.inventory.active = false;
-		}
-		if (controller.escape.active) {
-			controller.escape.active = false;
-		}
-		if (controller.pause.active) { 
-			pauseGame();
-			controller.pause.active = false;
-		}
+		if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
+		if (controller.inventory.active) { controller.inventory.active = false; }
+		if (controller.escape.active) { controller.escape.active = false; }
+		if (controller.pause.active) { pauseGame(); controller.pause.active = false; }
 		game.update();
 		if (game.world.door) {
 			engine.stop();
@@ -194,10 +166,7 @@ window.addEventListener("load", function(event) {
 		}
 	};
 
-
-	/////////////////
 	//// OBJECTS ////
-	/////////////////
 
 	var assets_manager = new AssetsManager();
 	var controller     = new Controller();
@@ -207,12 +176,10 @@ window.addEventListener("load", function(event) {
 
 	var p = document.createElement("p");
 	p.setAttribute("style", "color: red; font-size:28px; position: fixed;");
-	p.innerHTML = "HEALTH: 0";
+	p.textContent = "HEALTH: 0";
 	document.body.appendChild(p);
 
-	////////////////////
 	//// INITIALIZE ////
-	////////////////////
 
 	display.buffer.canvas.height = game.world.height;
 	display.buffer.canvas.width  = game.world.width;
@@ -239,5 +206,4 @@ window.addEventListener("load", function(event) {
 	window.addEventListener("keydown", keyDownUp);
 	window.addEventListener("keyup"  , keyDownUp);
 	window.addEventListener("resize" , resize);
-
 });
