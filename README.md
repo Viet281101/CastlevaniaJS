@@ -35,6 +35,6 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
 
 ### Participants:
 - Viet Nguyen 
-- @D-TheProgrammer
+- [@D-TheProgrammer](https://github.com/D-TheProgrammer)
 - Wilfried Ben Brahim
 - Jonny Mathanaruban
