@@ -23,7 +23,7 @@ class LevelSetup {
 			"./js/sound/sound.js",
 			"./js/sound/music.js",
 			"./js/menu/menu_pause.js",
-			"./js/leaflet/leaflet.js",
+			"./libs/leaflet/leaflet.js",
 			this.jg+"mini_map.js"
 		];
 		scriptsToLoad.forEach(src => {
