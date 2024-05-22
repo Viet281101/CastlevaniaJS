@@ -1,13 +1,9 @@
-
 window.addEventListener("load", function(event) {
-
 	"use strict";
-	//// CONSTANTS ////
 
 	const ZONE_PREFIX = "js/game/zone";
 	const ZONE_SUFFIX = ".json";
 
-	//// CLASSES ////
 	class AssetsManager {
 		constructor() {
 			this.tile_set_image = undefined;
@@ -30,8 +26,6 @@ window.addEventListener("load", function(event) {
 			image.src = url;
 		};
 	};
-
-	//// FUNCTIONS ////
 
 	var keyDownUp = function(event) {
 		controller.keyDownUp(event.type, event.keyCode);
@@ -142,7 +136,6 @@ window.addEventListener("load", function(event) {
 			);
 		}
 
-		// display.drawCollisionMap(game.world.collision_map, game.world.columns, game.world.tile_set.tile_size);
 		display.render();
 	};
 
@@ -166,23 +159,19 @@ window.addEventListener("load", function(event) {
 		}
 	};
 
-	//// OBJECTS ////
-
 	var assets_manager = new AssetsManager();
-	var controller     = new Controller();
-	var display        = new Display(document.querySelector("canvas"));
-	var game           = new Game();
-	var engine         = new Engine(1000/40, render, update);
+	var controller = new Controller();
+	var display = new Display(document.querySelector("canvas"));
+	var game = new Game();
+	var engine = new Engine(1000 / 40, render, update);
 
 	var p = document.createElement("p");
 	p.setAttribute("style", "color: red; font-size:28px; position: fixed;");
 	p.textContent = "HEALTH: 0";
 	document.body.appendChild(p);
 
-	//// INITIALIZE ////
-
 	display.buffer.canvas.height = game.world.height;
-	display.buffer.canvas.width  = game.world.width;
+	display.buffer.canvas.width = game.world.width;
 	display.buffer.imageSmoothingEnabled = false;
 
 	playMusic(gameLvl1Music);
@@ -195,15 +184,15 @@ window.addEventListener("load", function(event) {
 			resize();
 			engine.start();
 		});
-		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => {assets_manager.player_image = image;});
-		assets_manager.requestImage("assets/UI/heart_life.png", (image) => {assets_manager.heal_health_image = image; });
-		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => {assets_manager.torch_image = image; });
-		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => {assets_manager.fire_skull_image = image; });
-		assets_manager.requestImage("assets/Characters/Skull/dark_skull.png", (image) => {assets_manager.dark_skull_image = image; });
-		assets_manager.requestImage("assets/Characters/Nightmare/nightmare.png", (image) => {assets_manager.nightmare_image = image; });
-		assets_manager.requestImage("assets/Characters/Ghost/ghost_sheet.png", (image) => {assets_manager.ghost_image = image; });
+		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => { assets_manager.player_image = image; });
+		assets_manager.requestImage("assets/UI/heart_life.png", (image) => { assets_manager.heal_health_image = image; });
+		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => { assets_manager.torch_image = image; });
+		assets_manager.requestImage("assets/Characters/Skull/fire_skull.png", (image) => { assets_manager.fire_skull_image = image; });
+		assets_manager.requestImage("assets/Characters/Skull/dark_skull.png", (image) => { assets_manager.dark_skull_image = image; });
+		assets_manager.requestImage("assets/Characters/Nightmare/nightmare.png", (image) => { assets_manager.nightmare_image = image; });
+		assets_manager.requestImage("assets/Characters/Ghost/ghost_sheet.png", (image) => { assets_manager.ghost_image = image; });
 	});
 	window.addEventListener("keydown", keyDownUp);
-	window.addEventListener("keyup"  , keyDownUp);
-	window.addEventListener("resize" , resize);
+	window.addEventListener("keyup", keyDownUp);
+	window.addEventListener("resize", resize);
 });
