@@ -14,6 +14,8 @@ window.addEventListener("load", function(event) {
 			this.nightmare_image = undefined;
 			this.dark_skull_image = undefined;
 			this.ghost_image = undefined;
+			this.imagesLoaded = 0;
+			this.totalImages = 8;
 		};
 
 		requestJSON(url, callback) {
@@ -22,7 +24,14 @@ window.addEventListener("load", function(event) {
 
 		requestImage(url, callback) {
 			let image = new Image();
-			image.onload = () => callback(image);
+			image.onload = () => {
+				callback(image);
+				this.imagesLoaded++;
+				if (this.imagesLoaded === this.totalImages) {
+					resize();
+					engine.start();
+				}
+			};
 			image.src = url;
 		};
 	};
@@ -179,11 +188,7 @@ window.addEventListener("load", function(event) {
 	assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
 		game.world.setup(zone);
 
-		assets_manager.requestImage("assets/Tiles/tiles_spritesheet.png", (image) => {
-			assets_manager.tile_set_image = image;
-			resize();
-			engine.start();
-		});
+		assets_manager.requestImage("assets/Tiles/tiles_spritesheet.png", (image) => { assets_manager.tile_set_image = image; });
 		assets_manager.requestImage("assets/Characters/Alucard(Hero)/alucard.png", (image) => { assets_manager.player_image = image; });
 		assets_manager.requestImage("assets/UI/heart_life.png", (image) => { assets_manager.heal_health_image = image; });
 		assets_manager.requestImage("assets/Decorations/Animated Decorations/torch_big/torch_big_bg.png", (image) => { assets_manager.torch_image = image; });

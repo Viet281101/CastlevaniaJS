@@ -1,17 +1,17 @@
-class LevelSetup {
+class Setup {
 	constructor() {
 		const j = './js/';
 		this.jg = j + 'game/';
 		this.parts = {
 			"00": [
-				this.jg + "controller.js", 
-				this.jg + "display.js", 
-				this.jg + "engine.js", 
-				this.jg + "game_core.js", 
-				this.jg + "game_entities.js", 
-				this.jg + "game_world.js", 
+				this.jg + "controller.js",
+				this.jg + "display.js",
+				this.jg + "engine.js",
+				this.jg + "game_core.js",
+				this.jg + "game_entities.js",
+				this.jg + "game_world.js",
 				this.jg + "game_tileset.js",
-				this.jg + "main.js", 
+				this.jg + "main.js",
 				this.jg + "stats.js",
 			]
 		};
@@ -27,15 +27,30 @@ class LevelSetup {
 			"./js/sound/music.js",
 			"./js/menu/menu_pause.js",
 		];
+
+		let scriptsLoaded = 0;
+		let scriptsFailed = false;
+
 		scriptsToLoad.forEach(src => {
 			let script = document.createElement("script");
 			script.type = "text/javascript";
 			script.src = src;
+			script.onload = () => {
+				scriptsLoaded++;
+				if (scriptsLoaded === scriptsToLoad.length && !scriptsFailed) {
+					this.fadeInEffect();
+					this.defineFadeInKeyframes();
+					console.log("Loaded part " + this.part + " of the game.");
+				}
+			};
+			script.onerror = () => {
+				scriptsFailed = true;
+				console.error(`Failed to load script: ${src}`);
+				alert("Failed to load some resources. The page will reload.");
+				window.location.reload();
+			};
 			document.head.appendChild(script);
 		});
-		this.fadeInEffect();
-		this.defineFadeInKeyframes();
-		console.log("Loaded part " + this.part + " of the game.");
 	};
 
 	fadeInEffect() {
@@ -62,5 +77,5 @@ class LevelSetup {
 	};
 };
 
-const levelSetup = new LevelSetup();
+const levelSetup = new Setup();
 levelSetup.loadScripts();
