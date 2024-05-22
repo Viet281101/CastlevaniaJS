@@ -4,7 +4,7 @@ window.addEventListener("load", function(event) {
 	"use strict";
 	//// CONSTANTS ////
 
-	const ZONE_PREFIX = "js/game/lvl1/zone";
+	const ZONE_PREFIX = "js/game/zone";
 	const ZONE_SUFFIX = ".json";
 
 	//// CLASSES ////

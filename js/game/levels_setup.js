@@ -1,30 +1,22 @@
-////* File: levels_setup.js -> this file is used to load the scripts of the game levels *////
 class LevelSetup {
 	constructor() {
 		const j='./js/';
 		this.jg=j+'game/';
-		this.jgb=this.jg+'baselevel/';
-		this.jg1=this.jg+'lvl1/';
-		this.jg2=this.jg+'lvl2/';
 		this.parts = {
-			"00": [this.jgb+"controller.js", this.jgb+"display.js", this.jgb+"engine.js", this.jgb+"game.js", this.jgb+"main.js"],
-			"01": [this.jg1+"controller-01.js", this.jg1+"display-01.js", this.jgb+"engine.js", this.jg1+"game-01.js", this.jg1+"main-01.js"],
-			"02": [this.jg2+"controller-02.js", this.jg2+"display-02.js", this.jgb+"engine.js", this.jg2+"game-02.js", this.jg2+"main-02.js"]
+			"00": [this.jg+"controller.js", this.jg+"display.js", this.jg+"engine.js", this.jg+"game.js", this.jg+"main.js", this.jg+"stats.js",]
 		};
 		this.part = String(window.location).split("?")[1];
-		if (!this.parts.hasOwnProperty(this.part)) { this.part = "01"; }
+		if (!this.parts.hasOwnProperty(this.part)) { this.part = "00"; }
 	};
 
 	loadScripts() {
 		const scriptsToLoad = [
 			...this.parts[this.part],
 			"./js/effects/transition.js",
-			this.jg+"stats.js",
 			"./js/sound/sound.js",
 			"./js/sound/music.js",
 			"./js/menu/menu_pause.js",
-			"./libs/leaflet/leaflet.js",
-			this.jg+"mini_map.js"
+			"./libs/leaflet/leaflet.js"
 		];
 		scriptsToLoad.forEach(src => {
 			let script = document.createElement("script");
@@ -32,18 +24,9 @@ class LevelSetup {
 			script.src = src;
 			document.head.appendChild(script);
 		});
-		this.loadLeafletStyle();
 		this.fadeInEffect();
 		this.defineFadeInKeyframes();
 		console.log("Loaded part "+this.part+" of the game.");
-	};
-
-	loadLeafletStyle() {
-		let leafletStyle = document.createElement("link");
-		leafletStyle.rel = "stylesheet";
-		leafletStyle.type = "text/css";
-		leafletStyle.href = "./js/leaflet/leaflet.css";
-		document.head.appendChild(leafletStyle);
 	};
 
 	fadeInEffect() {
