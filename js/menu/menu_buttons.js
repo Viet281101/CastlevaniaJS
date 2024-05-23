@@ -124,25 +124,26 @@ function attachMenuButtonEvents() {
 	const menuButtons = document.querySelectorAll(".menuButton");
 	let originColor = true;
 	menuButtons.forEach(function (button) {
-		let originalStyle = Object.assign({}, button.style);
-		let hoverStyle = {
-			fontSize: (parseInt(window.getComputedStyle(button).fontSize) + (parseInt(window.getComputedStyle(button).fontSize) * 0.05)) + "px",
-			textShadow: "0 0 10px #f6f2ff",
-			color: "rgb(0, 0, 0)"
-		};
+		let textSize = parseInt(window.getComputedStyle(button).fontSize);
+		let textSizeHover = textSize + (textSize * 0.05);
+		button.setAttribute('title', button.textContent);
 		button.addEventListener("mouseover", function () {
-			Object.assign(button.style, hoverStyle);
+			button.style.fontSize = textSizeHover + "px";
+			button.style.textShadow = "0 0 10px #f6f2ff";
+			button.style.color = "rgb(0, 0, 0)";
 			hoverSound.play();
 		});
 		button.addEventListener("mouseout", function () {
-			Object.assign(button.style, originalStyle);
+			button.style.fontSize = textSize + "px";
+			button.style.textShadow = "none";
+			if (originColor) button.style.color = "rgb(192, 98, 40)";
 		});
 		document.addEventListener("mousedown", function () {
-			Object.assign(button.style, {color: "rgb(0, 0, 0)"});
+			button.style.color = "rgb(0, 0, 0)";
 			originColor = false;
 		});
 		document.addEventListener("mouseup", function () {
-			Object.assign(button.style, {color: "rgb(192, 98, 40)"});
+			button.style.color = "rgb(192, 98, 40)";
 			originColor = true;
 		});
 	});
@@ -173,4 +174,3 @@ function createFullscreenButton() {
 	});
 	document.body.appendChild(fullscreenContainer);
 };
-
