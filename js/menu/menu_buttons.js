@@ -2,9 +2,9 @@
 //////*  Create menu buttons after remove intro element  *//////
 document.addEventListener('DOMContentLoaded', function() {
 	document.addEventListener('introAnimationEnded', function() {
-        createMenuButtons();
-        createFullscreenButton();
-    });
+		createMenuButtons();
+		createFullscreenButton();
+	});
 });
 
 //////* Start Sound Script  *//////
@@ -30,13 +30,15 @@ async function loadSoundAttachButtons() {
 //////*  Create menu buttons   *//////
 function createMenuButtons() {
 	buttonApearKeyFrames();
-    var buttonContainer = document.createElement('div');
-	buttonContainer.style.position = 'fixed';
-	buttonContainer.style.top = '50%';
-	buttonContainer.style.left = '50%';
-	buttonContainer.style.transform = 'translate(-50%, -50%)';
-	buttonContainer.style.textAlign = 'center';
-	buttonContainer.style.zIndex = 3;
+	var buttonContainer = document.createElement('div');
+	Object.assign(buttonContainer.style, {
+		position: 'fixed',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		textAlign: 'center',
+		zIndex: 3
+	});
 	var buttons = ['Start','Demo', 'Credit', 'Setting', 'Quit'];
 	buttons.forEach(function(buttonText) {
 		var button = document.createElement('button');
@@ -121,30 +123,29 @@ function attachMenuButtonEvents() {
 	//////*  Hover effect   *//////
 	const menuButtons = document.querySelectorAll(".menuButton");
 	let originColor = true;
-    menuButtons.forEach(function (button) {
-        let textSize = parseInt(window.getComputedStyle(button).fontSize);
-        let textSizeHover = textSize + (textSize * 0.05);
-        button.setAttribute('title', button.textContent);
-        button.addEventListener("mouseover", function () {
-            button.style.fontSize = textSizeHover + "px";
-            button.style.textShadow = "0 0 10px #f6f2ff";
-			button.style.color = "rgb(0, 0, 0)";
-            hoverSound.play();
-        });
-        button.addEventListener("mouseout", function () {
-            button.style.fontSize = textSize + "px";
-            button.style.textShadow = "none";
-			if (originColor) button.style.color = "rgb(192, 98, 40)";
-        });
+	menuButtons.forEach(function (button) {
+		let originalStyle = Object.assign({}, button.style);
+		let hoverStyle = {
+			fontSize: (parseInt(window.getComputedStyle(button).fontSize) + (parseInt(window.getComputedStyle(button).fontSize) * 0.05)) + "px",
+			textShadow: "0 0 10px #f6f2ff",
+			color: "rgb(0, 0, 0)"
+		};
+		button.addEventListener("mouseover", function () {
+			Object.assign(button.style, hoverStyle);
+			hoverSound.play();
+		});
+		button.addEventListener("mouseout", function () {
+			Object.assign(button.style, originalStyle);
+		});
 		document.addEventListener("mousedown", function () {
-			button.style.color = "rgb(0, 0, 0)";
+			Object.assign(button.style, {color: "rgb(0, 0, 0)"});
 			originColor = false;
 		});
 		document.addEventListener("mouseup", function () {
-			button.style.color = "rgb(192, 98, 40)";
+			Object.assign(button.style, {color: "rgb(192, 98, 40)"});
 			originColor = true;
 		});
-    });
+	});
 };
 
 //////*  FullScreen button   *//////
@@ -152,8 +153,10 @@ function createFullscreenButton() {
 	var fullscreenContainer = document.createElement('button');
 	fullscreenContainer.id = 'fullscreenContainer';
 	var fullscreenImage = document.createElement('img');
-	fullscreenImage.style.width = 'auto';
-	fullscreenImage.style.height = '50px';
+	Object.assign(fullscreenImage.style, {
+		width: 'auto',
+		height: '50px'
+	});
 	// fullscreenImage.src = './assets/UI/zoom_out.png';
 	fullscreenImage.src = './assets/UI/fullscreen.png';
 	fullscreenImage.alt = 'fullscreen';
