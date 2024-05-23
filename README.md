@@ -1,9 +1,10 @@
 
 # Castlevania
 
-![alt text](assets/Castlevania.png)
-
 Link play : https://viet281101.github.io/CastlevaniaJS/
+
+
+![alt text](assets/Castlevania.png)
 
 
 
@@ -12,7 +13,7 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
 
 
 
-### Sources:
+## Sources:
 1) Musics:
    - Main Menu Music : [Viktor Kraus - Into the Ruins](https://opengameart.org/content/into-the-ruins)
    - Level 1 Music : [Ost : Menu - Castlevania: Lords of Shadow 2 OST](https://www.youtube.com/watch?v=lLP6b6mOolw&ab_channel=e105beta)
@@ -33,8 +34,8 @@ Link play : https://viet281101.github.io/CastlevaniaJS/
      
 
 
-### Participants:
-- Viet Nguyen 
-- [@D-TheProgrammer](https://github.com/D-TheProgrammer)
-- Wilfried Ben Brahim
-- Jonny Mathanaruban
+## Authors:
+- [Viet NGUYEN](https://github.com/Viet281101) 
+- [Damien GEOFFROY](https://github.com/D-TheProgrammer)
+- [Wilfried Ben Brahim](https://github.com/WillBBHM)
+- [Jonny Mathanaruban](https://github.com/theKaido)
