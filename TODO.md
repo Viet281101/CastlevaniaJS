@@ -19,11 +19,11 @@ Voici une checklist pour les choses à faire
    - [ ] Crée les conditions pour terminer un niveau et passer à un autre niveau (lvl1 -> lvl2)
 
 2. Compléter le menu pause du jeu (par exemple, appuyer le bouton "**P**" arrêtera le jeu et afficher l'écran du menu pause avec les boutons **Continuer**, **Setting**, **Quit**)
-   - [ ] completer le fichier "js/menu/menu_pause.js", ajouter des boutons
+   - [ ] completer le fichier "js/menu/pause.js", ajouter des boutons
    - [ ] ajouter une touche pour appeler l'écran pause dans le jeu
 
 3. Compléter le système de menu du projet
-   - [x] compléter le fichier menu_settings.js
+   - [x] compléter le fichier settings.js
    - [ ] ajout de la posibilité de gérer les raccourir, clés controls du projet
 
 4. Créer plus des niveaux du jeu et des combats de boss

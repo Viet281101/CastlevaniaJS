@@ -27,7 +27,7 @@ class Setup {
       './js/effects/transition.js',
       './js/sound/sound.js',
       './js/sound/music.js',
-      './js/menu/menu_pause.js',
+      './js/menu/pause.js',
     ];
 
     const loadNext = (index) => {

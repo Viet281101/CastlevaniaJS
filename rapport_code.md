@@ -10,11 +10,11 @@
 
 - JAVASCRIPT (path: js/):
   - **menu/** contient tous les fichiers JavaScript liés à la configuration du menu
-    - **menu_background.js** : Exécuter l'image d'arrière+plan pour le menu principal
-    - **menu_buttons.js** : Exécuter les buttons
-    - **menu_credits.js** : Exécuter la page crédits du menu
-    - **menu_settings.js** : Exécuter la page des paramètres du menu
-    - **menu_pause.js** : Exécuter la page de pause du jeu
+    - **menu/background.js** : Exécuter l'image d'arrière+plan pour le menu principal
+    - **menu/buttons.js** : Exécuter les buttons
+    - **menu/credits.js** : Exécuter la page crédits du menu
+    - **menu/settings.js** : Exécuter la page des paramètres du menu
+    - **menu/pause.js** : Exécuter la page de pause du jeu
   - **game/** contient tous les fichiers JavaScript du jeu
     - **levels_setup.js** : gérer les niveaux de jeu
     - **stats.js** : gérer les attributs, les données pour sauvegarder et charger le jeu

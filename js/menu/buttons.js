@@ -83,7 +83,7 @@ function attachMenuButtonEvents() {
     stopMusic(mainMenuMusic);
     const menuCreditScript = document.createElement('script');
     menuCreditScript.setAttribute('type', 'text/javascript');
-    menuCreditScript.setAttribute('src', './js/menu/menu_credits.js');
+    menuCreditScript.setAttribute('src', './js/menu/credits.js');
     document.body.appendChild(menuCreditScript);
     transitionEffect.start(() => {
       const creditMenu = new CreditMenu();
@@ -96,7 +96,7 @@ function attachMenuButtonEvents() {
     clickSound.play();
     const menuSettingScript = document.createElement('script');
     menuSettingScript.setAttribute('type', 'text/javascript');
-    menuSettingScript.setAttribute('src', './js/menu/menu_settings.js');
+    menuSettingScript.setAttribute('src', './js/menu/settings.js');
     document.body.appendChild(menuSettingScript);
     transitionEffect.start(() => {
       const settingMenu = new SettingsMenu();
