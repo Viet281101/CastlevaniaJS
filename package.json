@@ -1,0 +1,11 @@
+{
+  "name": "castlevaniajs",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
