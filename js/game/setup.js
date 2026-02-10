@@ -30,29 +30,28 @@ class Setup {
       './js/menu/menu_pause.js',
     ];
 
-    let scriptsLoaded = 0;
-    let scriptsFailed = false;
+    const loadNext = (index) => {
+      if (index >= scriptsToLoad.length) {
+        this.fadeInEffect();
+        this.defineFadeInKeyframes();
+        console.log('Loaded part ' + this.part + ' of the game.');
+        return;
+      }
 
-    scriptsToLoad.forEach((src) => {
-    const script = document.createElement('script');
+      const src = scriptsToLoad[index];
+      const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = src;
-      script.onload = () => {
-        scriptsLoaded++;
-        if (scriptsLoaded === scriptsToLoad.length && !scriptsFailed) {
-          this.fadeInEffect();
-          this.defineFadeInKeyframes();
-          console.log('Loaded part ' + this.part + ' of the game.');
-        }
-      };
+      script.onload = () => loadNext(index + 1);
       script.onerror = () => {
-        scriptsFailed = true;
         console.error(`Failed to load script: ${src}`);
         alert('Failed to load some resources. The page will reload.');
         window.location.reload();
       };
       document.head.appendChild(script);
-    });
+    };
+
+    loadNext(0);
   }
 
   fadeInEffect() {
