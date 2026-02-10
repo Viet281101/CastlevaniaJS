@@ -5,7 +5,7 @@ Game.TileSet = class {
     this.columns = columns;
     this.tile_size = tile_size;
 
-    let f = Game.Frame;
+    const f = Game.Frame;
     this.frames = [
       //// Idle Left ////
       new f(128 * 92, 76, 92, 76, -8, 0), // 0

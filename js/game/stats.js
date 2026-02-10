@@ -1,23 +1,23 @@
 const font = 'Castlevania';
 const totalLevels = 2;
 
-var gameOver;
-var gameWon;
-var gamePaused = false;
-var enemiesKilled;
-var levelDisplay;
-var currentLevel;
-var currentZone = '00';
+let gameOver;
+let gameWon;
+let gamePaused = false;
+let enemiesKilled;
+let levelDisplay;
+let currentLevel;
+let currentZone = '00';
 
-var score = 0;
-var currentScore = 0;
-var playerCharacter;
-var playerHealth;
-var playerMaxHealth;
-var playerPosX = 0;
-var playerPosY = 130;
+let score = 0;
+let currentScore = 0;
+let playerCharacter;
+let playerHealth;
+let playerMaxHealth;
+let playerPosX = 0;
+let playerPosY = 130;
 
-var optionId = '';
+let optionId = '';
 const userKeys = {
   LEFT: 37,
   UP: 38,
@@ -89,7 +89,7 @@ function pauseGame() {
 }
 
 function changeOption(key) {
-  var chr = String.fromCharCode(key);
+  const chr = String.fromCharCode(key);
   if (optionId !== '' && !Object.values(userKeys).includes(key)) {
     if (48 <= key && key <= 90) {
       document.getElementById(optionId).value = chr;

@@ -16,9 +16,9 @@ class FogEffect {
 
     document.body.appendChild(this.fogContainer);
 
-    var keyframes =
+    const keyframes =
       '@keyframes fogAnim { 0% { background-position: -200% bottom; } 100% { background-position: 0% bottom; } }';
-    var styleSheet = document.createElement('style');
+    const styleSheet = document.createElement('style');
     styleSheet.setAttribute('type', 'text/css');
     styleSheet.innerText = keyframes;
     document.head.appendChild(styleSheet);
@@ -41,6 +41,6 @@ class FogEffect {
 
 // //////*  Fog Effect Exemple Use   *//////
 // document.addEventListener('DOMContentLoaded', function() {
-//     var fogEffect = new FogEffect();
+//     let fogEffect = new FogEffect();
 //     fogEffect.updateFogOpacity(0.3);
 // });

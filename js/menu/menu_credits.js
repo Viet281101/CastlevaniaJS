@@ -8,7 +8,7 @@ class CreditMenu {
   }
 
   show() {
-    let existingCanvas = document.getElementById('canvas');
+    const existingCanvas = document.getElementById('canvas');
     if (existingCanvas) {
       // existingCanvas.style.display = 'none';
       existingCanvas.remove();
@@ -20,7 +20,7 @@ class CreditMenu {
     this.creditContent();
 
     //// Butterfly ////
-    let newCanvas = document.createElement('canvas');
+    const newCanvas = document.createElement('canvas');
     newCanvas.id = 'butterflyCanvas';
     newCanvas.style.position = 'absolute';
     newCanvas.style.zIndex = '1';
@@ -29,7 +29,7 @@ class CreditMenu {
   }
 
   creditContent() {
-    let creditContainer = document.createElement('div');
+    const creditContainer = document.createElement('div');
     creditContainer.id = 'creditContainer';
     Object.assign(creditContainer.style, {
       position: 'fixed',
@@ -41,7 +41,7 @@ class CreditMenu {
       overflow: 'hidden',
     });
 
-    let creditText = [
+    const creditText = [
       'Credits',
       ' ',
       'Game Design',
@@ -57,8 +57,8 @@ class CreditMenu {
       'Special Thanks',
       ' ',
     ];
-    creditText.forEach(function (text) {
-      let credit = document.createElement('div');
+    creditText.forEach((text) => {
+      const credit = document.createElement('div');
       credit.className = 'credit';
       credit.textContent = text;
       Object.assign(credit.style, {
@@ -74,11 +74,11 @@ class CreditMenu {
   }
 
   scrollCredits() {
-    let creditContainer = document.getElementById('creditContainer');
-    let creditHeight = creditContainer.offsetHeight;
+    const creditContainer = document.getElementById('creditContainer');
+    const creditHeight = creditContainer.offsetHeight;
     let currentTop = parseInt(window.getComputedStyle(creditContainer).top);
 
-    function scroll() {
+    const scroll = () => {
       currentTop -= 1;
       creditContainer.style.top = currentTop + 'px';
 
@@ -87,19 +87,19 @@ class CreditMenu {
       }
 
       setTimeout(scroll, 20);
-    }
+    };
     scroll();
   }
 
   loadButterflyScript() {
-    let butterflyScript = document.createElement('script');
+    const butterflyScript = document.createElement('script');
     butterflyScript.setAttribute('type', 'text/javascript');
     butterflyScript.setAttribute('src', './js/effects/butterfly.js');
     document.body.appendChild(butterflyScript);
   }
 
   addBackButton() {
-    let backButton = document.createElement('button');
+    const backButton = document.createElement('button');
     Object.assign(backButton.style, {
       zIndex: 4,
       position: 'fixed',
@@ -129,7 +129,7 @@ class CreditMenu {
   }
   loadTransitionScript() {
     if (typeof TransitionEffect === 'undefined') {
-      let transitionScript = document.createElement('script');
+      const transitionScript = document.createElement('script');
       transitionScript.setAttribute('type', 'text/javascript');
       transitionScript.setAttribute('src', './js/effects/transition.js');
       transitionScript.onload = () => {

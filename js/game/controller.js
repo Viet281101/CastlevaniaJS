@@ -9,7 +9,7 @@ const Controller = function () {
   this.inventory = new Controller.ButtonInput();
 
   this.keyDownUp = function (type, key_code) {
-    var down = type == 'keydown' ? true : false;
+    const down = type == 'keydown' ? true : false;
 
     switch (key_code) {
       case userKeys.LEFT:

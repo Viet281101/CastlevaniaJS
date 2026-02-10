@@ -9,7 +9,7 @@ class SettingsMenu {
   }
 
   show() {
-    let existingCanvas = document.getElementById('canvas');
+    const existingCanvas = document.getElementById('canvas');
     if (existingCanvas) {
       // existingCanvas.style.display = 'none';
       existingCanvas.remove();
@@ -21,7 +21,7 @@ class SettingsMenu {
     this.settingsMenuContent();
     this.settingsParameters();
     //// Butterfly ////
-    let newCanvas = document.createElement('canvas');
+    const newCanvas = document.createElement('canvas');
     newCanvas.id = 'butterflyCanvas';
     newCanvas.style.position = 'absolute';
     newCanvas.style.zIndex = '1';
@@ -30,7 +30,7 @@ class SettingsMenu {
   }
 
   settingsMenuContent() {
-    let settingsContainer = document.createElement('div');
+    const settingsContainer = document.createElement('div');
     Object.assign(settingsContainer.style, {
       position: 'fixed',
       top: '20%',
@@ -47,7 +47,7 @@ class SettingsMenu {
   }
 
   settingsParameters() {
-    let settingsTable = document.createElement('table');
+    const settingsTable = document.createElement('table');
     Object.assign(settingsTable.style, {
       zIndex: '2',
       position: 'fixed',
@@ -61,12 +61,12 @@ class SettingsMenu {
       WebkitTextFillColor: 'transparent',
       WebkitBackgroundClip: 'text',
     });
-    let settingsRows = [];
+    const settingsRows = [];
 
-    let volumeRow = document.createElement('tr');
-    let volumeLabel = document.createElement('td');
+    const volumeRow = document.createElement('tr');
+    const volumeLabel = document.createElement('td');
     volumeLabel.textContent = 'Volume:';
-    let volumeInput = document.createElement('input');
+    const volumeInput = document.createElement('input');
     volumeInput.type = 'range';
     volumeInput.min = '0';
     volumeInput.max = '100';
@@ -75,10 +75,10 @@ class SettingsMenu {
     volumeRow.appendChild(volumeInput);
     settingsRows.push(volumeRow);
 
-    let soundRow = document.createElement('tr');
-    let soundLabel = document.createElement('td');
+    const soundRow = document.createElement('tr');
+    const soundLabel = document.createElement('td');
     soundLabel.textContent = 'Sound:';
-    let soundButton = document.createElement('img');
+    const soundButton = document.createElement('img');
     soundButton.src = './assets/UI/unmute.png';
     soundButton.className = 'mute-button';
     soundButton.style.width = '30px';
@@ -87,29 +87,29 @@ class SettingsMenu {
     soundRow.appendChild(soundButton);
     settingsRows.push(soundRow);
 
-    let fullscreenRow = document.createElement('tr');
-    let fullscreenLabel = document.createElement('td');
+    const fullscreenRow = document.createElement('tr');
+    const fullscreenLabel = document.createElement('td');
     fullscreenLabel.textContent = 'Fullscreen:';
-    let fullscreenInput = document.createElement('input');
+    const fullscreenInput = document.createElement('input');
     fullscreenInput.type = 'checkbox';
     fullscreenInput.className = 'fullscreen-checkbox';
     fullscreenRow.appendChild(fullscreenLabel);
     fullscreenRow.appendChild(fullscreenInput);
     settingsRows.push(fullscreenRow);
 
-    let themeRow = document.createElement('tr');
-    let themeLabel = document.createElement('td');
+    const themeRow = document.createElement('tr');
+    const themeLabel = document.createElement('td');
     themeLabel.textContent = 'Theme:';
-    let themeSelect = document.createElement('select');
-    let defaultOption = document.createElement('option');
+    const themeSelect = document.createElement('select');
+    const defaultOption = document.createElement('option');
     defaultOption.value = 'default';
     defaultOption.textContent = 'Default';
     themeSelect.appendChild(defaultOption);
-    let darkOption = document.createElement('option');
+    const darkOption = document.createElement('option');
     darkOption.value = 'dark';
     darkOption.textContent = 'Dark';
     themeSelect.appendChild(darkOption);
-    let lightOption = document.createElement('option');
+    const lightOption = document.createElement('option');
     lightOption.value = 'light';
     lightOption.textContent = 'Light';
     themeSelect.appendChild(lightOption);
@@ -117,15 +117,15 @@ class SettingsMenu {
     themeRow.appendChild(themeSelect);
     settingsRows.push(themeRow);
 
-    let langRow = document.createElement('tr');
-    let langLabel = document.createElement('td');
+    const langRow = document.createElement('tr');
+    const langLabel = document.createElement('td');
     langLabel.textContent = 'Language:';
-    let langSelect = document.createElement('select');
-    let englishOption = document.createElement('option');
+    const langSelect = document.createElement('select');
+    const englishOption = document.createElement('option');
     englishOption.value = 'english';
     englishOption.textContent = 'English';
     langSelect.appendChild(englishOption);
-    let francaisOption = document.createElement('option');
+    const francaisOption = document.createElement('option');
     francaisOption.value = 'francais';
     francaisOption.textContent = 'Français';
     langSelect.appendChild(francaisOption);
@@ -133,10 +133,10 @@ class SettingsMenu {
     langRow.appendChild(langSelect);
     settingsRows.push(langRow);
 
-    let controlsRow = document.createElement('tr');
-    let controlsLabel = document.createElement('td');
+    const controlsRow = document.createElement('tr');
+    const controlsLabel = document.createElement('td');
     controlsLabel.textContent = 'Controls:';
-    let controlsText = document.createElement('div');
+    const controlsText = document.createElement('div');
     controlsText.textContent =
       '&uarr;: Sauter\n&darr;: Accroupie\n&larr;: Gauche\n&rarr;: Droite\nEspace: Attaquer\nP : Pause';
     controlsRow.appendChild(controlsLabel);
@@ -150,7 +150,7 @@ class SettingsMenu {
   }
 
   addSettingsEventListeners() {
-    let muteButton = document.querySelector('.mute-button');
+    const muteButton = document.querySelector('.mute-button');
     Object.assign(muteButton.style, {
       cursor: 'pointer',
       border: 'none',
@@ -160,14 +160,14 @@ class SettingsMenu {
       webkitBackgroundClip: 'text',
     });
     muteButton.onclick = () => {
-      let isMuted = muteButton.src.includes('mute.png');
+      const isMuted = muteButton.src.includes('mute.png');
       muteButton.src = isMuted ? './assets/UI/unmute.png' : './assets/UI/mute.png';
       setVolume(isMuted ? '0' : '1');
     };
   }
 
   addBackButton() {
-    let backButton = document.createElement('button');
+    const backButton = document.createElement('button');
     Object.assign(backButton.style, {
       zIndex: 4,
       position: 'fixed',
@@ -193,7 +193,7 @@ class SettingsMenu {
   }
 
   loadButterflyScript() {
-    let butterflyScript = document.createElement('script');
+    const butterflyScript = document.createElement('script');
     butterflyScript.setAttribute('type', 'text/javascript');
     butterflyScript.setAttribute('src', './js/effects/butterfly.js');
     document.body.appendChild(butterflyScript);
@@ -204,7 +204,7 @@ class SettingsMenu {
   }
   loadTransitionScript() {
     if (typeof TransitionEffect === 'undefined') {
-      let transitionScript = document.createElement('script');
+      const transitionScript = document.createElement('script');
       transitionScript.setAttribute('type', 'text/javascript');
       transitionScript.setAttribute('src', './js/effects/transition.js');
       transitionScript.onload = () => {

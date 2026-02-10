@@ -186,9 +186,9 @@ Game.Collider.prototype = {
     return false;
   },
   collideSlopeLeft: function (object, tile_x, tile_y, tile_size) {
-    let base_y = tile_y + tile_size;
-    let slope = (object.x - tile_x) / tile_size;
-    let top_y = base_y - slope * tile_size;
+    const base_y = tile_y + tile_size;
+    const slope = (object.x - tile_x) / tile_size;
+    const top_y = base_y - slope * tile_size;
     if (object.getBottom() > top_y) {
       object.setBottom(top_y - 0.01);
       object.velocity_y = 0;
@@ -198,8 +198,8 @@ Game.Collider.prototype = {
     return false;
   },
   collideSlopeRight: function (object, tile_x, tile_y, tile_size) {
-    let slope = (tile_x + tile_size - object.getRight()) / tile_size;
-    let top_y = tile_y + slope * tile_size;
+    const slope = (tile_x + tile_size - object.getRight()) / tile_size;
+    const top_y = tile_y + slope * tile_size;
     if (object.getBottom() > top_y) {
       object.setBottom(top_y - 0.01);
       object.velocity_y = 0;
@@ -245,8 +245,8 @@ Game.Object.prototype = {
     return true;
   },
   collideObjectCenter: function (object) {
-    let center_x = object.getCenterX();
-    let center_y = object.getCenterY();
+    const center_x = object.getCenterX();
+    const center_y = object.getCenterY();
     if (
       center_x < this.getLeft() ||
       center_x > this.getRight() ||

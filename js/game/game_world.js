@@ -30,7 +30,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
 Game.World.prototype = {
   constructor: Game.World,
   collideObject: function (object) {
-    var bottom, left, right, top, value;
+    let bottom, left, right, top, value;
 
     top = Math.floor(object.getTop() / this.tile_set.tile_size);
     left = Math.floor(object.getLeft() / this.tile_set.tile_size);
@@ -92,7 +92,7 @@ Game.World.prototype = {
     this.zone_id = zone.id;
     /* Generate items heal_health */
     for (let index = zone.heal_health.length - 1; index > -1; --index) {
-      let heal_health = zone.heal_health[index];
+      const heal_health = zone.heal_health[index];
       this.heal_health[index] = new Game.HealHealth(
         heal_health[0] * this.tile_set.tile_size + 5,
         heal_health[1] * this.tile_set.tile_size - 2
@@ -100,7 +100,7 @@ Game.World.prototype = {
     }
     /* Generate new torchs. */
     for (let index = zone.torch.length - 1; index > -1; --index) {
-      let torch = zone.torch[index];
+      const torch = zone.torch[index];
       this.torch[index] = new Game.Torch(
         torch[0] * this.tile_set.tile_size,
         torch[1] * this.tile_set.tile_size + 12
@@ -108,7 +108,7 @@ Game.World.prototype = {
     }
     /* Generate new normal monster. */
     for (let index = zone.monster_normale.length - 1; index > -1; --index) {
-      let monster_normale = zone.monster_normale[index];
+      const monster_normale = zone.monster_normale[index];
       this.monster_normale[index] = new Game.Ennemie(
         monster_normale[0] * this.tile_set.tile_size,
         monster_normale[1] * this.tile_set.tile_size
@@ -116,7 +116,7 @@ Game.World.prototype = {
     }
     /* Generate new flying monster. */
     for (let index = zone.monster_fly.length - 1; index > -1; --index) {
-      let monster_fly = zone.monster_fly[index];
+      const monster_fly = zone.monster_fly[index];
       this.monster_fly[index] = new Game.EnnemieVolant(
         monster_fly[0] * this.tile_set.tile_size,
         monster_fly[1] * this.tile_set.tile_size
@@ -124,7 +124,7 @@ Game.World.prototype = {
     }
     /* Generate new jumping monster. */
     for (let index = zone.monster_jumper.length - 1; index > -1; --index) {
-      let monster_jumper = zone.monster_jumper[index];
+      const monster_jumper = zone.monster_jumper[index];
       this.monster_jumper[index] = new Game.EnnemieSauteur(
         monster_jumper[0] * this.tile_set.tile_size,
         monster_jumper[1] * this.tile_set.tile_size
@@ -132,7 +132,7 @@ Game.World.prototype = {
     }
     /* Generate new jumping contact monster. */
     for (let index = zone.monster_contactjump.length - 1; index > -1; --index) {
-      let monster_contactjump = zone.monster_contactjump[index];
+      const monster_contactjump = zone.monster_contactjump[index];
       this.monster_contactjump[index] = new Game.EnnemieJumpContact(
         monster_contactjump[0] * this.tile_set.tile_size,
         monster_contactjump[1] * this.tile_set.tile_size
@@ -140,7 +140,7 @@ Game.World.prototype = {
     }
     /* Generate new doors. */
     for (let index = zone.doors.length - 1; index > -1; --index) {
-      let door = zone.doors[index];
+      const door = zone.doors[index];
       this.doors[index] = new Game.Door(door);
     }
     if (this.door) {
@@ -161,7 +161,7 @@ Game.World.prototype = {
     this.collideObject(this.player);
 
     for (let index = this.heal_health.length - 1; index > -1; --index) {
-      let heal_health = this.heal_health[index];
+      const heal_health = this.heal_health[index];
       heal_health.updatePosition();
       heal_health.animate();
       if (heal_health.collideObject(this.player)) {
@@ -171,12 +171,12 @@ Game.World.prototype = {
     }
 
     for (let index = this.torch.length - 1; index > -1; --index) {
-      let torch = this.torch[index];
+      const torch = this.torch[index];
       torch.animate();
     }
 
     for (let index = this.doors.length - 1; index > -1; --index) {
-      let door = this.doors[index];
+      const door = this.doors[index];
       if (door.collideObjectCenter(this.player)) {
         this.door = door;
       }
@@ -184,7 +184,7 @@ Game.World.prototype = {
     this.player.updateAnimation();
 
     for (let index = this.monster_normale.length - 1; index > -1; --index) {
-      let monster_normale = this.monster_normale[index];
+      const monster_normale = this.monster_normale[index];
       this.collideObject(monster_normale);
       monster_normale.animate();
       monster_normale.updatePosition(this.gravity, this.friction, this.player, this.health);
@@ -205,7 +205,7 @@ Game.World.prototype = {
     }
 
     for (let index = this.monster_contactjump.length - 1; index > -1; --index) {
-      let monster_contactjump = this.monster_contactjump[index];
+      const monster_contactjump = this.monster_contactjump[index];
       this.collideObject(monster_contactjump);
       monster_contactjump.animate();
       monster_contactjump.updatePosition(this.gravity, this.friction, this.player);
@@ -228,7 +228,7 @@ Game.World.prototype = {
     }
 
     for (let index = this.monster_fly.length - 1; index > -1; --index) {
-      let monster_fly = this.monster_fly[index];
+      const monster_fly = this.monster_fly[index];
       this.collideObject(monster_fly);
       monster_fly.animate();
       monster_fly.updatePosition(this.gravity, this.friction, this.player);
@@ -253,7 +253,7 @@ Game.World.prototype = {
     }
 
     for (let index = this.monster_jumper.length - 1; index > -1; --index) {
-      let monster_jumper = this.monster_jumper[index];
+      const monster_jumper = this.monster_jumper[index];
       this.collideObject(monster_jumper);
       monster_jumper.animate();
       monster_jumper.updatePosition(this.gravity, this.friction, this.player);

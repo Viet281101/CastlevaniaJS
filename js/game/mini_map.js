@@ -7,7 +7,7 @@ function getLatLng(event) {
 
 function createMiniMap() {
   'use strict';
-  let miniMap = L.map('miniMap', {
+  const miniMap = L.map('miniMap', {
     center: [0, 0],
     zoom: 0,
     minZoom: 0,
@@ -16,7 +16,7 @@ function createMiniMap() {
     attributionControl: false,
     crs: L.CRS.Simple,
   });
-  let miniMapLayer = L.tileLayer('assets/UI/map_2.png', {
+  const miniMapLayer = L.tileLayer('assets/UI/map_2.png', {
     minZoom: 0,
     maxZoom: 0,
   });

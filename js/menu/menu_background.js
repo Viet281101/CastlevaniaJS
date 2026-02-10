@@ -1,39 +1,39 @@
 //////* ----- All Menu Background Element ----- *//////
-var radius = 80;
-var influenceArea = {
+let radius = 80;
+const influenceArea = {
   x: 100,
   y: 100,
   width: radius * 2,
   height: radius * 2,
 };
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   loadMusicBackground();
   defineKeyframes();
   createFadeInIntro();
 
   //////*  Background Layers   *//////
-  var backgroundLayer1 = document.createElement('div');
+  const backgroundLayer1 = document.createElement('div');
   applyBackgroundStyles(backgroundLayer1, './assets/Background/background_graveyard.png', 1);
   document.body.appendChild(backgroundLayer1);
 
-  var backgroundLayer2 = document.createElement('div');
+  const backgroundLayer2 = document.createElement('div');
   applyBackgroundStyles(backgroundLayer2, './assets/Background/background_castle_no_fog.png', 2);
   document.body.appendChild(backgroundLayer2);
 
   //////*  Play Fog Effect   *//////
-  let fogScript = document.createElement('script');
+  const fogScript = document.createElement('script');
   fogScript.setAttribute('type', 'text/javascript');
   fogScript.setAttribute('src', './js/effects/fog.js');
   document.body.appendChild(fogScript);
   setTimeout(() => {
-    let fogEffect = new FogEffect();
-    document.addEventListener('mousemove', function (e) {
+    const fogEffect = new FogEffect();
+    document.addEventListener('mousemove', (e) => {
       fogEffect.updateFogMask(0.3);
     });
   }, 1000);
 
   //////*  Play Fireflies Effect   *//////
-  let firefliesScript = document.createElement('script');
+  const firefliesScript = document.createElement('script');
   firefliesScript.setAttribute('type', 'text/javascript');
   firefliesScript.setAttribute('src', './js/effects/fireflies.js');
   setTimeout(() => {
@@ -42,16 +42,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //////*  Background mouse mask   *//////
   setTimeout(() => {
-    document.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', (e) => {
       updateBackgroundMask(backgroundLayer2, e.clientX, e.clientY, radius);
       influenceArea.x = e.clientX - influenceArea.width / 2;
       influenceArea.y = e.clientY - influenceArea.height / 2;
     });
-    document.addEventListener('mousedown', function (e) {
+    document.addEventListener('mousedown', (e) => {
       radius = 1200;
       updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
     });
-    document.addEventListener('mouseup', function (e) {
+    document.addEventListener('mouseup', (e) => {
       radius = 80;
       updateMouseMask(backgroundLayer2, e.clientX, e.clientY, radius);
     });
@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //////*  Create Music Background   *//////
 function loadMusicScript(src) {
-  return new Promise(function (resolve, reject) {
-    var soundScript = document.createElement('script');
+  return new Promise((resolve, reject) => {
+    const soundScript = document.createElement('script');
     soundScript.setAttribute('type', 'text/javascript');
     soundScript.setAttribute('src', src);
     soundScript.onload = () => resolve(soundScript);
@@ -99,14 +99,14 @@ function updateBackgroundMask(element, x, y, maskSize) {
 }
 //////*  Create intro fade in image menu   *//////
 function defineKeyframes() {
-  var styleSheet = document.createElement('style');
+  const styleSheet = document.createElement('style');
   styleSheet.setAttribute('type', 'text/css');
   styleSheet.innerText = `@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }
 	@keyframes introFadeIn { from { opacity: 1; } to { opacity: 0; } }`;
   document.head.appendChild(styleSheet);
 }
 function createFadeInIntro() {
-  var fadeInDiv = document.createElement('div');
+  const fadeInDiv = document.createElement('div');
   Object.assign(fadeInDiv.style, {
     position: 'fixed',
     top: '0',
@@ -119,7 +119,7 @@ function createFadeInIntro() {
   });
   document.body.appendChild(fadeInDiv);
 
-  var introBackgroundDiv = document.createElement('div');
+  const introBackgroundDiv = document.createElement('div');
   Object.assign(introBackgroundDiv.style, {
     position: 'fixed',
     top: '0',
@@ -133,7 +133,7 @@ function createFadeInIntro() {
   });
   document.body.appendChild(introBackgroundDiv);
 
-  introBackgroundDiv.addEventListener('animationend', function () {
+  introBackgroundDiv.addEventListener('animationend', () => {
     introBackgroundDiv.remove();
     setTimeout(() => {
       fadeInDiv.remove();

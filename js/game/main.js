@@ -1,4 +1,4 @@
-window.addEventListener('load', function (event) {
+window.addEventListener('load', (event) => {
   'use strict';
 
   const ZONE_PREFIX = 'js/game/zone';
@@ -26,7 +26,7 @@ window.addEventListener('load', function (event) {
     }
 
     requestImage(url, callback) {
-      let image = new Image();
+      const image = new Image();
       image.onload = () => {
         callback(image);
         this.imagesLoaded++;
@@ -39,11 +39,11 @@ window.addEventListener('load', function (event) {
     }
   }
 
-  var keyDownUp = function (event) {
+  const keyDownUp = (event) => {
     controller.keyDownUp(event.type, event.keyCode);
   };
 
-  var resize = function (event) {
+  const resize = (event) => {
     display.resize(
       document.documentElement.clientWidth - 16,
       document.documentElement.clientHeight - 16,
@@ -52,8 +52,8 @@ window.addEventListener('load', function (event) {
     display.render();
   };
 
-  var render = function () {
-    var frame = undefined;
+  const render = () => {
+    let frame = undefined;
 
     display.drawMap(
       assets_manager.tile_set_image,
@@ -64,7 +64,7 @@ window.addEventListener('load', function (event) {
     );
 
     for (let index = game.world.heal_health.length - 1; index > -1; --index) {
-      let heal_health = game.world.heal_health[index];
+      const heal_health = game.world.heal_health[index];
       frame = game.world.tile_set.frames[heal_health.frame_value];
 
       display.drawObject(
@@ -94,7 +94,7 @@ window.addEventListener('load', function (event) {
     );
 
     for (let index = game.world.torch.length - 1; index > -1; --index) {
-      let torch = game.world.torch[index];
+      const torch = game.world.torch[index];
       frame = game.world.tile_set.frames[torch.frame_value];
 
       display.drawObject(
@@ -109,7 +109,7 @@ window.addEventListener('load', function (event) {
     }
 
     for (let index = game.world.monster_normale.length - 1; index > -1; --index) {
-      let monster_normale = game.world.monster_normale[index];
+      const monster_normale = game.world.monster_normale[index];
       frame = game.world.tile_set.frames[monster_normale.frame_value];
       display.drawObject(
         assets_manager.nightmare_image,
@@ -125,7 +125,7 @@ window.addEventListener('load', function (event) {
     }
 
     for (let index = game.world.monster_contactjump.length - 1; index > -1; --index) {
-      let monster_contactjump = game.world.monster_contactjump[index];
+      const monster_contactjump = game.world.monster_contactjump[index];
       frame = game.world.tile_set.frames[monster_contactjump.frame_value];
       display.drawObject(
         assets_manager.dark_skull_image,
@@ -141,7 +141,7 @@ window.addEventListener('load', function (event) {
     }
 
     for (let index = game.world.monster_fly.length - 1; index > -1; --index) {
-      let monster_fly = game.world.monster_fly[index];
+      const monster_fly = game.world.monster_fly[index];
       frame = game.world.tile_set.frames[monster_fly.frame_value];
       display.drawObject(
         assets_manager.ghost_image,
@@ -155,7 +155,7 @@ window.addEventListener('load', function (event) {
     }
 
     for (let index = game.world.monster_jumper.length - 1; index > -1; --index) {
-      let monster_jumper = game.world.monster_jumper[index];
+      const monster_jumper = game.world.monster_jumper[index];
       frame = game.world.tile_set.frames[monster_jumper.frame_value];
       display.drawObject(
         assets_manager.fire_skull_image,
@@ -173,7 +173,7 @@ window.addEventListener('load', function (event) {
     display.render();
   };
 
-  var update = function () {
+  const update = () => {
     if (controller.left.active) {
       game.world.player.moveLeft();
     }
@@ -214,13 +214,13 @@ window.addEventListener('load', function (event) {
     }
   };
 
-  var assets_manager = new AssetsManager();
-  var controller = new Controller();
-  var display = new Display(document.querySelector('canvas'));
-  var game = new Game();
-  var engine = new Engine(1000 / 40, render, update);
+  const assets_manager = new AssetsManager();
+  const controller = new Controller();
+  const display = new Display(document.querySelector('canvas'));
+  const game = new Game();
+  const engine = new Engine(1000 / 40, render, update);
 
-  var p = document.createElement('p');
+  const p = document.createElement('p');
   p.setAttribute('style', 'color: red; font-size:28px; position: fixed;');
   p.textContent = 'HEALTH: 0';
   document.body.appendChild(p);

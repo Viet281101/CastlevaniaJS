@@ -1,9 +1,9 @@
 ///////* ------- Setup sounds effect ------- *///////
-var silentAudio = new Audio('data:audio/mp3;base64,//MkxAA........');
-var hoverSound = new Audio(
+const silentAudio = new Audio('data:audio/mp3;base64,//MkxAA........');
+const hoverSound = new Audio(
   'https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_hover.wav?raw=true'
 );
-var clickSound = new Audio(
+const clickSound = new Audio(
   'https://github.com/Viet281101/CastlevaniaJS/blob/main/assets/Sound/btn_click.wav?raw=true'
 );
 

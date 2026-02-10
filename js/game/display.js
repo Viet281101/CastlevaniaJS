@@ -4,11 +4,11 @@ const Display = function (canvas) {
 
   this.drawMap = function (image, image_columns, map, map_columns, tile_size) {
     for (let index = map.length - 1; index > -1; --index) {
-      let value = map[index];
-      let source_x = (value % image_columns) * tile_size;
-      let source_y = Math.floor(value / image_columns) * tile_size;
-      let destination_x = (index % map_columns) * tile_size;
-      let destination_y = Math.floor(index / map_columns) * tile_size;
+      const value = map[index];
+      const source_x = (value % image_columns) * tile_size;
+      const source_y = Math.floor(value / image_columns) * tile_size;
+      const destination_x = (index % map_columns) * tile_size;
+      const destination_y = Math.floor(index / map_columns) * tile_size;
 
       this.buffer.drawImage(
         image,
@@ -29,10 +29,10 @@ const Display = function (canvas) {
     this.buffer.lineWidth = 2;
 
     for (let index = collision_map.length - 1; index > -1; --index) {
-      let value = collision_map[index];
+      const value = collision_map[index];
       if (value) {
-        let destination_x = (index % map_columns) * tile_size;
-        let destination_y = Math.floor(index / map_columns) * tile_size;
+        const destination_x = (index % map_columns) * tile_size;
+        const destination_y = Math.floor(index / map_columns) * tile_size;
         this.buffer.strokeRect(destination_x, destination_y, tile_size, tile_size);
       }
     }

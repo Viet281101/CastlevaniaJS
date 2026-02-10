@@ -1,17 +1,17 @@
 /////* ----------- FIREFLY EFFECT ----------- */////
-let ctx = init('canvas');
+const ctx = init('canvas');
 canvas.style.position = 'relative';
 canvas.style.zIndex = 3;
 w = canvas.width = window.innerWidth;
 h = canvas.height = window.innerHeight;
 
 ////// Initiation
-let scale = 1.8;
-let number = 260;
+const scale = 1.8;
+const number = 260;
 
 ////// Mouse
-let mouse = {};
-let last_mouse = {};
+const mouse = {};
+const last_mouse = {};
 canvas.addEventListener(
   'mouseover',
   function (e) {
@@ -59,7 +59,7 @@ class Firefly {
   }
 }
 
-let fireflies = [];
+const fireflies = [];
 
 function draw() {
   //// Fireflies
@@ -80,7 +80,7 @@ function draw() {
 }
 
 function init(elemid) {
-  let canvas = document.getElementById(elemid),
+  const canvas = document.getElementById(elemid),
     ctx = canvas.getContext('2d'),
     w = (canvas.width = window.innerWidth),
     h = (canvas.height = window.innerHeight);
@@ -89,12 +89,12 @@ function init(elemid) {
   return ctx;
 }
 
-window.requestAnimationFrame = function () {
+window.requestAnimationFrame = () => {
   return (
     window.requestAnimationFrame ||
-    function (callback) {
+    ((callback) => {
       window.setTimeout(callback);
-    }
+    })
   );
 };
 
@@ -104,7 +104,7 @@ function loop() {
   window.requestAnimationFrame(loop);
 }
 
-window.addEventListener('resize', function () {
+window.addEventListener('resize', () => {
   ((w = canvas.width = window.innerWidth), (h = canvas.height = window.innerHeight));
   loop();
 });

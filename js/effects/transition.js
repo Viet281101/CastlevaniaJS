@@ -15,9 +15,9 @@ class TransitionEffect {
 
     this.start = function (target) {
       this.transitionScreen.style.display = 'block';
-      var opacity = 0;
+      let opacity = 0;
 
-      var fadeEffect = setInterval(() => {
+      const fadeEffect = setInterval(() => {
         if (opacity < 1) {
           opacity += 0.1;
           this.transitionScreen.style.backgroundColor = 'rgba(0,0,0,' + opacity + ')';

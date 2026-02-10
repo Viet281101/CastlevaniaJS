@@ -34,7 +34,7 @@ class Setup {
     let scriptsFailed = false;
 
     scriptsToLoad.forEach((src) => {
-      let script = document.createElement('script');
+    const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = src;
       script.onload = () => {
@@ -56,7 +56,7 @@ class Setup {
   }
 
   fadeInEffect() {
-    var fadeInDiv = document.createElement('div');
+    const fadeInDiv = document.createElement('div');
     fadeInDiv.className = 'fade-in';
     Object.assign(fadeInDiv.style, {
       background: 'rgb(0, 0, 0, 1)',
@@ -77,7 +77,7 @@ class Setup {
   }
 
   defineFadeInKeyframes() {
-    var styleSheet = document.createElement('style');
+    const styleSheet = document.createElement('style');
     styleSheet.type = 'text/css';
     styleSheet.innerText = `@keyframes fadeIn { 0% {background: rgb(0, 0, 0, 1);} 100% {background: rgb(0, 0, 0, 0);} }`;
     document.head.appendChild(styleSheet);

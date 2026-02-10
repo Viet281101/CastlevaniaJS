@@ -1,13 +1,13 @@
 /////* ----------- BUTTERFLY EFFECT ----------- */////
-let canvas = document.getElementById('butterflyCanvas');
+const canvas = document.getElementById('butterflyCanvas');
 context = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var scaleButterflies = 4;
-var numbers = Math.floor(Math.random() * (4 - 1 + 1) + 1);
-var animateSpeed = 120;
-var speed = 10;
+const scaleButterflies = 4;
+const numbers = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+const animateSpeed = 120;
+const speed = 10;
 
 class Butterfly {
   constructor() {
@@ -20,7 +20,7 @@ class Butterfly {
   }
 
   move() {
-    let oldX = this.x;
+    const oldX = this.x;
 
     this.x += this.velocity * Math.cos(this.angle);
     this.y += this.velocity * Math.sin(this.angle);
@@ -43,12 +43,12 @@ class Butterfly {
 
   draw() {
     context.imageSmoothingEnabled = false;
-    var img = new Image();
-    var imgPrefix = this.direction === 'right' ? 'butterfly_right_' : 'butterfly_';
+    const img = new Image();
+    const imgPrefix = this.direction === 'right' ? 'butterfly_right_' : 'butterfly_';
     img.src = 'assets/Butterfly/' + imgPrefix + (this.frame + 1) + '.png';
     context.drawImage(img, this.x, this.y, 32 * scaleButterflies, 32 * scaleButterflies);
 
-    var gradient = context.createRadialGradient(
+    const gradient = context.createRadialGradient(
       this.x + 16 * scaleButterflies,
       this.y + 16 * scaleButterflies,
       0,
@@ -78,15 +78,15 @@ class Butterfly {
   }
 }
 
-var butterflies = [];
+const butterflies = [];
 for (let i = 0; i < numbers; i++) {
   butterflies.push(new Butterfly());
 }
 
 function checkCollision(butterfly1, butterfly2) {
-  var dx = butterfly1.x - butterfly2.x;
-  var dy = butterfly1.y - butterfly2.y;
-  var distance = Math.sqrt(dx * dx + dy * dy);
+  const dx = butterfly1.x - butterfly2.x;
+  const dy = butterfly1.y - butterfly2.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
 
   if (distance < 32 * scaleButterflies) {
     butterfly1.angle += Math.PI / 2;
