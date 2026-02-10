@@ -4,10 +4,15 @@ class Setup {
     this.jg = j + 'game/';
     this.parts = {
       '00': [
-        this.jg + 'controller.js',
-        this.jg + 'display.js',
-        this.jg + 'engine.js',
-        this.jg + 'core/game_core.js',
+        this.jg + 'systems/controller.js',
+        this.jg + 'systems/display.js',
+        this.jg + 'systems/engine.js',
+        this.jg + 'core/game.js',
+        this.jg + 'core/animator.js',
+        this.jg + 'core/collider.js',
+        this.jg + 'core/frame.js',
+        this.jg + 'core/object.js',
+        this.jg + 'core/moving_object.js',
         this.jg + 'entities/heal_health.js',
         this.jg + 'entities/torch.js',
         this.jg + 'entities/door.js',
@@ -16,10 +21,10 @@ class Setup {
         this.jg + 'entities/ennemie_sauteur.js',
         this.jg + 'entities/ennemie_jump_contact.js',
         this.jg + 'entities/ennemie_volant.js',
-        this.jg + 'world/game_world.js',
         this.jg + 'world/game_tileset.js',
-        this.jg + 'main.js',
-        this.jg + 'stats.js',
+        this.jg + 'world/game_world.js',
+        this.jg + 'app/main.js',
+        this.jg + 'systems/stats.js',
       ],
     };
     this.part = String(window.location).split('?')[1];
