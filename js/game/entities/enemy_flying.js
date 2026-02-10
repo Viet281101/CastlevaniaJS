@@ -1,8 +1,8 @@
-// ennemie_volant.js
+// enemy_flying.js
 
-Game.EnnemieVolant = function (x, y) {
+Game.EnemyFlying = function (x, y) {
   Game.MovingObject.call(this, x, y, 64, 80);
-  Game.Animator.call(this, Game.EnnemieVolant.prototype.frame_sets['ghost_apear'], 7);
+  Game.Animator.call(this, Game.EnemyFlying.prototype.frame_sets['ghost_apear'], 7);
   this.velocity_x = 0;
   this.velocity_y = 0;
   this.speed = 2;
@@ -10,7 +10,7 @@ Game.EnnemieVolant = function (x, y) {
   this.ghost_health = 5;
   this.attack = false;
 };
-Game.EnnemieVolant.prototype = {
+Game.EnemyFlying.prototype = {
   frame_sets: {
     ghost_apear: [150, 151, 152, 153, 154, 155],
     ghost_disapear: [156, 157, 158, 159, 160, 161, 162],
@@ -35,13 +35,13 @@ Game.EnnemieVolant.prototype = {
     };
   },
   collideWithPlayer: function (player) {
-    const ennemieHitbox = this.getHitbox();
+    const enemyHitbox = this.getHitbox();
     const playerHurtbox = player.getHurtbox();
     return (
-      ennemieHitbox.left < playerHurtbox.right &&
-      ennemieHitbox.right > playerHurtbox.left &&
-      ennemieHitbox.top < playerHurtbox.bottom &&
-      ennemieHitbox.bottom > playerHurtbox.top
+      enemyHitbox.left < playerHurtbox.right &&
+      enemyHitbox.right > playerHurtbox.left &&
+      enemyHitbox.top < playerHurtbox.bottom &&
+      enemyHitbox.bottom > playerHurtbox.top
     );
   },
   updatePosition: function (gravity, friction, player) {
@@ -80,6 +80,6 @@ Game.EnnemieVolant.prototype = {
     this.y += this.velocity_y;
   },
 };
-Object.assign(Game.EnnemieVolant.prototype, Game.MovingObject.prototype);
-Object.assign(Game.EnnemieVolant.prototype, Game.Animator.prototype);
-Game.EnnemieVolant.prototype.constructor = Game.EnnemieVolant;
+Object.assign(Game.EnemyFlying.prototype, Game.MovingObject.prototype);
+Object.assign(Game.EnemyFlying.prototype, Game.Animator.prototype);
+Game.EnemyFlying.prototype.constructor = Game.EnemyFlying;

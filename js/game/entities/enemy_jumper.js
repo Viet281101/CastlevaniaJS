@@ -1,14 +1,14 @@
-// ennemie_sauteur.js
+// enemy_jumper.js
 
-Game.EnnemieSauteur = function (x, y) {
+Game.EnemyJumper = function (x, y) {
   Game.MovingObject.call(this, x, y, 48, 56);
-  Game.Animator.call(this, Game.EnnemieSauteur.prototype.frame_sets['skull_jump-left'], 9);
+  Game.Animator.call(this, Game.EnemyJumper.prototype.frame_sets['skull_jump-left'], 9);
   this.jumping = true;
   this.velocity_x = 0;
   this.velocity_y = 0;
   this.direction_x = -1;
 };
-Game.EnnemieSauteur.prototype = {
+Game.EnemyJumper.prototype = {
   frame_sets: {
     'skull_jump-left': [126, 127, 128, 129, 130, 131, 132, 133],
     'skull_jump-right': [134, 135, 136, 137, 138, 139, 140, 141],
@@ -37,13 +37,13 @@ Game.EnnemieSauteur.prototype = {
     };
   },
   collideWithPlayer: function (player) {
-    const ennemieHitbox = this.getHitbox();
+    const enemyHitbox = this.getHitbox();
     const playerHurtbox = player.getHurtbox();
     return (
-      ennemieHitbox.left < playerHurtbox.right &&
-      ennemieHitbox.right > playerHurtbox.left &&
-      ennemieHitbox.top < playerHurtbox.bottom &&
-      ennemieHitbox.bottom > playerHurtbox.top
+      enemyHitbox.left < playerHurtbox.right &&
+      enemyHitbox.right > playerHurtbox.left &&
+      enemyHitbox.top < playerHurtbox.bottom &&
+      enemyHitbox.bottom > playerHurtbox.top
     );
   },
   updatePosition: function (gravity, friction, player) {
@@ -79,6 +79,6 @@ Game.EnnemieSauteur.prototype = {
     this.y += this.velocity_y;
   },
 };
-Object.assign(Game.EnnemieSauteur.prototype, Game.MovingObject.prototype);
-Object.assign(Game.EnnemieSauteur.prototype, Game.Animator.prototype);
-Game.EnnemieSauteur.prototype.constructor = Game.EnnemieSauteur;
+Object.assign(Game.EnemyJumper.prototype, Game.MovingObject.prototype);
+Object.assign(Game.EnemyJumper.prototype, Game.Animator.prototype);
+Game.EnemyJumper.prototype.constructor = Game.EnemyJumper;

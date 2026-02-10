@@ -1,14 +1,14 @@
-// ennemie_jump_contact.js
+// enemy_jump_contact.js
 
-Game.EnnemieJumpContact = function (x, y) {
+Game.EnemyJumpContact = function (x, y) {
   Game.MovingObject.call(this, x, y, 48, 56);
-  Game.Animator.call(this, Game.EnnemieJumpContact.prototype.frame_sets['skull_jump-left'], 9);
+  Game.Animator.call(this, Game.EnemyJumpContact.prototype.frame_sets['skull_jump-left'], 9);
   this.jumping = true;
   this.velocity_x = 0;
   this.velocity_y = 0;
   this.direction_x = -1;
 };
-Game.EnnemieJumpContact.prototype = {
+Game.EnemyJumpContact.prototype = {
   frame_sets: {
     'skull_jump-left': [126, 127, 128, 129, 130, 131, 132, 133],
     'skull_jump-right': [134, 135, 136, 137, 138, 139, 140, 141],
@@ -37,13 +37,13 @@ Game.EnnemieJumpContact.prototype = {
     };
   },
   collideWithPlayer: function (player) {
-    const ennemieHitbox = this.getHitbox();
+    const enemyHitbox = this.getHitbox();
     const playerHurtbox = player.getHurtbox();
     return (
-      ennemieHitbox.left < playerHurtbox.right &&
-      ennemieHitbox.right > playerHurtbox.left &&
-      ennemieHitbox.top < playerHurtbox.bottom &&
-      ennemieHitbox.bottom > playerHurtbox.top
+      enemyHitbox.left < playerHurtbox.right &&
+      enemyHitbox.right > playerHurtbox.left &&
+      enemyHitbox.top < playerHurtbox.bottom &&
+      enemyHitbox.bottom > playerHurtbox.top
     );
   },
   updatePosition: function (gravity, friction, player) {
@@ -79,6 +79,6 @@ Game.EnnemieJumpContact.prototype = {
     this.y += this.velocity_y;
   },
 };
-Object.assign(Game.EnnemieJumpContact.prototype, Game.MovingObject.prototype);
-Object.assign(Game.EnnemieJumpContact.prototype, Game.Animator.prototype);
-Game.EnnemieJumpContact.prototype.constructor = Game.EnnemieJumpContact;
+Object.assign(Game.EnemyJumpContact.prototype, Game.MovingObject.prototype);
+Object.assign(Game.EnemyJumpContact.prototype, Game.Animator.prototype);
+Game.EnemyJumpContact.prototype.constructor = Game.EnemyJumpContact;

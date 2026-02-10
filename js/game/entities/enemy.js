@@ -1,13 +1,13 @@
-// ennemie.js
+// enemy.js
 
-Game.Ennemie = function (x, y) {
+Game.Enemy = function (x, y) {
   Game.MovingObject.call(this, x, y, 72, 48);
-  Game.Animator.call(this, Game.Ennemie.prototype.frame_sets['nightmare_left'], 6);
+  Game.Animator.call(this, Game.Enemy.prototype.frame_sets['nightmare_left'], 6);
   this.velocity_x = 0;
   this.velocity_y = 0;
   this.direction_x = -1;
 };
-Game.Ennemie.prototype = {
+Game.Enemy.prototype = {
   frame_sets: {
     nightmare_right: [142, 143, 144, 145],
     nightmare_left: [146, 147, 148, 149],
@@ -30,13 +30,13 @@ Game.Ennemie.prototype = {
     };
   },
   collideWithPlayer: function (player) {
-    const ennemieHitbox = this.getHitbox();
+    const enemyHitbox = this.getHitbox();
     const playerHurtbox = player.getHurtbox();
     return (
-      ennemieHitbox.left < playerHurtbox.right &&
-      ennemieHitbox.right > playerHurtbox.left &&
-      ennemieHitbox.top < playerHurtbox.bottom &&
-      ennemieHitbox.bottom > playerHurtbox.top
+      enemyHitbox.left < playerHurtbox.right &&
+      enemyHitbox.right > playerHurtbox.left &&
+      enemyHitbox.top < playerHurtbox.bottom &&
+      enemyHitbox.bottom > playerHurtbox.top
     );
   },
   updatePosition: function (gravity, friction, player, health) {
@@ -71,6 +71,6 @@ Game.Ennemie.prototype = {
     this.y += this.velocity_y;
   },
 };
-Object.assign(Game.Ennemie.prototype, Game.MovingObject.prototype);
-Object.assign(Game.Ennemie.prototype, Game.Animator.prototype);
-Game.Ennemie.prototype.constructor = Game.Ennemie;
+Object.assign(Game.Enemy.prototype, Game.MovingObject.prototype);
+Object.assign(Game.Enemy.prototype, Game.Animator.prototype);
+Game.Enemy.prototype.constructor = Game.Enemy;
